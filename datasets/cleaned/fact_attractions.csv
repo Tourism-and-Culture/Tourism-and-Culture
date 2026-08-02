@@ -1,0 +1,1001 @@
+location_id,place_name,category,google_rating,entry_fee
+1,India Gate,Cultural & Heritage Sites,4.6,0
+1,Humayun's Tomb,Cultural & Heritage Sites,4.5,30
+1,Akshardham Temple,Religious & Spiritual Pilgrimages,4.6,60
+1,Waste to Wonder Park,Adventure & Outdoor Activities,4.1,50
+1,Jantar Mantar,"Arts, Science & Literature Attractions",4.2,15
+1,Chandni Chowk,Shopping & Markets,4.2,0
+1,Lotus Temple,Religious & Spiritual Pilgrimages,4.5,0
+1,Red Fort,Cultural & Heritage Sites,4.5,35
+1,Agrasen ki Baoli,Cultural & Heritage Sites,4.2,0
+1,Sunder Nursery,Natural Landscapes & Wildlife,4.6,0
+1,Garden of Five Senses,Natural Landscapes & Wildlife,4.1,35
+1,Lodhi Garden,Natural Landscapes & Wildlife,4.5,0
+1,National Gallery of Modern Art,"Arts, Science & Literature Attractions",4.5,20
+1,National Zoological Park,Natural Landscapes & Wildlife,4.1,80
+1,Qutub Minar,Cultural & Heritage Sites,4.5,35
+1,Shopping at Sarojini Nagar,Shopping & Markets,4.2,0
+1,National Science Centre,"Arts, Science & Literature Attractions",4.4,70
+2,Marine Drive,Sightseeing & Exploration,4.5,0
+2,Gateway of India,Cultural & Heritage Sites,4.6,0
+2,Chhatrapati Shivaji Maharaj Vastu Sangrahalaya,Cultural & Heritage Sites,4.6,500
+2,NCPA Tiger safari at Borivali,Adventure & Outdoor Activities,4.3,50
+2,Shopping at Colaba Causeway,Shopping & Markets,4.2,0
+2,"Shopping at Linking road, Bandra",Shopping & Markets,4.2,0
+2,"Phoenix marketcity Mall, Kurla",Shopping & Markets,4.5,0
+2,"Jio world drive mall, BKC","Arts, Science & Literature Attractions",4.6,0
+2,"Five gardens, Matunga",Sightseeing & Exploration,4.1,0
+2,Worli seaface,Religious & Spiritual Pilgrimages,4.5,0
+2,Siddhivinayak Temple,Religious & Spiritual Pilgrimages,4.8,0
+2,Mahalaxmi Temple,Religious & Spiritual Pilgrimages,4.7,0
+2,Haji Ali Dargah,Religious & Spiritual Pilgrimages,4.4,0
+2,Chowpatty Beach,Natural Landscapes & Wildlife,4.3,0
+2,Essel World,Adventure & Outdoor Activities,4.3,1149
+2,Elephanta Caves,Cultural & Heritage Sites,4.3,550
+3,Tiger�s Leap cliff top,Sightseeing & Exploration,4.4,0
+3,Duke's nose trail,Adventure & Outdoor Activities,4.3,0
+3,Adlabs Imagica,Adventure & Outdoor Activities,4.0,1149
+3,Bhushi dam,Natural Landscapes & Wildlife,4.0,0
+3,Sunset at Lion's point,Sightseeing & Exploration,4.0,0
+4,Bangalore Palace,Cultural & Heritage Sites,4.2,500
+4,Lalbagh Botanical Garden,Natural Landscapes & Wildlife,4.4,20
+4,Cubbon Park,Natural Landscapes & Wildlife,4.4,0
+4,Nehru Planetarium,"Arts, Science & Literature Attractions",4.0,35
+4,National Gallery of Modern Art,Cultural & Heritage Sites,4.3,20
+4,Church street,Sightseeing & Exploration,4.1,0
+4,MG Road,Sightseeing & Exploration,4.2,0
+4,Boating at Yediyur lake,Adventure & Outdoor Activities,4.2,50
+4,Vidhana Soudha,Cultural & Heritage Sites,4.6,0
+4,ISKCON Temple Bangalore,Religious & Spiritual Pilgrimages,4.6,0
+5,Charminar,Cultural & Heritage Sites,4.5,25
+5,Golconda Fort,Cultural & Heritage Sites,4.4,30
+5,Hussain Sagar Lake,Natural Landscapes & Wildlife,4.3,0
+5,Ramoji Film City,"Arts, Science & Literature Attractions",4.4,1150
+5,Salar Jung Museum,"Arts, Science & Literature Attractions",4.4,20
+5,Qutb Shahi Tombs,Cultural & Heritage Sites,4.4,25
+5,Lad Bazaar,Shopping & Markets,4.0,0
+5,Birla Mandir,Religious & Spiritual Pilgrimages,4.7,0
+5,Chowmahalla Palace,Cultural & Heritage Sites,4.4,80
+5,Nehru Zoological Park,Natural Landscapes & Wildlife,4.2,50
+5,Infinite adventure club,Adventure & Outdoor Activities,4.4,1000
+5,Lumbini Park,Natural Landscapes & Wildlife,4.1,20
+6,Victoria Memorial,Cultural & Heritage Sites,4.6,30
+6,Howrah Bridge,Cultural & Heritage Sites,4.6,0
+6,Indian Museum,"Arts, Science & Literature Attractions",4.6,50
+6,Ganga aarti,Religious & Spiritual Pilgrimages,4.6,0
+6,Birla Planetarium,"Arts, Science & Literature Attractions",4.4,100
+6,St.Pauls Cathedral,Religious & Spiritual Pilgrimages,4.2,0
+6,Tiretti Bazaar,Shopping & Markets,4.1,0
+6,Princep Ghat,Cultural & Heritage Sites,4.3,0
+6,Kumartali potter's quarter,"Arts, Science & Literature Attractions",4.4,0
+6,Shopping at Chamba lama,Shopping & Markets,4.3,0
+6,Burra Bazaar,Shopping & Markets,4.0,0
+6,Dakshineswar Kali Temple,Religious & Spiritual Pilgrimages,4.7,0
+6,Kalighat Kali Temple,Religious & Spiritual Pilgrimages,4.4,0
+6,Eden Gardens,Sports & Recreation,4.1,2500
+6,Alipore Zoological Gardens,Natural Landscapes & Wildlife,4.3,25
+6,Science City Kolkata,"Arts, Science & Literature Attractions",4.4,60
+6,Belur Math,Religious & Spiritual Pilgrimages,4.7,0
+6,Marble Palace,Cultural & Heritage Sites,4.4,0
+7,Basilica of Bom Jesus,Religious & Spiritual Pilgrimages,4.5,0
+7,Fort Aguada,Cultural & Heritage Sites,4.2,0
+7,Dudhsagar Falls,Natural Landscapes & Wildlife,4.6,500
+7,Anjuna Beach,Adventure & Outdoor Activities,4.4,0
+7,Chapora Fort,Cultural & Heritage Sites,4.2,0
+7,Se Cathedral,Religious & Spiritual Pilgrimages,4.5,0
+7,Baga Beach,Natural Landscapes & Wildlife,4.5,0
+7,Candolim Beach,Natural Landscapes & Wildlife,4.4,0
+8,Fontainhas colony,Cultural & Heritage Sites,4.2,0
+8,Shopping at M.G.Road,Shopping & Markets,4.1,0
+8,Gallery Gitanjali,"Arts, Science & Literature Attractions",4.5,0
+8,Our Lady of Immaculate Conception Church,Religious & Spiritual Pilgrimages,4.4,0
+7,Old Goa,Cultural & Heritage Sites,4.5,0
+7,Arambol Beach,Natural Landscapes & Wildlife,4.6,0
+7,Palolem Beach,Natural Landscapes & Wildlife,4.6,0
+7,Colva Beach,Natural Landscapes & Wildlife,4.3,0
+7,Miramar Beach,Natural Landscapes & Wildlife,4.2,0
+7,Dr. Salim Ali Bird Santuary,Natural Landscapes & Wildlife,3.9,10
+9,Statue of Unity,Cultural & Heritage Sites,4.6,120
+9,Jhulta Minara,Cultural & Heritage Sites,4.1,0
+9,Auto World Vintage Car Museum,"Arts, Science & Literature Attractions",4.4,100
+10,Sabarmati Ashram,Cultural & Heritage Sites,4.6,0
+11,Dwarka Beach & Lighthouse,Natural Landscapes & Wildlife,4.6,0
+11,Rukmini Devi Mandir,Religious & Spiritual Pilgrimages,4.6,0
+11,Shri Nageshwar Jyotirling,Religious & Spiritual Pilgrimages,4.7,0
+12,Dwarkadhish Temple,Religious & Spiritual Pilgrimages,4.7,0
+13,Mahabat Maqbara Palace,Cultural & Heritage Sites,4.4,0
+13,Uparkot Fort,Cultural & Heritage Sites,4.3,5
+13,Sakkarbaug Zoological Park,Natural Landscapes & Wildlife,4.3,20
+14,Gir National Park,Natural Landscapes & Wildlife,4.5,3500
+15,Aina Mahal Palace,Cultural & Heritage Sites,4.2,20
+15,Bhuj Mandir,Religious & Spiritual Pilgrimages,4.7,0
+15,Chhatardi Bhuj,Cultural & Heritage Sites,4.4,0
+15,Vande Mataram Memorial,Cultural & Heritage Sites,4.6,100
+16,White Desert,Natural Landscapes & Wildlife,4.6,0
+17,Sayaji Baug Zoo,Natural Landscapes & Wildlife,4.4,20
+17,Inorbit Mall Vadodara,Shopping & Markets,4.5,0
+17,Baroda Museum &Gallery,"Arts, Science & Literature Attractions",4.5,5
+17,BAPS Shri Swaminarayan Mandir,Religious & Spiritual Pilgrimages,4.5,0
+17,Mandvi Gate,Cultural & Heritage Sites,4.4,0
+18,Laxmi Vilas Palace,Cultural & Heritage Sites,4.4,200
+19,Somnath Beach,Religious & Spiritual Pilgrimages,4.5,0
+20,Somnath Temple,Religious & Spiritual Pilgrimages,4.8,0
+21,Adalaj Stepwell,Cultural & Heritage Sites,4.5,0
+21,Sarita Udyan,Sightseeing & Exploration,4.4,0
+21,Swaminarayan Akshardham,Religious & Spiritual Pilgrimages,4.6,0
+22,Dandi Kutir,"Arts, Science & Literature Attractions",4.5,0
+10,Sabarmati Riverfront,Sightseeing & Exploration,4.6,0
+10,Manek Chowk,Shopping & Markets,4.4,0
+10,Kankaria Lake,Natural Landscapes & Wildlife,4.5,10
+10,Science City,"Arts, Science & Literature Attractions",4.4,500
+23,Birla Mandir,Religious & Spiritual Pilgrimages,4.6,0
+23,Shree Khole Ki Hanuman Mandir,Religious & Spiritual Pilgrimages,4.8,0
+23,Cental Park,Natural Landscapes & Wildlife,4.6,0
+23,Moti Dungri Ganesh Ji Temple,Religious & Spiritual Pilgrimages,4.8,0
+23,Jantar Mantar,"Arts, Science & Literature Attractions",4.5,0
+23,Amber Palace,Cultural & Heritage Sites,4.6,0
+23,Hawa Mahal,Cultural & Heritage Sites,4.4,50
+24,Lake Pichola,Natural Landscapes & Wildlife,4.7,0
+24,Jagdish Temple,Religious & Spiritual Pilgrimages,4.7,0
+24,Ambrai Ghat,Sightseeing & Exploration,4.7,0
+24,Saheliyon ki Bari,Natural Landscapes & Wildlife,4.4,50
+24,Sajjangarh Monsoon Palace,Cultural & Heritage Sites,4.4,110
+24,Bagore ki Haveli,Cultural & Heritage Sites,4.5,30
+24,Karni Mata Temple,Religious & Spiritual Pilgrimages,4.0,0
+24,City Palace,Cultural & Heritage Sites,4.4,300
+25,Patwa Haweli,Cultural & Heritage Sites,4.3,40
+25,Longewala War memorial,Cultural & Heritage Sites,4.8,50
+25,Gadisar Lake,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.4,0
+25,Jaisalmer Fort,Cultural & Heritage Sites,4.4,50
+26,Trinetra Ganesh Temple,Religious & Spiritual Pilgrimages,4.7,0
+26,Ranthambore Fort,Cultural & Heritage Sites,4.5,0
+26,Ranthambore National Park,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.6,500
+27,Adhai Din ka Jhopra,Cultural & Heritage Sites,4.4,50
+27,Anasagar Lake,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.5,0
+27,Khwaja Gharib Nawaz Dargah,Religious & Spiritual Pilgrimages,4.6,0
+28,Jaswant Thada,Cultural & Heritage Sites,4.4,30
+28,Umaid Bhawan Palace,Cultural & Heritage Sites,4.5,50
+28,Mehrangarh Fort,Cultural & Heritage Sites,4.6,100
+29,Nakki Lake,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.4,0
+29,Sunset Point,"Natural Landscapes & Wildlife, Sightseeing & Exploration",0.4,0
+29,Dilwara Temples,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.6,0
+23,Nahargarh Fort,Cultural & Heritage Sites,4.6,100
+23,Jaigarh Fort,Cultural & Heritage Sites,4.5,35
+24,Lake Pichola,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.6,0
+30,Sadda Pind,Cultural & Heritage Sites,4.3,700
+30,Gobind Garh Fort,Cultural & Heritage Sites,4.3,250
+30,Shri Durgiana Temple,Religious & Spiritual Pilgrimages,4.7,0
+30,Shree Harminder Sahib Gurudwara,Religious & Spiritual Pilgrimages,4.9,0
+30,The Partition Museum,"Arts, Science & Literature Attractions",4.6,50
+30,Golden Temple (Harmandir Sahib),Religious & Spiritual Pilgrimages,4.9,0
+30,Jallianwala Bagh,Cultural & Heritage Sites,4.8,0
+30,Wagah Border,"Adventure & Outdoor Activities, Sightseeing & Exploration",4.8,0
+31,Japanese Garden,"Cultural & Heritage Sites, Natural Landscapes & Wildlife",4.3,0
+31,Sector 17 Market,Shopping & Markets,4.4,0
+31,ISKON temple,Religious & Spiritual Pilgrimages,4.8,0
+31,Terraced garden,Natural Landscapes & Wildlife,4.5,0
+31,Government museum & Art gallery,"Arts, Science & Literature Attractions",4.4,60
+31,Sukhna Lake,Natural Landscapes & Wildlife,4.6,0
+31,Rock Garden,Sightseeing & Exploration,4.5,30
+32,Shree Krishna Swamy Temple,Religious & Spiritual Pilgrimages,4.6,0
+32,Marari Beach,Natural Landscapes & Wildlife,4.5,0
+32,International Coi Museum,"Arts, Science & Literature Attractions",4.3,0
+32,Alleppey Backwater,Natural Landscapes & Wildlife,4.6,0
+32,Chakkulathukavu Sree Bhagwathi Temple,Religious & Spiritual Pilgrimages,4.3,0
+32,Mannarasala Sree Nagaraja Temple,Religious & Spiritual Pilgrimages,4.3,0
+32,St.Andrew's Basilica,Religious & Spiritual Pilgrimages,4.7,0
+32,Alappuzha Beach,Natural Landscapes & Wildlife,4.5,0
+33,Pothamedu View Point,Sightseeing & Exploration,4.2,0
+33,Eravikulam National Park,Natural Landscapes & Wildlife,4.3,125
+33,Mattupetty Dam,Sightseeing & Exploration,4.2,0
+33,Munnar Tea Gardens,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.3,0
+34,LuLu International Shopping Mall,Shopping & Markets,4.6,0
+34,National Shrine Basilica of our Lady of Ransom,Religious & Spiritual Pilgrimages,4.8,0
+34,Mattancherry Palace,Cultural & Heritage Sites,4.2,2
+34,Marine Drive Kochi,Sightseeing & Exploration,4.3,0
+34,Chottanikara Bhagvathy Temple,Religious & Spiritual Pilgrimages,5.0,0
+34,Hill Palace Museum,Cultural & Heritage Sites,4.3,0
+34,Cherai Beach,Natural Landscapes & Wildlife,4.0,0
+34,Fort Kochi,Cultural & Heritage Sites,4.4,0
+35,Attukal Bhagwathy Temple,Religious & Spiritual Pilgrimages,4.6,0
+35,Kovalam Beach,Natural Landscapes & Wildlife,4.4,0
+35,Thiruvanthapuram Zoological park,Natural Landscapes & Wildlife,4.2,200
+35,Kanakakkunnu Palace,Cultural & Heritage Sites,4.5,0
+35,Veli Lake Tourist Village,Sightseeing & Exploration,4.2,0
+35,Napier Museum,"Arts, Science & Literature Attractions",4.4,70
+36,Padmanabhaswamy Temple,Religious & Spiritual Pilgrimages,4.7,0
+37,HiLITE mall,Shopping & Markets,4.2,0
+37,Mittayi Theravu -SM Street,Shopping & Markets,4.5,0
+37,Tali Maha Shiva Kshetram,Religious & Spiritual Pilgrimages,4.7,0
+37,Sargaalaya Kerala Arts& Crafts village,"Arts, Science & Literature Attractions",4.3,50
+37,Kozhikode Beach,Natural Landscapes & Wildlife,3.9,0
+38,Lakkidi View point,Sightseeing & Exploration,4.5,0
+38,Edakkal Caves,Natural Landscapes & Wildlife,4.1,70
+38,"Karapuzha Dam, adventure park, garden",Adventure & Outdoor Activities,4.4,0
+38,Wayanad Wildlife Sanctuary,Natural Landscapes & Wildlife,4.5,300
+39,Muzhappilangad Beach,Natural Landscapes & Wildlife,4.4,0
+39,Parassini Madappura Sree Muthappan Temple,Religious & Spiritual Pilgrimages,4.4,0
+39,St. Angelo Fort,Cultural & Heritage Sites,4.4,20
+34,Kerala Folklore Museum,Cultural & Heritage Sites,4.4,100
+34,Wonderla Amusement Park,Adventure & Outdoor Activities,4.6,750
+40,Shri Chamundeshwari Temple,Religious & Spiritual Pilgrimages,4.7,0
+40,Chamundi Betta,Natural Landscapes & Wildlife,4.7,0
+41,Lokaranjan Aqua World Underwater zoo,Natural Landscapes & Wildlife,4.6,200
+41,Mysuru Railway museum,"Arts, Science & Literature Attractions",4.4,50
+40,"Karanji Lake, boating, bird sanctuary","Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.0,0
+40,Mysore Palace,Cultural & Heritage Sites,4.6,25
+42,Virupaksha Temple,Religious & Spiritual Pilgrimages,4.7,0
+43,Stone Chariot,Cultural & Heritage Sites,4.8,0
+42,Mathanga Hill,Natural Landscapes & Wildlife,4.8,0
+43,Shree Vijaya Vitthala Temple,Religious & Spiritual Pilgrimages,4.8,0
+43,Group of monuments at Hampi,Cultural & Heritage Sites,4.7,30
+43,Lotus Mahal,Cultural & Heritage Sites,4.6,50
+43,Ajanadri Hills,Adventure & Outdoor Activities,4.7,0
+44,Raja's Seat garden,Sightseeing & Exploration,4.4,0
+44,Nagarhole Tiger Reserve,Natural Landscapes & Wildlife,4.4,150
+44,Mallalli Falls,Natural Landscapes & Wildlife,4.6,0
+44,Brahmagiri Wildlife Sanctuary,Natural Landscapes & Wildlife,4.4,25
+44,Dubare Elephant camp and bathing spot,Natural Landscapes & Wildlife,4.1,20
+44,Coorg river rafting Barapole,Adventure & Outdoor Activities,4.1,0
+44,Namdroling Monastery,Religious & Spiritual Pilgrimages,4.5,0
+44,Iruppu Falls-Brahmagiri,Natural Landscapes & Wildlife,4.1,0
+45,Bhadra wildlife sanctuary,Natural Landscapes & Wildlife,4.4,60
+45,Shri Jagadguru Shankaracharya Peeta,Religious & Spiritual Pilgrimages,4.8,0
+45,Shri Annapurneshwari Devi Temple,Religious & Spiritual Pilgrimages,4.8,0
+46,Sri Sharadamba Temple,Religious & Spiritual Pilgrimages,4.8,0
+45,Kallathigiri Falls,Natural Landscapes & Wildlife,4.2,0
+46,Baba Budan Giri hills,Natural Landscapes & Wildlife,4.5,0
+47,Mullayanagiri Betta,Natural Landscapes & Wildlife,4.5,0
+48,Sri Bhootanaatha Gudi,Religious & Spiritual Pilgrimages,4.7,0
+48,Banashankari Devi Temple,Religious & Spiritual Pilgrimages,4.7,0
+48,Badami Cave Temples,Religious & Spiritual Pilgrimages,4.6,30
+49,Kadri Park,Sightseeing & Exploration,4.3,10
+49,City Center mall,Shopping & Markets,4.4,0
+49,Kukke Shree Subrahmanya Temple,Religious & Spiritual Pilgrimages,4.6,0
+49,Dharmasthala Temple,Religious & Spiritual Pilgrimages,4.8,0
+49,Pilikula Nisargadhama zoo,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.4,80
+49,Panambur Beach,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.5,0
+50,Fort Bijapur,Cultural & Heritage Sites,4.3,70
+51,Jamiya Masjid,"Cultural & Heritage Sites, Religious & Spiritual Pilgrimages",4.2,0
+51,Shivgiri Temple,Religious & Spiritual Pilgrimages,4.5,0
+51,Bara Kaman,Cultural & Heritage Sites,4.2,0
+51,Gol Gumbaz museum,"Cultural & Heritage Sites, Arts, Science & Literature Attractions",4.5,0
+51,Gol Gumbaz,Cultural & Heritage Sites,4.5,0
+52,Phoenix Marketcity Pune,Shopping & Markets,4.5,0
+52,Chatushrungi Devi Temple,Religious & Spiritual Pilgrimages,4.6,0
+52,Pune-Okayama Friendship Garden,Sightseeing & Exploration,4.5,0
+52,Raja Dinkar Kelkar Museum,"Arts, Science & Literature Attractions",4.4,300
+52,Sinhagad Fort,Cultural & Heritage Sites,4.6,10
+52,Rajiv Gandhi zoo,Natural Landscapes & Wildlife,4.1,40
+52,Dagadusheth Halwai Ganapati temple,Religious & Spiritual Pilgrimages,4.8,0
+53,Shaniwar Wada,Cultural & Heritage Sites,4.4,50
+54,Prozone Mall,Shopping & Markets,4.3,0
+54,Bibi ka Maqbara,Cultural & Heritage Sites,4.2,0
+54,Ellora Caves,Cultural & Heritage Sites,4.7,40
+54,Daulatabad Fort,Cultural & Heritage Sites,4.8,10
+55,Ajanta Caves,Cultural & Heritage Sites,4.6,30
+56,Trimbakeshwar Jyotirling Mandir,Religious & Spiritual Pilgrimages,4.6,0
+56,Pandav Leni caves,Cultural & Heritage Sites,4.6,0
+57,Water Sports in Alibaug,Adventure & Outdoor Activities,4.9,0
+57,Kolaba Fort,Cultural & Heritage Sites,4.2,20
+58,Alibaug Beach,Natural Landscapes & Wildlife,4.2,0
+59,Jaigad Fort,Cultural & Heritage Sites,4.1,0
+60,Tilak Ali Museum,"Arts, Science & Literature Attractions",4.6,0
+61,Ganapatipule Temple,Religious & Spiritual Pilgrimages,4.7,0
+62,Umred Karhandla Wildlife Sanctuary,Natural Landscapes & Wildlife,4.2,150
+62,Tadoba Andhari Tiger Project,Natural Landscapes & Wildlife,4.5,25
+62,Khindsi Lake water sports,Adventure & Outdoor Activities,4.0,0
+62,Khindsi Lake,Natural Landscapes & Wildlife,4.0,0
+62,Ambazari Lake & Garden,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.0,0
+62,Raman Science Centre,"Arts, Science & Literature Attractions",4.5,15
+62,Krazy Castle Aqua Park,Adventure & Outdoor Activities,4.0,490
+63,Deekshabhoomi,Cultural & Heritage Sites,4.5,0
+64,Chhatrapati Shahu Palace,Cultural & Heritage Sites,4.5,25
+64,Dajipur Wildlife Sanctuary,Natural Landscapes & Wildlife,4.4,50
+64,Shri Ambabai Temple,Religious & Spiritual Pilgrimages,4.8,0
+65,Della Adventure Park,Adventure & Outdoor Activities,4.3,2000
+3,Karla Caves,Cultural & Heritage Sites,4.4,25
+3,Imagicaa amusement park,Adventure & Outdoor Activities,4.4,1000
+3,Lions Point,Sightseeing & Exploration,4.4,0
+3,Ekvira Devi Temple,Religious & Spiritual Pilgrimages,4.7,0
+66,Tarkarli Beach,Natural Landscapes & Wildlife,4.6,0
+67,Kaas Plateau,Natural Landscapes & Wildlife,4.4,300
+67,Vasota Fort Jungle trekking and Camping,Adventure & Outdoor Activities,4.7,1200
+67,Lodwick Point,Sightseeing & Exploration,4.4,0
+67,Thoseghar Waterfall,Natural Landscapes & Wildlife,4.5,0
+67,Ajinkyatara Fort,Cultural & Heritage Sites,4.5,0
+67,Uttar Chidambaram Nataraj mandir,Religious & Spiritual Pilgrimages,4.6,0
+67,Sajjangad Fort,Cultural & Heritage Sites,4.6,10
+67,Pratapgad Fort,Cultural & Heritage Sites,4.5,0
+68,Echo Point,Sightseeing & Exploration,4.4,0
+68,Dodhani Waterfalls,Natural Landscapes & Wildlife,4.6,0
+68,Dodhani Waterfalls rappelling/trek,Adventure & Outdoor Activities,4.6,1100
+68,Chanderi Caves trek,Adventure & Outdoor Activities,4.5,500
+68,Irshalgad Fort,Cultural & Heritage Sites,4.6,100
+68,Neral-Matheran Toy Train,Sightseeing & Exploration,4.5,100
+68,Kalavantin Pinnacle fortress and trek,Adventure & Outdoor Activities,4.7,50
+68,Ambarnath Shiv Temple,Religious & Spiritual Pilgrimages,4.2,0
+54,Ellora Caves,Cultural & Heritage Sites,4.7,30
+69,Khajuraho Group of Monuments,Cultural & Heritage Sites,4.7,40
+69,Kamasutra temples,Cultural & Heritage Sites,5.0,40
+69,Raneh waterfall,Natural Landscapes & Wildlife,4.5,0
+69,Panna Tiger Reserve,Natural Landscapes & Wildlife,4.2,1000
+70,Sanchi Stupa,Religious & Spiritual Pilgrimages,4.7,30
+70,Bhimbetka rock shelters,Cultural & Heritage Sites,4.6,25
+70,Bhojeshwar Mahadev temple,Religious & Spiritual Pilgrimages,4.7,0
+70,Van Vihar National park,Natural Landscapes & Wildlife,4.3,20
+70,DB City Mall,Shopping & Markets,4.9,0
+70,Tribal museum,"Arts, Science & Literature Attractions",4.7,20
+71,Chappan Dukan,Shopping & Markets,4.5,0
+71,Sarafa Bazar,Shopping & Markets,4.5,0
+71,Pipliyapala Regional Park,"Adventure & Outdoor Activities, Sightseeing & Exploration",4.2,25
+71,Khajrana Ganesh Mandir,Religious & Spiritual Pilgrimages,4.8,0
+71,TI Mall,Shopping & Markets,4.3,0
+71,Phoenix Citadel,Shopping & Markets,4.5,0
+71,Rajwada Palace,Cultural & Heritage Sites,4.4,10
+72,Gwalior Fort,Cultural & Heritage Sites,4.5,75
+72,Jai Vilas Palace,Cultural & Heritage Sites,4.3,150
+72,Teli ka Mandir,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.3,0
+72,Sas Bahu Temple,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.5,0
+72,Gopachal Parvat jain temple,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.6,0
+72,National Chambal Ghariyal Wildlife Sanctuary,Natural Landscapes & Wildlife,4.3,1800
+72,Pagara Dam,Sightseeing & Exploration,3.9,0
+72,Sarafa Bazar,Shopping & Markets,4.0,0
+72,Dindayal mall,Shopping & Markets,4.1,0
+72,Patankar bazaar,Shopping & Markets,4.0,0
+73,Mahakaleshwar Jyotirlinga,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.8,0
+73,Kal Bhairava Temple,Religious & Spiritual Pilgrimages,4.7,0
+73,Ram Ghat,Sightseeing & Exploration,4.6,0
+73,ISKCON Temple Ujjain,Religious & Spiritual Pilgrimages,4.7,0
+73,Kaliadeh Palace,Cultural & Heritage Sites,4.0,15
+73,Rumi ka Mazaar,Cultural & Heritage Sites,5.0,0
+73,Mahakal Lok,Sightseeing & Exploration,4.8,0
+73,Harsiddhi Mata Temple,Religious & Spiritual Pilgrimages,4.7,0
+74,Dhuandhar Falls,Natural Landscapes & Wildlife,4.5,0
+74,Marble rocks at Bedhaghat,Natural Landscapes & Wildlife,4.5,30
+74,Narmada aarti,Religious & Spiritual Pilgrimages,4.5,0
+74,Balancing Rock formations,Natural Landscapes & Wildlife,4.3,100
+74,Rani Durgavati fort,Natural Landscapes & Wildlife,4.2,0
+74,Chausath Yogini temple,Religious & Spiritual Pilgrimages,4.6,0
+74,Dumna Nature Reserve Park,Natural Landscapes & Wildlife,4.1,20
+74,Madan Mahal Fort,Cultural & Heritage Sites,4.2,0
+74,South Avenue malls,Shopping & Markets,4.1,0
+74,Sadar bazaar,Shopping & Markets,4.0,0
+74,Kanha National Park,Natural Landscapes & Wildlife,4.5,100
+75,Mall road,Shopping & Markets,4.7,0
+75,Annandale view,Sightseeing & Exploration,3.8,0
+75,Chadwick falls,Natural Landscapes & Wildlife,3.6,0
+75,Himalayan bird park,Natural Landscapes & Wildlife,3.9,20
+75,Naldhera and Shaily peak,Natural Landscapes & Wildlife,4.5,0
+75,Kufri Fun World,Adventure & Outdoor Activities,3.8,20
+75,Scandal point,Sightseeing & Exploration,4.5,0
+75,Kalka-Shimla Toy train,Sightseeing & Exploration,4.5,320
+75,Lakkar bazaar,Shopping & Markets,4.0,0
+75,Rafting at Tattapani,Adventure & Outdoor Activities,4.1,1050
+75,Kuthar Fort,Cultural & Heritage Sites,4.3,10
+75,Tara Devi Temple,Religious & Spiritual Pilgrimages,4.8,0
+75,Christ Church,Cultural & Heritage Sites,4.6,0
+75,Jakhoo hill,Natural Landscapes & Wildlife,4.6,0
+76,Solang Valley,Natural Landscapes & Wildlife,4.1,0
+76,Hidimba Devi Temple,Religious & Spiritual Pilgrimages,4.6,0
+76,Beas kund,Natural Landscapes & Wildlife,4.6,0
+76,Vashisht baths,Adventure & Outdoor Activities,4.0,0
+76,Rohtang Pass,Adventure & Outdoor Activities,4.5,0
+76,Gulaba viewpoint,Sightseeing & Exploration,4.5,0
+77,Panch Pulla Waterfall,Natural Landscapes & Wildlife,3.9,0
+77,Boat riding in Chamera lake,Adventure & Outdoor Activities,4.4,400
+77,Kalatop Wildlife sanctuary,Natural Landscapes & Wildlife,4.6,115
+77,Shop at Tibetan Handicrafts market,Shopping & Markets,3.8,0
+77,Subhash Baoli spring,Religious & Spiritual Pilgrimages,3.3,0
+77,Trek to Dainkund Peak,Adventure & Outdoor Activities,4.8,1200
+77,Trek to Ganji Pahari,Adventure & Outdoor Activities,4.0,5000
+77,Dalai Lama Temple,Religious & Spiritual Pilgrimages,4.7,0
+77,Khajjiar Lake,Natural Landscapes & Wildlife,4.5,0
+78,Hot springs at Manikaran,Adventure & Outdoor Activities,4.7,30
+78,Vaishno Devi Temple,Religious & Spiritual Pilgrimages,4.6,0
+78,Hamta Pass,Adventure & Outdoor Activities,4.5,0
+78,Tirthan valley,Natural Landscapes & Wildlife,4.7,0
+78,Chandrakhani Pass,Adventure & Outdoor Activities,4.3,0
+78,Lama Dugh Hike,Adventure & Outdoor Activities,4.7,1200
+78,Cycling from Manu Temple,Adventure & Outdoor Activities,4.6,0
+78,Rafting in river Beas,Adventure & Outdoor Activities,4.5,450
+78,Paragliding in Kullu hills,Adventure & Outdoor Activities,4.7,2500
+78,Great Himalayan National Park,Natural Landscapes & Wildlife,4.5,50
+79,Naini Lake,Natural Landscapes & Wildlife,4.2,0
+79,Sunrise at Tiffin top,Natural Landscapes & Wildlife,4.5,0
+79,Shop at Tibetan market,Shopping & Markets,4.2,0
+79,Corbett National Park,Natural Landscapes & Wildlife,4.4,560
+79,Cave garden,Natural Landscapes & Wildlife,4.3,60
+79,Nainital zoo,Natural Landscapes & Wildlife,4.3,50
+79,Shop at Mall road,Shopping & Markets,4.5,0
+79,Naina Devi temple,Religious & Spiritual Pilgrimages,4.6,0
+79,Pangot and Kilbury bird sanctuary,Natural Landscapes & Wildlife,4.2,0
+79,Raj Bhawan Royal Palace,Cultural & Heritage Sites,4.6,450
+79,Cheena peak,Adventure & Outdoor Activities,4.7,0
+79,Nainital ropeway,Adventure & Outdoor Activities,4.7,54
+80,Laxman Jhula,"Adventure & Outdoor Activities, Sightseeing & Exploration",4.4,0
+80,Triveni Ghat,Religious & Spiritual Pilgrimages,4.3,0
+80,Vashishta Gufa,Religious & Spiritual Pilgrimages,4.2,0
+80,Kunjapuri Devi Temple and camps,Religious & Spiritual Pilgrimages,4.9,0
+80,Neer Garh waterfall,Natural Landscapes & Wildlife,4.4,0
+80,Beatles Ashram,"Arts, Science & Literature Attractions",4.4,0
+80,Giant swing or zip lining,Adventure & Outdoor Activities,4.8,1800
+80,Camp on banks of Ganges,Adventure & Outdoor Activities,4.7,0
+80,Ram Jhula,Religious & Spiritual Pilgrimages,4.6,0
+80,Neelkantha Mahadeva Temple,Religious & Spiritual Pilgrimages,4.5,0
+80,Bharat Mandir,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",3.8,0
+80,Kunjapuri Devi,Religious & Spiritual Pilgrimages,5.0,0
+80,Bhootnath Temple,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.5,0
+80,Devprayag Sightseeing,Sightseeing & Exploration,4.1,0
+81,dip in Bramhakund,Religious & Spiritual Pilgrimages,4.8,0
+81,Ganga arti at Har-ki-Pauri ghat,"Religious & Spiritual Pilgrimages, Sightseeing & Exploration",4.6,0
+81,Neel Dhara Pakshi Vihar,Natural Landscapes & Wildlife,4.0,0
+81,Rajaji National Park,Natural Landscapes & Wildlife,4.3,150
+81,Moti Bazar,Shopping & Markets,4.3,0
+81,Jwalapur Bazar,Shopping & Markets,4.1,0
+81,Bara Bazar,Shopping & Markets,4.5,0
+81,Kankhal Bazar,Shopping & Markets,3.8,0
+81,Har Ki Pauri,"Religious & Spiritual Pilgrimages, Sightseeing & Exploration",4.5,0
+81,Tungnath Chandrashila trekk,Adventure & Outdoor Activities,4.2,250
+81,Chandi Devi Temple,Religious & Spiritual Pilgrimages,4.4,0
+82,Malsi Deer park,Natural Landscapes & Wildlife,4.3,20
+82,Shiv Mandir,Religious & Spiritual Pilgrimages,4.5,0
+82,Mindrolling monastery,Cultural & Heritage,4.3,0
+82,Nag Tibba trek,Adventure & Outdoor,4.8,1299
+82,Mall road,Shopping & Markets,4.7,0
+82,Lakshman jhila bridge,Sightseeing & Exploration,4.0,0
+82,Rajaji National Park,Natural Landscapes & Wildlife,4.6,0
+82,Santala Devi temple,Religious & Spiritual Pilgrimages,3.8,0
+82,Indira market,Shopping & Markets,4.7,0
+82,Pacific mall,Shopping & Markets,4.9,0
+82,Paltan Bazaar,Shopping & Markets,3.7,0
+82,Lachhiwala nature park,Natural Landscapes & Wildlife,4.2,20
+82,Fun n Food Kingdom,Adventure & Outdoor Activities,4.3,1000
+82,Robber's Cave,Adventure & Outdoor Activities,4.5,25
+83,Kempty Falls,Natural Landscapes & Wildlife,4.2,15
+83,Camel's back road,Sightseeing & Exploration,4.6,0
+83,Jabarkhet nature reserve,Natural Landscapes & Wildlife,4.3,0
+83,Bhadraj Temple trek,Religious & Spiritual Pilgrimages,4.7,0
+83,Har ki dun trek,Adventure & Outdoor Activities,4.1,500
+83,Dodital trek,Adventure & Outdoor Activities,4.2,12500
+83,Walking towards the Happy Valley from Library Head,Sightseeing & Exploration,5.0,0
+83,"Skywalk ,zipswings in Mussoorie",Adventure & Outdoor Activities,4.9,0
+83,Disco Skating Rink,Adventure & Outdoor Activities,3.6,50
+83,Library Bazaar,Shopping & Markets,3.9,0
+83,Kulri Bazaar,Shopping & Markets,3.8,0
+83,Mall road,Shopping & Markets,4.7,0
+83,Mussoorie lake,Natural Landscapes & Wildlife,4.8,0
+83,Classic Emporium,"Shopping & Markets, Arts, Science & Literature Attractions",4.6,100
+84,Auli Gorson Trek,Adventure & Outdoor Activities,4.4,0
+84,Nanda Devi Biosphere Reserve,Natural Landscapes & Wildlife,4.4,50
+84,Chattrakund Lake,Natural Landscapes & Wildlife,4.3,0
+84,Trishul Peak,Natural Landscapes & Wildlife,4.4,0
+84,Joshimath Market,Shopping & Markets,3.8,0
+84,Auli Ski Resort,Adventure & Outdoor Activities,4.5,0
+85,Bhalu dam,Natural Landscapes & Wildlife,4.3,0
+85,Jhula Devi temple,Religious & Spiritual Pilgrimages,4.2,0
+85,Chaubatia Gardens,Sightseeing & Exploration,4.0,50
+85,Joshimath Market,Shopping & Markets,4.8,0
+85,Sadar bazaar,Shopping & Markets,4.4,0
+85,Binsar Mahadev Mandir,Religious & Spiritual Pilgrimages,4.0,0
+85,Rani Jheel,Natural Landscapes & Wildlife,3.8,0
+86,Gangotri Temple,Religious & Spiritual Pilgrimages,4.8,0
+86,Yamunotri,Religious & Spiritual Pilgrimages,4.2,0
+86,Kedar Tal,Adventure & Outdoor Activities,4.6,0
+86,Harsil,Natural Landscapes & Wildlife,4.2,0
+86,Jalmanga Shivling,Religious & Spiritual Pilgrimages,4.7,0
+86,Vishwanath temple,Religious & Spiritual Pilgrimages,4.7,0
+86,Gaumukh glacier,Natural Landscapes & Wildlife,4.6,0
+86,Nachiketa lake,Natural Landscapes & Wildlife,4.4,0
+86,Nehru Institute of Mountaineering,Adventure & Outdoor Activities,4.7,70
+86,Dayara Bugyal trekking and camping,Adventure & Outdoor Activities,4.8,0
+86,Shakti temple,Religious & Spiritual Pilgrimages,5.0,0
+86,Dodital lake,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.6,0
+86,Maneri dam,Sightseeing & Exploration,4.8,0
+87,Taj Mahal,Cultural & Heritage Sites,4.4,50
+87,Agra fort,Cultural & Heritage Sites,4.3,50
+87,Fatehpur Sikri,Cultural & Heritage Sites,4.6,0
+87,Jahangir Mahal,Cultural & Heritage Sites,4.5,50
+87,Jama Masjid,Religious & Spiritual Pilgrimages,4.8,0
+87,Humayun's Mosque,Religious & Spiritual Pilgrimages,4.8,0
+87,Kinari bazar,Shopping & Markets,4.4,0
+87,Sadar bazaar,Shopping & Markets,4.7,0
+87,Shah market,Shopping & Markets,4.6,0
+87,TDI mall,Shopping & Markets,4.5,0
+87,Subhash bazzar,Shopping & Markets,4.8,0
+87,Sheesh Mahal,Cultural & Heritage Sites,4.0,10
+88,Kashi Vishwanath Temple,Religious & Spiritual Pilgrimages,4.7,0
+88,Ramnagar Fort,Cultural & Heritage Sites,4.1,25
+88,Dashashwamedh Ghat,Religious & Spiritual Pilgrimages,4.4,0
+88,Sunset Boat Ride on the Ganges,Sightseeing & Exploration,4.2,0
+88,Sarnath pilgrim spot,Religious & Spiritual Pilgrimages,4.0,0
+88,Puran Das Road,Sightseeing & Exploration,4.6,0
+88,Gol Ganj,Cultural & Heritage Sites,4.3,0
+88,Mandir Gali,Cultural & Heritage Sites,4.4,0
+88,Assi Ghat,Religious & Spiritual Pilgrimages,4.3,0
+88,Godowlia market,Shopping & Markets,4.5,0
+88,The Banarasi Silk Emporium,Shopping & Markets,4.7,0
+89,Bara Imambara,Cultural & Heritage Sites,4.4,50
+89,Chhota Imambara,Cultural & Heritage Sites,4.8,30
+89,Hazratganj market,Shopping & Markets,4.9,0
+89,British Residency,Cultural & Heritage Sites,4.5,0
+89,Marine Drive,Sightseeing & Exploration,4.3,0
+89,Chowk market,Shopping & Markets,4.3,0
+89,Phoenix United mall,Shopping & Markets,4.3,0
+90,Kusum Sarovar,Natural Landscapes & Wildlife,4.4,0
+90,Govardhan hills trekking,Adventure & Outdoor Activities,4.7,0
+90,"Dwarkadhish Temple,","Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.8,0
+90,Vishram ghat,"Religious & Spiritual Pilgrimages, Natural Landscapes & Wildlife",4.3,0
+90,Tilak Dwar market,Shopping & Markets,4.5,0
+90,Krishna Nagar market,Shopping & Markets,4.3,0
+90,Krishna Janmabhoomi temple,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.7,0
+91,Sita ki rasoi,Religious & Spiritual Pilgrimages,4.0,300
+91,Treta-ke-Thakur,Religious & Spiritual Pilgrimages,4.6,80
+91,Gulab bari,Natural Landscapes & Wildlife,4.3,0
+91,Kanak Bhawan,Religious & Spiritual Pilgrimages,4.5,0
+91,Nageshwarnath Temple,Religious & Spiritual Pilgrimages,4.7,0
+91,Hanuman Garhi,Religious & Spiritual Pilgrimages,4.5,0
+91,Ram Janmabhoomi,"Religious & Spiritual Pilgrimages, Cultural & Heritage Sites",4.8,0
+92,Govind Devji Temple,Religious & Spiritual Pilgrimages,4.9,0
+92,Nidhivan,Natural Landscapes & Wildlife,4.7,0
+92,Prem Mandir,Religious & Spiritual Pilgrimages,4.6,0
+92,ISKCON temple.,Religious & Spiritual Pilgrimages,4.3,0
+92,Banke Bihari Temple,Religious & Spiritual Pilgrimages,4.8,0
+93,Triveni Sangam,"Natural Landscapes & Wildlife, Religious & Spiritual Pilgrimages",4.5,0
+93,Khusro Bagh,Natural Landscapes & Wildlife,4.6,0
+93,Anand Bhawan,"Arts, Science & Literature Attractions",4.6,0
+93,Allahabad museum,"Arts, Science & Literature Attractions",4.4,10
+93,Allahabad Fort,Cultural & Heritage Sites,4.7,0
+93,Allahabad Pillar,Cultural & Heritage Sites,4.7,0
+93,New Yamuna Bridge,Sightseeing & Exploration,3.6,0
+93,All Saints Cathedral,Religious & Spiritual Pilgrimages,4.0,0
+93,Katra Shopping area,Shopping & Markets,4.6,0
+93,Chowk market,Shopping & Markets,4.2,0
+93,Civil Lines shopping area,Shopping & Markets,4.2,0
+93,Ganga Ghat and baandh wale Hanuman ji,Religious & Spiritual Pilgrimages,4.3,0
+94,Brahmaputra Market,Shopping & Markets,4.7,0
+94,Grand Venice Mall,Shopping & Markets,4.8,0
+94,Stupa 18 Art Gallery,"Arts, Science & Literature Attractions",4.6,25
+94,Botanical Gardens of Noida,Natural Landscapes & Wildlife,4.2,50
+94,DLF Mall of India,Shopping & Markets,4.8,0
+94,Rashtriya Dalit Prerna Sthal and Green Garden,Cultural & Heritage Sites,4.2,0
+94,Snow World,Adventure & Outdoor Activities,4.4,600
+94,KidZania,Adventure & Outdoor Activities,4.6,700
+94,ISKON temple,Religious & Spiritual Pilgrimages,4.5,0
+94,Okhla Bird Sanctuary,Natural Landscapes & Wildlife,4.3,30
+95,Aligarh Fort,Cultural & Heritage Sites,4.1,20
+95,Aligarh's clock tower,Cultural & Heritage Sites,4.2,0
+95,Chacha Nehru Gyan Pushp museum,Cultural & Heritage Sites,3.6,50
+95,Rajmangal Publishers,"Arts, Science & Literature Attractions",4.6,0
+95,Maulana Azad Library,"Cultural & Heritage Sites, Arts, Science & Literature Attractions",4.7,0
+95,Jama Masjid,Religious & Spiritual Pilgrimages,3.8,0
+95,Khereshwar Temple,Religious & Spiritual Pilgrimages,4.7,0
+95,Naqvi Park,Natural Landscapes & Wildlife,4.5,0
+95,Sky High sky-diving drop zone,Adventure & Outdoor Activities,4.4,0
+96,Augarnath Temple,Religious & Spiritual Pilgrimages,4.8,0
+96,Hastinapur,"Sightseeing & Exploration, Cultural & Heritage Sites",4.5,0
+96,Digambar Jain Temple,Religious & Spiritual Pilgrimages,4.4,0
+96,Gandhi Bagh,Sightseeing & Exploration,4.3,20
+96,Mustafa Castle,Cultural & Heritage Sites,4.7,80
+96,Saint John's Church,Religious & Spiritual Pilgrimages,4.7,0
+96,Abu Lane market,Shopping & Markets,4.4,0
+96,Sadar market,Shopping & Markets,3.6,0
+96,The Shopprix mall,Shopping & Markets,3.8,0
+96,Shapir ki Dargah,Religious & Spiritual Pilgrimages,4.0,0
+96,Suraj Kund Temple,Religious & Spiritual Pilgrimages,4.8,0
+97,Allen Forest Zoo,Natural Landscapes & Wildlife,4.7,0
+97,Ram Janki Mandir,Religious & Spiritual Pilgrimages,4.7,0
+97,Sisamau Bazaar,Shopping & Markets,4.7,0
+97,Kanpur Sangrahalaya museum,"Arts, Science & Literature Attractions",4.6,5
+97,Becon Ganj,Shopping & Markets,4.4,0
+97,ISKON temple,Religious & Spiritual Pilgrimages,4.4,0
+97,Jain Glass Temple,Religious & Spiritual Pilgrimages,4.8,0
+97,Valmiki Ashram temple,Religious & Spiritual Pilgrimages,4.6,0
+97,PPN market,Shopping & Markets,4.8,0
+97,Moti Mall,Shopping & Markets,4.3,0
+97,sweets at Civil Lines,Shopping & Markets,4.2,0
+97,Z-Square mall,Shopping & Markets,4.4,0
+98,Dal Lake,Natural Landscapes & Wildlife,4.6,0
+98,Shankaracharya Temple,Religious & Spiritual Pilgrimages,4.8,0
+98,Shopping at Lal Chowk,Shopping & Markets,4.4,0
+98,Shopping at Badshah Chowk,Shopping & Markets,4.4,0
+98,Indira Gandhi Memorial Tulip Garden,Natural Landscapes & Wildlife,4.7,0
+98,Manasabal Lake,Natural Landscapes & Wildlife,4.7,0
+98,Hazratbal Mosque,Religious & Spiritual Pilgrimages,4.4,0
+98,"Rafting , Gondola ride at Sonmarg",Adventure & Outdoor Activities,4.8,0
+98,Skiing in Gulmarg,Adventure & Outdoor Activities,4.5,370
+98,Chashme Shahi Garden,Natural Landscapes & Wildlife,4.0,0
+98,Shalimar Bagh,Natural Landscapes & Wildlife,4.0,0
+98,Dachigam National Park,Natural Landscapes & Wildlife,3.8,250
+98,Betaab Valley,Natural Landscapes & Wildlife,3.8,0
+98,Aru Valley � For daring expeditions,Adventure & Outdoor Activities,3.7,0
+98,Sinthan top,Natural Landscapes & Wildlife,4.7,0
+98,Pari mahal,Natural Landscapes & Wildlife,4.8,40
+98,Doodh Pathri,Natural Landscapes & Wildlife,4.5,0
+98,Jamia Masjid Mosque,Religious & Spiritual Pilgrimages,4.4,0
+98,Chandanwari,Adventure & Outdoor Activities,4.2,0
+99,Vaishno Devi,Religious & Spiritual Pilgrimages,4.7,0
+100,Pangong Tso,Natural Landscapes & Wildlife,4.9,20
+100,Hemis National Park,Natural Landscapes & Wildlife,4.5,0
+100,Hunder � Try Bactrian Camel Safari,Adventure & Outdoor Activities,4.7,0
+100,Khardungla Pass � Visit Highest Cafeteria In The World,Adventure & Outdoor Activities,4.7,0
+100,Zanskar Valley Tour,Natural Landscapes & Wildlife,4.0,0
+100,Spituk Gompa Trek,Religious & Spiritual Pilgrimages,4.0,0
+100,Lamayuru � For Stargazing,Sightseeing & Exploration,4.0,0
+100,Chadar Trek,Adventure & Outdoor Activities,3.5,0
+100,Drang Drung Glacier,Natural Landscapes & Wildlife,3.8,0
+100,Main Bazaar,Shopping & Markets,4.7,0
+100,Shanti Stupa,Religious & Spiritual Pilgrimages,4.7,0
+100,Main Bazaar,Shopping & Markets,4.6,0
+100,Zorawar Fort,Cultural & Heritage Sites,4.6,225
+100,Changthang Wildlife Sanctuary,Natural Landscapes & Wildlife,4.0,20
+100,Hall Of Fame,"Arts, Science & Literature Attractions",4.8,0
+100,Stok Palace Museum,"Arts, Science & Literature Attractions",4.7,50
+100,Nubra Valley,Natural Landscapes & Wildlife,4.0,0
+100,Tso Moriri lake,Natural Landscapes & Wildlife,4.0,0
+100,Magnetic hill,Natural Landscapes & Wildlife,4.2,0
+100,Chemrey Monastery,Religious & Spiritual Pilgrimages,4.3,0
+100,Namgyal Tsemo Monastery,Religious & Spiritual Pilgrimages,4.7,0
+100,Thiksey Monastery,Religious & Spiritual Pilgrimages,4.7,20
+101,Drass Valley,Natural Landscapes & Wildlife,4.9,0
+101,Kargil War Memorial,Cultural & Heritage Sites,4.8,0
+102,Yarab Tso,Natural Landscapes & Wildlife,4.5,0
+102,Panamik village,Sightseeing & Exploration,4.6,0
+102,Samstanling Monastery,Religious & Spiritual Pilgrimages,4.9,0
+102,Diskit Monastery,Religious & Spiritual Pilgrimages,4.7,20
+103,Tiger Hill,Natural Landscapes & Wildlife,4.5,0
+103,Darjeeling Toy Train,"Adventure & Outdoor Activities,Sightseeing & Exploration",4.8,360
+103,Darjeeling Ropeway,"Adventure & Outdoor Activities,Sightseeing & Exploration",5.0,175
+103,Chowk Bazaar,Shopping & Markets,4.8,0
+103,"Himalayan Mountaineering Institute(Museum, Library, Souvenir shop)","Arts, Science & Literature Attractions",4.9,1650
+103,Darjeeling Rock garden,Natural Landscapes & Wildlife,5.0,10
+103,"Singalila National Park(camping, bird watching)",Natural Landscapes & Wildlife,4.7,0
+103,Kanchenjunga peak,Natural Landscapes & Wildlife,4.9,20
+103,Sandakphu trek,Adventure & Outdoor Activities,4.4,500
+103,Teesta river(rafting),"Adventure & Outdoor Activities, Natural Landscapes & Wildlife",5.0,500
+103,Happy valley tea estate,Sightseeing & Exploration,4.9,100
+103,Lamhatta Eco Park,Natural Landscapes & Wildlife,4.7,0
+103,Lepchajagat village,Sightseeing & Exploration,4.2,0
+103,Mahakal temple,Religious & Spiritual Pilgrimages,4.8,0
+103,Everest museum,"Arts, Science & Literature Attractions",4.9,0
+103,Ring Mall,Shopping & Markets,4.5,0
+103,Padmaja Naidu zoological park,Natural Landscapes & Wildlife,4.5,110
+103,Nightingale park,Sightseeing & Exploration,4.9,20
+103,Dali Monastery,Religious & Spiritual Pilgrimages,4.3,0
+103,Ghoom monastery market,Shopping & Markets,4.4,0
+103,Teesta bazaar,Shopping & Markets,4.4,0
+103,Mall road,Shopping & Markets,4.9,0
+104,Jaldapara National Park,Natural Landscapes & Wildlife,4.4,250
+104,Salugara monastery,Religious & Spiritual Pilgrimages,4.6,0
+104,ISKON temple,Religious & Spiritual Pilgrimages,4.4,0
+104,Mahananda Wildlife Sanctuary,Natural Landscapes & Wildlife,4.4,500
+104,Hong Kong market,Shopping & Markets,4.4,0
+104,North Bengal Science centre,"Arts, Science & Literature Attractions",4.3,50
+104,Sepoy Dhura Tea garden,Sightseeing & Exploration,4.2,25
+105,Sundarbans National Park,Natural Landscapes & Wildlife,4.4,60
+105,Burirdabri Forest camp,Adventure & Outdoor Activities,3.4,600
+105,Sajnekhali Wildlife Sanctuary,Natural Landscapes & Wildlife,4.4,550
+105,Kotka beach,Natural Landscapes & Wildlife,4.4,0
+105,Hiron point,Natural Landscapes & Wildlife,4.2,0
+105,Dublar Char island,Natural Landscapes & Wildlife,4.4,0
+105,Bhagatpur crocodile project,Natural Landscapes & Wildlife,4.4,50
+106,Katra Masjid,Cultural & Heritage Sites,4.5,0
+106,Hazarduari Palace,Cultural & Heritage Sites,4.4,5
+106,Jahan Kosha cannon,Cultural & Heritage Sites,4.5,0
+106,Murshidabad District museum,Cultural & Heritage Sites,4.4,0
+107,Jagannath Temple,Religious & Spiritual Pilgrimages,4.7,0
+107,Puri beach,Natural Landscapes & Wildlife,4.6,0
+107,Raghurajpur Artist village,"Arts, Science & Literature Attractions",4.4,0
+107,Chilika lake,Natural Landscapes & Wildlife,4.4,0
+108,Konark Sun Temple,Religious & Spiritual Pilgrimages,3.9,40
+108,Chandrabhaga beach,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.2,0
+108,Lingaraj Temple,"Cultural & Heritage Sites, Religious & Spiritual Pilgrimages",4.9,0
+108,ASI Museum,"Arts, Science & Literature Attractions",4.9,850
+108,Ramchandi beach and water sports,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.2,0
+109,Jagannath Temple,Religious & Spiritual Pilgrimages,3.9,0
+109,Indira Gandhi Park,Sightseeing & Exploration,4.0,0
+109,Pitamahal dam,Natural Landscapes & Wildlife,3.6,0
+109,VIP market,Shopping & Markets,4.0,0
+109,Hanuman Vatika garden,Sightseeing & Exploration,4.9,0
+109,Khandadhar Waterfall,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.5,0
+110,Odisha State Maritime museum,"Arts, Science & Literature Attractions",4.2,0
+110,Bhitarkanika Wildlife Sanctuary,Natural Landscapes & Wildlife,4.6,20
+110,State Botanical garden,Natural Landscapes & Wildlife,4.2,50
+110,Deer Park,Natural Landscapes & Wildlife,4.9,25
+110,Netaji museum,"Arts, Science & Literature Attractions",4.8,0
+110,Dhabaleshwar Island,Sightseeing & Exploration,4.5,0
+110,Barabati Fort,Cultural & Heritage Sites,4.5,0
+111,Hirakud Dam,Natural Landscapes & Wildlife,4.5,0
+111,Debrigarh Wildlife Sanctuary,Natural Landscapes & Wildlife,4.8,40
+111,Ghanteswari temple,Religious & Spiritual Pilgrimages,4.0,0
+111,Gudguda waterfall,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.7,0
+112,Khasada waterfall,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.4,0
+112,Aryapalli beach,Natural Landscapes & Wildlife,4.9,0
+112,Bada bazaar,Shopping & Markets,4.1,0
+112,Sana bazaar,Shopping & Markets,3.9,0
+112,Gopalpur Beach,Natural Landscapes & Wildlife,4.0,0
+112,Tara Tarini Temple,Religious & Spiritual Pilgrimages,4.6,0
+113,Hadargarh reservoir,Natural Landscapes & Wildlife,3.9,10
+113,Gundichaghagi waterfall,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.3,0
+113,Sitabinji Fresco painting and rock inscription,Cultural & Heritage Sites,4.9,0
+113,Sanaghagara Waterfall,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.3,0
+114,Kshirachora Gopinatha Temple,Religious & Spiritual Pilgrimages,4.2,0
+114,Balaramgadi beach,"Natural Landscapes & Wildlife,Adventure & Outdoor Activities, Sightseeing & Exploration",4.4,0
+114,Kuldiha Wildlife sanctuary,Natural Landscapes & Wildlife,4.9,40
+114,Chandipur Beach,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",4.2,0
+115,Marina Beach,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities",3.9,0
+115,Mahabalipuram,Cultural & Heritage Sites,4.8,0
+115,Water activities at Muttukadu,Adventure & Outdoor Activities,4.6,130
+115,Queensland amusement park,"Adventure & Outdoor Activities, Sightseeing & Exploration",5.0,550
+115,Pondy bazaar,Shopping & Markets,4.0,0
+115,Birla Planetarium,"Arts, Science & Literature Attractions",4.8,45
+115,National Art gallery,"Arts, Science & Literature Attractions",4.2,15
+115,Ubbalamadugu falls,Natural Landscapes & Wildlife,4.4,0
+115,Pulicat lake,Natural Landscapes & Wildlife,4.7,0
+115,Barracuda bay(fishing),"Adventure & Outdoor Activities, Natural Landscapes & Wildlife",4.9,0
+115,Scuba diving at Covelong beach,Adventure & Outdoor Activities,4.6,6000
+115,Adventure sports at Covelong beach,Adventure & Outdoor Activities,4.9,2000
+115,Arignar Anna Zoological park,Natural Landscapes & Wildlife,4.3,50
+115,Dakshinachitra museum,Cultural & Heritage Sites,3.9,110
+115,MGR Film city,"Arts, Science & Literature Attractions",4.7,600
+116,Thiruparankundram temple,Religious & Spiritual Pilgrimages,4.1,27
+116,Meghamalai,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.1,0
+116,Alagar Kovil temple,Religious & Spiritual Pilgrimages,3.8,10
+116,Vaigai dam,Sightseeing & Exploration,4.1,0
+116,Gandhi memorial museum,Cultural & Heritage Sites,3.9,0
+116,Banana market,"Culinary & Food Experiences, Shopping & Markets",4.0,50
+116,Jain caves,"Cultural & Heritage Sites, Sightseeing & Exploration",4.8,0
+116,Thirumalai Nayak palace,Cultural & Heritage Sites,4.9,200
+116,St. Mary's cathedral,Religious & Spiritual Pilgrimages,4.9,10
+116,Shopping at Puthu Mandapam,Shopping & Markets,4.0,0
+116,Meenakshi Amman Temple,Religious & Spiritual Pilgrimages,3.9,0
+117,Sea world aquarium,"Sightseeing & Exploration, Natural Landscapes & Wildlife",4.7,0
+117,Rameswaram lighthouse,Sightseeing & Exploration,4.1,0
+117,Kalam national memorial,Cultural & Heritage Sites,4.7,10
+117,Water bird Sanctuary,Natural Landscapes & Wildlife,4.2,0
+117,Adam's bridge,Cultural & Heritage Sites,2.0,0
+117,Ariyaman beach,Adventure & Outdoor Activities,4.5,0
+117,Agni teertham sacred bath,Religious & Spiritual Pilgrimages,4.8,0
+117,Kothandaramaswamy Temple,Religious & Spiritual Pilgrimages,4.0,0
+117,Ramanathaswamy Temple,Religious & Spiritual Pilgrimages,3.9,0
+118,Vivekananda Rock Memorial,Cultural & Heritage Sites,4.6,0
+118,Thiruvalluvar Statue,Cultural & Heritage Sites,4.6,20
+118,Padmanabhapuram palace,Cultural & Heritage Sites,4.1,10
+118,Triveni Sangam,Cultural & Heritage Sites,4.7,0
+118,Sannathi Street shopping,Shopping & Markets,3.9,0
+118,Courtallam falls,Natural Landscapes & Wildlife,4.8,0
+118,Vattakottai fort,Cultural & Heritage Sites,4.6,40
+118,St.Xavier Church,Religious & Spiritual Pilgrimages,4.2,0
+118,Kumari Amman temple,Religious & Spiritual Pilgrimages,4.6,0
+118,Ooty Lake,"Sightseeing & Exploration, Natural Landscapes & Wildlife",4.7,0
+119,Marudamalai Temple,Religious & Spiritual Pilgrimages,4.7,0
+119,Trek to Dhoni hills,Adventure & Outdoor Activities,4.5,0
+119,Trek to Perumal peak,Adventure & Outdoor Activities,4.7,0
+119,Trek to Thalaiyar falls,Adventure & Outdoor Activities,4.3,0
+119,Black Thunder amusement park,Adventure & Outdoor Activities,4.6,0
+119,Brookefields mall,Shopping & Markets,4.4,65
+119,Adiyogi Shiva Statue,Religious & Spiritual Pilgrimages,4.7,0
+119,Racing events at Chettipalayam,Adventure & Outdoor Activities,4.4,10
+119,GeDee Car museum tour,"Arts, Science & Literature Attractions, Cultural & Heritage Sites",4.5,0
+119,Textile museum tour,"Arts, Science & Literature Attractions",4.7,0
+119,Anamalai Wildlife Sanctuary,Natural Landscapes & Wildlife,4.7,0
+119,Valankulam lake,Sightseeing & Exploration,4.5,0
+119,Velliangiri hills,Adventure & Outdoor Activities,4.6,40
+119,TNAU Botanical gardens,Sightseeing & Exploration,4.5,60
+119,Nilgiri Biosphere Nature Park,Natural Landscapes & Wildlife,4.6,0
+119,Maryoor hilly getaway,Sightseeing & Exploration,4.1,20
+120,Kodaikanal Lake,Sightseeing & Exploration,3.8,20
+120,Night Safari,Adventure & Outdoor Activities,4.3,10
+120,Stroll at Coaker's Walk,Sightseeing & Exploration,4.3,20
+120,Dolphin's Nose,"Sightseeing & Exploration, Natural Landscapes & Wildlife",4.6,20
+120,Caps valley viewpoint,"Sightseeing & Exploration, Natural Landscapes & Wildlife",4.7,50
+120,Bear Shola falls,"Sightseeing & Exploration, Natural Landscapes & Wildlife",4.6,10
+120,Bryant park,Sightseeing & Exploration,4.8,50
+120,Berijam lake,"Sightseeing & Exploration, Natural Landscapes & Wildlife",4.7,0
+120,Guna caves,Adventure & Outdoor Activities,4.5,0
+120,La Saleth Church,Religious & Spiritual Pilgrimages,4.6,0
+120,Hike to Pillars of Nature,Adventure & Outdoor Activities,4.5,650
+121,Brihadeeswarar Temple,Religious & Spiritual Pilgrimages,4.1,0
+121,Gangaikonda Cholapuram,Cultural & Heritage Sites,4.7,0
+121,Shiva Ganga Garden,Sightseeing & Exploration,4.7,0
+121,Vijaynagar fort,Cultural & Heritage Sites,4.6,500
+121,Thanjavur Royal Palace and Art Gallery,Cultural & Heritage Sites,4.5,0
+122,Shore Temple,Religious & Spiritual Pilgrimages,4.4,500
+122,Pancha Ratha,Cultural & Heritage Sites,4.7,0
+122,Krishna's Chunk,Sightseeing & Exploration,4.5,10
+122,Arjuna's Penance,Sightseeing & Exploration,4.5,0
+122,India Seashell Museum,Cultural & Heritage Sites,4.5,20
+122,Crocodile farm,Sightseeing & Exploration,4.6,0
+122,Cavern Temples,Religious & Spiritual Pilgrimages,4.7,0
+123,Yercaud Lake,Sightseeing & Exploration,4.5,0
+123,Grange Treetop Adventure,Adventure & Outdoor Activities,4.1,0
+123,The Oak trails,Adventure & Outdoor Activities,4.5,200
+124,Kanaka Durga Temple,Religious & Spiritual Pilgrimages,4.7,30
+124,Undavalli caves,Sightseeing & Exploration,4.8,0
+124,Bhavani island,Adventure & Outdoor Activities,4.5,0
+124,Kondapalli Fort,Sightseeing & Exploration,4.4,250
+124,Shopping at Besant road,Shopping & Markets,4.5,0
+124,Bapu museum,"Arts, Science & Literature Attractions",4.6,0
+124,Mogalarajapuram caves,Sightseeing & Exploration,4.7,0
+124,Shopping at Kalanikethan,Shopping & Markets,4.6,0
+125,Lepakshi Handicrafts Emporium,Shopping & Markets,4.7,0
+125,Old Book market by Purna Market,Shopping & Markets,4.3,30
+125,CMR Shopping Mall,Shopping & Markets,4.7,0
+125,Rishikonda Beach,"Adventure & Outdoor Activities, Natural Landscapes & Wildlife",4.4,10
+125,Kailasagiri,"Adventure & Outdoor Activities, Natural Landscapes & Wildlife",4.4,1100
+125,Submarine Museum,Sightseeing & Exploration,4.6,0
+125,Borra Caves,"Adventure & Outdoor Activities, Natural Landscapes & Wildlife",4.7,0
+125,War Memorial,Adventure & Outdoor Activities,4.8,0
+125,Indira Gandhi Zoological Park,"Sightseeing & Exploration, Natural Landscapes & Wildlife",4.6,0
+125,Matsyadarshini Aquarium,Sightseeing & Exploration,4.5,0
+125,Visakha Museum,"Arts, Science & Literature Attractions, Sightseeing & Exploration",4.7,0
+126,Mallikarjuna Swamy Temple,Religious & Spiritual Pilgrimages,4.5,10
+126,Srisailam Wildlife sanctuary,Natural Landscapes & Wildlife,4.4,0
+126,Chenchu Lakshmi Tribal Museum,Cultural & Heritage Sites,4.7,0
+126,Mallela Theertham,Natural Landscapes & Wildlife,4.4,50
+127,Belum Caves,Natural Landscapes & Wildlife,4.6,0
+127,Rollapadu wildlife sanctuary,Natural Landscapes & Wildlife,4.3,0
+127,Oravakallu rock garden,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.2,0
+127,Mahanandi village,Sightseeing & Exploration,4.6,20
+127,Kurnool fort,Cultural & Heritage Sites,4.7,10
+127,Ahobilam temple,Religious & Spiritual Pilgrimages,4.8,0
+128,Nathula Pass,"Sightseeing & Exploration, Natural Landscapes & Wildlife",3.0,0
+128,Cable Ride at Gangtok,Adventure & Outdoor Activities,4.0,40
+128,"Yak safari , Dzongri",Adventure & Outdoor Activities,4.0,200
+128,Mountain biking treks,Adventure & Outdoor Activities,4.2,700
+128,River rafting,Adventure & Outdoor Activities,4.8,550
+128,Paragliding in Baliman Dara,Adventure & Outdoor Activities,4.5,1000
+128,Explore M.G.Marg city centre,Sightseeing & Exploration,4.8,0
+128,Sunrise at Tashi view point,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.4,0
+128,Shopping at Lal Bazaar,Shopping & Markets,4.6,0
+128,Tsuk La Khang Monastery,Religious & Spiritual Pilgrimages,4.7,0
+128,Hanuman Tok,Religious & Spiritual Pilgrimages,4.3,0
+128,Seven Sisters waterfall,Natural Landscapes & Wildlife,4.4,0
+128,Rumtek monastery,Religious & Spiritual Pilgrimages,4.2,30
+128,Tsongmo lake,Natural Landscapes & Wildlife,4.2,0
+128,Shingba Rhododendron sanctuary,Natural Landscapes & Wildlife,3.8,0
+128,Khangchendzonga biosphere reserve,Natural Landscapes & Wildlife,3.2,0
+128,Skiing by Mt Katao,Adventure & Outdoor Activities,4.0,1000
+128,Banjkhari falls,Natural Landscapes & Wildlife,4.0,0
+128,Himalayan Zoological park,Natural Landscapes & Wildlife,4.0,70
+129,Pemayangtse Monastery,Cultural & Heritage Sites,4.8,0
+129,Kanchenjunga waterfalls and national park,Natural Landscapes & Wildlife,4.8,0
+129,Rabdentse Ruins,Cultural & Heritage Sites,5.0,0
+129,Rinchenpong bazaar,Shopping & Markets,4.3,0
+129,Rural Artisan Marketing Centre,Shopping & Markets,4.3,0
+129,Sewaro Rock garden,Natural Landscapes & Wildlife,5.0,20
+129,Singshore suspension bridge,"Adventure & Outdoor Activities,Sightseeing & Exploration",4.7,0
+129,Pelling Skywalk,"Adventure & Outdoor Activities,Sightseeing & Exploration",4.4,20
+129,Kalimpong,Sightseeing & Exploration,4.5,0
+130,Char Dham,Religious & Spiritual Pilgrimages,4.8,0
+130,Tendong Hill & Biodiversity park,Natural Landscapes & Wildlife,5.0,0
+130,Doling Gompa,Religious & Spiritual Pilgrimages,4.5,0
+130,Ngadak monastery,Religious & Spiritual Pilgrimages,4.7,0
+130,Maenam Wildlife sanctuary,Natural Landscapes & Wildlife,4.7,400
+130,Samdruptse Hill,Religious & Spiritual Pilgrimages,3.9,0
+131,Buddha Park,"Arts, Science & Literature Attractions",3.8,0
+131,Ralang monastery,Religious & Spiritual Pilgrimages,3.7,0
+131,Doling Gompa,Religious & Spiritual Pilgrimages,34.0,0
+131,Kheunpheling Carpet centre,Shopping & Markets,4.3,500
+131,Rayong sunrise point,Sightseeing & Exploration,4.1,0
+131,Borong Hot springs,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.0,20
+131,Temi tea garden,Sightseeing & Exploration,4.0,60
+131,Maenam hill,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities, Sightseeing & Exploration",4.0,0
+132,Kamakhya Temple,Religious & Spiritual Pilgrimages,4.9,0
+132,Kalakshetra theatre and artifact museum,"Arts, Science & Literature Attractions",4.8,75
+132,Assam state museum,Cultural & Heritage Sites,4.7,20
+132,Guwahati planetarium,"Arts, Science & Literature Attractions",4.8,100
+132,Sunset cruise by river Brahmaputra,Sightseeing & Exploration,3.8,0
+132,Pobitora wildlife sanctuary,Natural Landscapes & Wildlife,4.0,0
+132,Bird watching by Deepor Beel lake,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.0,0
+132,Assam State Zoo,Natural Landscapes & Wildlife,4.0,0
+132,Kamakhya Temple,Religious & Spiritual Pilgrimages,4.7,0
+132,Fancy Bazaar,Shopping & Markets,4.7,0
+132,Manas National Park,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.2,0
+132,Umananda Island,Natural Landscapes & Wildlife,4.5,0
+133,Majuli river island,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.6,0
+133,Orchid national park,Natural Landscapes & Wildlife,4.7,0
+133,Kaziranga National Park,Natural Landscapes & Wildlife,4.3,900
+134,Jaswant Garh war memorial,Cultural & Heritage Sites,3.8,0
+134,Madhuri lake,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.3,0
+134,Shonga Tser Lake,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.5,0
+134,Nuranang waterfalls,"Natural Landscapes & Wildlife, Adventure & Outdoor Activities, Sightseeing & Exploration",4.8,0
+134,Tibetan Settlement market,"Cultural & Heritage Sites, Shopping & Markets",4.0,0
+134,Sela pass,"Adventure & Outdoor Activities, Sightseeing & Exploration",4.0,0
+134,Gorichen Peak hike,Adventure & Outdoor Activities,3.9,0
+134,Taktsang Gompa monastery,Religious & Spiritual Pilgrimages,3.8,0
+134,Tawang Monastery,"Cultural & Heritage Sites, Religious & Spiritual Pilgrimages",4.54,0
+135,Raima valley,Natural Landscapes & Wildlife,4.9,0
+135,Buddha temple,Religious & Spiritual Pilgrimages,4.8,0
+135,Neermahal,Cultural & Heritage Sites,3.8,0
+135,Gondacherra wildlife sanctuary,Natural Landscapes & Wildlife,4.9,500
+135,Ummaneshwar temple,Religious & Spiritual Pilgrimages,4.7,0
+135,Chittagong hills,Natural Landscapes & Wildlife,4.3,0
+135,Sepahijala wildlife sanctuary,Natural Landscapes & Wildlife,4.9,300
+135,Ujjayanta Palace,Cultural & Heritage Sites,4.7,40
+136,Mt Japfu,Natural Landscapes & Wildlife,4.9,0
+136,Naga keeda bazaar,Shopping & Markets,3.9,0
+136,Touphema village,Cultural & Heritage Sites,4.0,0
+136,Camping by Kohima mountains,Adventure & Outdoor Activities,4.0,0
+136,Ntangki national park,Natural Landscapes & Wildlife,4.8,0
+137,Dawki lake,Sightseeing & Exploration,4.6,750
+137,Thangkharang park,Sightseeing & Exploration,4.9,0
+137,Mawkdok Dympep valley,Sightseeing & Exploration,4.7,0
+137,Mawsmai cave-Longest cave systems in India,Sightseeing & Exploration,4.0,0
+137,Mawlynnong village,"Cultural & Heritage Sites, Sightseeing & Exploration",4.8,0
+137,Mawsmai Eco park and falls,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.3,0
+137,Mawmluh caves,Sightseeing & Exploration,4.0,0
+137,Nohkalikai watterfalls,Sightseeing & Exploration,4.6,0
+137,Living Root Bridge,Natural Landscapes & Wildlife,4.9,0
+138,Chitrakote Falls,Natural Landscapes & Wildlife,4.9,0
+138,Tirathgarh waterfalls,Natural Landscapes & Wildlife,4.0,0
+138,Kanger Ghati national park,Natural Landscapes & Wildlife,4.0,250
+138,Kotumsar caves,Natural Landscapes & Wildlife,3.0,0
+138,Anthropological museum,"Arts, Science & Literature Attractions",3.8,0
+139,Ambuja City Center mall,Shopping & Markets,4.5,0
+139,Magneto mall,Shopping & Markets,4.5,0
+139,Ghatarani waterfalls,Natural Landscapes & Wildlife,4.9,0
+139,Jatmai Temple,Religious & Spiritual Pilgrimages,4.7,0
+140,Baba Baidyanath Temple,Religious & Spiritual Pilgrimages,4.4,0
+140,Naulakha temple,Religious & Spiritual Pilgrimages,4.8,0
+140,Trikut hill,Religious & Spiritual Pilgrimages,4.6,0
+141,Pahari Mandir,Religious & Spiritual Pilgrimages,4.5,0
+141,Biodiversity park,Natural Landscapes & Wildlife,4.9,70
+141,Rock garden,Natural Landscapes & Wildlife,4.8,50
+141,Patratu valley,Natural Landscapes & Wildlife,4.4,0
+141,State museum Hotwar,Cultural & Heritage Sites,4.9,0
+141,Dassam falls,Natural Landscapes & Wildlife,4.9,0
+141,Jonha falls,Natural Landscapes & Wildlife,4.8,0
+141,Ranchi science centre,"Arts, Science & Literature Attractions",3.9,100
+142,Mahabodhi Temple,Religious & Spiritual Pilgrimages,3.9,0
+142,Thai monastery,Religious & Spiritual Pilgrimages,3.9,0
+142,Great Buddha statue,Sightseeing & Exploration,3.9,0
+142,Bodhi tree,Religious & Spiritual Pilgrimages,4.0,0
+142,Indosan Nippon Japanese temple,Religious & Spiritual Pilgrimages,4.0,0
+142,Dungeshwari cave temple,Religious & Spiritual Pilgrimages,4.8,0
+142,Bodh gaya archaelogical museum,Cultural & Heritage Sites,4.5,40
+142,Muchalinda lake,Natural Landscapes & Wildlife,4.7,0
+143,Patna museum,Cultural & Heritage Sites,4.5,10
+143,Buddha memorial park,Religious & Spiritual Pilgrimages,4.9,0
+143,Srikrishna science centre,"Arts, Science & Literature Attractions",4.8,0
+143,Sanjay Gandhi Biological Park,Natural Landscapes & Wildlife,3.94,30
+143,Takhat Shri Harimandir Ji Patna Sahib,Religious & Spiritual Pilgrimages,4.0,0
+143,Budhha Smriti Park,Sightseeing & Exploration,4.0,0
+144,Kingdom of Dreams,Adventure & Outdoor Activities,3.8,500
+144,Ambience Mall,Shopping & Markets,3.9,0
+144,Shopping at HUDA marjet Sector 14,Shopping & Markets,4.2,0
+144,Shopping at Sadar bazaar Sector 12A,Shopping & Markets,4.6,0
+144,Wet N Wild water park,Adventure & Outdoor Activities,4.2,600
+144,Go-karting at Link road,Adventure & Outdoor Activities,4.9,0
+144,Ice skating at Ambience mall,Adventure & Outdoor Activities,4.4,1000
+144,Camp tikkling,Adventure & Outdoor Activities,4.8,5000
+144,Aravalli biodiversity park,Natural Landscapes & Wildlife,4.7,0
+144,Sultanpur Bird sanctuary,Natural Landscapes & Wildlife,4.7,400
+144,Museum of folk and tribal art,"Arts, Science & Literature Attractions",4.7,20
+144,Indian Transport history,"Arts, Science & Literature Attractions",4.0,50
+144,Vintage camera museum,"Arts, Science & Literature Attractions",4.0,0
+144,DLF CyberHub for shopping,Shopping & Markets,4.0,0
+145,Kedarnath,Religious & Spiritual Pilgrimages,4.5,0
+145,Adi Shankaracharya Samadhi,Religious & Spiritual Pilgrimages,4.8,0
+145,Bhairavnath temple,Religious & Spiritual Pilgrimages,4.6,0
+145,Trekking to Vasuki Tal,"Adventure & Outdoor Activities, Sightseeing & Exploration",4.7,0
+145,Sonprayag,"Adventure & Outdoor Activities, Sightseeing & Exploration",4.8,0
+145,Chorabari lake,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.9,0
+146,Promenade Beach,Natural Landscapes & Wildlife,3.8,0
+146,Auroville,Cultural & Heritage Sites,4.1,0
+146,Casablanca mall,Shopping & Markets,4.2,0
+146,Saram China market,Shopping & Markets,4.2,0
+146,Pondicherry botanical garden,Natural Landscapes & Wildlife,4.2,0
+146,Pondicherry museum,"Arts, Science & Literature Attractions",4.4,10
+146,Manakula Vinayagar temple,Religious & Spiritual Pilgrimages,4.6,0
+146,Chunnambar boat house,"Adventure & Outdoor Activities, Sightseeing & Exploration",4.5,0
+146,Heritage walk by White town,Cultural & Heritage Sites,4.8,0
+146,Sightseeing at Green Quarter,Sightseeing & Exploration,4.7,0
+146,Temple Adventures centre-Scuba diving,Adventure & Outdoor Activities,3.9,0
+146,Paradise beach and island,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.4,0
+147,Kala Pani Cellular Jail,Cultural & Heritage Sites,4.5,50
+147,Ross island,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.0,0
+147,Underwater Sea walk,Adventure & Outdoor Activities,4.0,1000
+147,Jolly Buoy island,"Natural Landscapes & Wildlife, Sightseeing & Exploration",4.0,0
+147,Mahatma Gandhi National Park,Natural Landscapes & Wildlife,4.7,0
+147,Mount Harriet National park,Natural Landscapes & Wildlife,4.8,400

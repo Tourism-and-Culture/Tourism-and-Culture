@@ -1,0 +1,83 @@
+country_name,region,country_id
+Canada,North America,1
+United States of America,North America,2
+Others,North America,3
+Total,North America,4
+Argentina,Central and South America,5
+Brazil,Central and South America,6
+Mexico,Central and South America,7
+Others,Central and South America,8
+Total,Central and South America,9
+Austria,Western Europe,10
+Belgium,Western Europe,11
+Denmark,Western Europe,12
+Finland,Western Europe,13
+France,Western Europe,14
+Germany,Western Europe,15
+Greece,Western Europe,16
+Ireland,Western Europe,17
+Italy,Western Europe,18
+Netherlands,Western Europe,19
+Norway,Western Europe,20
+Portugal,Western Europe,21
+Spain,Western Europe,22
+Sweden,Western Europe,23
+Switzerland,Western Europe,24
+United Kingdom,Western Europe,25
+Others,Western Europe,26
+Total,Western Europe,27
+Czech Rep,Eastern Europe,28
+Hungary,Eastern Europe,29
+Kazakhstan,Eastern Europe,30
+Poland,Eastern Europe,31
+Russian Federation,Eastern Europe,32
+Ukraine,Eastern Europe,33
+Others,Eastern Europe,34
+Total,Eastern Europe,35
+Egypt,Africa,36
+Kenya,Africa,37
+Mauritius,Africa,38
+Nigeria,Africa,39
+South Africa,Africa,40
+Sudan,Africa,41
+Tanzania,Africa,42
+Others,Africa,43
+Total,Africa,44
+Bahrain,West Asia,45
+Iraq,West Asia,46
+Israel,West Asia,47
+Oman,West Asia,48
+Saudi Arabia,West Asia,49
+Turkey,West Asia,50
+United Arab Emirates,West Asia,51
+Yemen,West Asia,52
+Others,West Asia,53
+Total,West Asia,54
+Afghanistan,South Asia,55
+Bangladesh,South Asia,56
+Bhutan,South Asia,57
+Iran,South Asia,58
+Maldives,South Asia,59
+Nepal,South Asia,60
+Pakistan,South Asia,61
+Sri Lanka,South Asia,62
+Total,South Asia,63
+Indonesia,South East Asia,64
+Malaysia,South East Asia,65
+Myanmar,South East Asia,66
+Philippines,South East Asia,67
+Singapore,South East Asia,68
+Thailand,South East Asia,69
+Vietnam,South East Asia,70
+Others,South East Asia,71
+Total,South East Asia,72
+China,East Asia,73
+Japan,East Asia,74
+Rep. of Korea,East Asia,75
+Others,East Asia,76
+Total,East Asia,77
+Australia,Australasia,78
+New Zealand,Australasia,79
+Others,Australasia,80
+Total,Australasia,81
+Not Classified Elsewhere,Not Classified Elsewhere,82

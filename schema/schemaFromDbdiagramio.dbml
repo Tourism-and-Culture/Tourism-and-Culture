@@ -1,0 +1,68 @@
+// ==========================================
+// 1. SHARED (CONFORMED) DIMENSION TABLES
+// ==========================================
+
+Table dim_time {
+  time_id int [pk]
+  date date [not null]
+  year int [not null]
+  month int [not null]
+  month_name varchar(20)
+  quarter int
+  season varchar(20)
+}
+
+Table dim_location {
+  location_id int [pk]
+  city varchar(100)
+  district varchar(100)
+  state varchar(100) [not null]
+  region varchar(50)
+}
+
+Table dim_country {
+  country_id int [pk]
+  country_name varchar(100) [not null]
+  continent varchar(50)
+}
+
+// ==========================================
+// 2. FACT TABLES
+// ==========================================
+
+Table fact_attractions {
+  attraction_id int [pk]
+  attraction_name varchar(150) [not null]
+  location_id int [ref: > dim_location.location_id]
+  category varchar(50)
+  accessibility_score decimal(3, 2)
+  entry_fee decimal(10, 2)
+  is_asi_protected boolean
+}
+
+Table fact_festivals {
+  festival_id int [pk]
+  festival_name varchar(150) [not null]
+  location_id int [ref: > dim_location.location_id]
+  start_time_id int [ref: > dim_time.time_id]
+  end_time_id int [ref: > dim_time.time_id]
+  cultural_type varchar(50)
+  estimated_footfall int
+}
+
+Table fact_monthly_tourism {
+  monthly_tourism_id int [pk]
+  time_id int [ref: > dim_time.time_id]
+  location_id int [ref: > dim_location.location_id]
+  domestic_visitors int
+  foreign_visitors int
+  total_revenue decimal(12, 2)
+}
+
+Table fact_country_arrivals {
+  arrival_id int [pk]
+  time_id int [ref: > dim_time.time_id]
+  country_id int [ref: > dim_country.country_id]
+  arrival_count int
+  travel_mode varchar(50)
+}

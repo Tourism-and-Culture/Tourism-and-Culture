@@ -57,3 +57,34 @@ SET state = CASE
     ELSE state
 END
 WHERE state = 'Unknown';
+
+
+-- ===================================================
+-- 3. MILESTONE 2: ADD AQI COLUMN TO DIM_WEATHER
+-- ===================================================
+ALTER TABLE "dim_weather" ADD COLUMN IF NOT EXISTS aqi NUMERIC;
+
+
+
+-- ===================================================
+-- 4. MILESTONE 2: WEATHER & TOURISM ANALYSIS VIEW
+-- ===================================================
+CREATE OR REPLACE VIEW view_weather_tourism_analysis AS
+SELECT 
+  w.location_name,
+  fmt.time_id,
+  fmt.year,
+  fmt.month,
+  fmt.tourism_revenue_crore_inr,
+  fmt.foreign_tourist_arrivals,
+  w.temp_c,
+  w.rainfall_mm,
+  w.humidity_pct,
+  w.aqi,
+  -- Formatted string columns with units included:
+  ROUND(w.temp_c::numeric, 1)::text || ' °C' AS temp_c_formatted,
+  ROUND(w.rainfall_mm::numeric, 1)::text || ' mm' AS rainfall_formatted,
+  ROUND(w.humidity_pct::numeric, 1)::text || ' %' AS humidity_formatted
+FROM fact_monthly_tourism fmt
+LEFT JOIN dim_weather w 
+  ON w.date = TO_CHAR(TO_DATE(fmt.year::text || ' ' || fmt.month, 'YYYY Month'), 'YYYY-MM');

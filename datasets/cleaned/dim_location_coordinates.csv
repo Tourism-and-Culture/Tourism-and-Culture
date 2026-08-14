@@ -1,0 +1,153 @@
+location_id,state,city,latitude,longitude
+1,Delhi,Delhi,28.666453,77.216978
+2,Maharashtra,Mumbai,19.054999,72.869203
+3,Maharashtra,Lonavala,18.754856,73.401673
+4,Karnataka,Bengaluru,12.976794,77.590082
+5,Telangana,Hyderabad,17.360589,78.474061
+6,West Bengal,Kolkata,22.572646,88.363895
+7,Goa,Goa,15.300454,74.085513
+8,Goa,Panaji,15.498995,73.828214
+9,Gujarat,Ahmedabad,23.021537,72.580057
+10,Gujarat,Ahmedabad,23.021537,72.580057
+11,Gujarat,Dwarka,22.242475,68.967145
+12,Gujarat,Dwarka,22.242475,68.967145
+13,Gujarat,Junagadh,21.522042,70.458246
+14,Gujarat,Junagadh,21.522042,70.458246
+15,Gujarat,Bhuj,23.247245,69.668339
+16,Gujarat,Bhuj,23.247245,69.668339
+17,Gujarat,Vadodara,22.297314,73.194257
+18,Gujarat,Vadodara,22.297314,73.194257
+19,Gujarat,Somnath,20.8907,70.402527
+20,Gujarat,Somnath,20.8907,70.402527
+21,Gujarat,Gandhinagar,23.223288,72.649227
+22,Gujarat,Gandhinagar,23.223288,72.649227
+23,Rajasthan,Jaipur,26.915458,75.818982
+24,Rajasthan,Udaipur,24.578721,73.686257
+25,Rajasthan,Jaisalmer,27.026416,70.777512
+26,Rajasthan,Ranthambore,26.0372,76.4805
+27,Rajasthan,Ajmer,26.4691,74.639
+28,Rajasthan,Jodhpur,26.296772,73.035143
+29,Rajasthan,Mount Abu,24.592433,72.708188
+30,Punjab,Amritsar,31.635666,74.87875
+31,Punjab,Chandigarh,30.737222,76.787222
+32,Kerala,Alappuzha,9.500342,76.412336
+33,Kerala,Munnar,10.086996,77.060091
+34,Kerala,Kochi,9.967903,76.244438
+35,Kerala,Thiruvananthapuram,8.488227,76.947551
+36,Kerala,Thiruvananthapuram,8.488227,76.947551
+37,Kerala,Kozhikode,11.245056,75.775472
+38,Kerala,Wayanad,11.715129,76.127118
+39,Kerala,Kannur,11.876384,75.373797
+40,Karnataka,Mysuru,12.305183,76.655361
+41,Karnataka,Mysuru,12.305183,76.655361
+42,Karnataka,Hampi,15.3358,76.46102
+43,Karnataka,Hampi,15.3358,76.46102
+44,Karnataka,Coorg,12.382733,75.664072
+45,Karnataka,Chikmagalur,13.318014,75.773874
+46,Karnataka,Chikmagalur,13.318014,75.773874
+47,Karnataka,Chikmagalur,13.318014,75.773874
+48,Karnataka,Badami,15.920387,75.680786
+49,Karnataka,Mangaluru,12.86981,74.843008
+50,Karnataka,Vijayapura,16.814415,75.893386
+51,Karnataka,Vijayapura,16.814415,75.893386
+52,Maharashtra,Pune,18.521374,73.854507
+53,Maharashtra,Pune,18.521374,73.854507
+54,Maharashtra,Chhatrapati Sambhajinagar,19.877263,75.339024
+55,Maharashtra,Chhatrapati Sambhajinagar,19.877263,75.339024
+56,Maharashtra,Nashik,20.011247,73.790236
+57,Maharashtra,Alibaug,18.649843,72.876547
+58,Maharashtra,Alibaug,18.649843,72.876547
+59,Maharashtra,Ratnagiri,17.282608,73.456979
+60,Maharashtra,Ratnagiri,17.282608,73.456979
+61,Maharashtra,Ratnagiri,17.282608,73.456979
+62,Maharashtra,Nagpur,21.149813,79.082056
+63,Maharashtra,Nagpur,21.149813,79.082056
+64,Maharashtra,Kolhapur,16.702841,74.240533
+65,Maharashtra,Lonavala,18.754856,73.401673
+66,Maharashtra,Tarkarli,16.006814,73.49184
+67,Maharashtra,Satara,17.636129,74.298278
+68,Maharashtra,Matheran,18.990154,73.270019
+69,Madhya Pradesh,Khajuraho,24.851513,79.925979
+70,Madhya Pradesh,Bhopal,23.258486,77.401989
+71,Madhya Pradesh,Indore,22.720362,75.8682
+72,Madhya Pradesh,Gwalior,26.203725,78.157363
+73,Madhya Pradesh,Ujjain,23.188513,75.771656
+74,Madhya Pradesh,Jabalpur,23.170152,79.932451
+75,Himachal Pradesh,Shimla,31.104039,77.170792
+76,Himachal Pradesh,Manali,32.245461,77.187293
+77,Himachal Pradesh,Dalhousie,32.543576,75.944841
+78,Himachal Pradesh,Kullu,31.957897,77.108923
+79,Uttarakhand,Nainital,29.294995,79.416251
+80,Uttarakhand,Rishikesh,30.108654,78.291619
+81,Uttarakhand,Haridwar,29.938447,78.145298
+82,Uttarakhand,Dehradun,30.325565,78.043681
+83,Uttarakhand,Mussoorie,30.456901,78.078291
+84,Uttarakhand,Auli,30.537787,79.565724
+85,Uttarakhand,Ranikhet,29.632301,79.415414
+86,Uttarakhand,Uttarkashi,30.963573,78.636252
+87,Uttar Pradesh,Agra,27.175255,78.009816
+88,Uttar Pradesh,Varanasi,25.335649,83.007629
+89,Uttar Pradesh,Lucknow,26.8381,80.9346
+90,Uttar Pradesh,Mathura,27.495554,77.685555
+91,Uttar Pradesh,Ayodhya,26.799071,82.205232
+92,Uttar Pradesh,Vrindavan,27.575373,77.693804
+93,Uttar Pradesh,Prayagraj,25.43813,81.8338
+94,Uttar Pradesh,Noida,28.570633,77.327215
+95,Uttar Pradesh,Aligarh,27.876107,78.135815
+96,Uttar Pradesh,Meerut,29.001856,77.767967
+97,Uttar Pradesh,Kanpur,26.460914,80.321759
+98,Jammu and Kashmir,Srinagar,34.074744,74.820444
+99,Jammu and Kashmir,Jammu,32.718561,74.858092
+100,Ladakh,Leh,34.164203,77.584813
+101,Ladakh,Kargil,34.559305,76.125577
+102,Ladakh,Diskit,34.551228,77.550655
+103,West Bengal,Darjeeling,27.037755,88.263176
+104,West Bengal,Siliguri,26.716413,88.430992
+105,West Bengal,Sundarbans,21.945,88.895833
+106,West Bengal,Murshidabad,24.174599,88.272133
+107,Odisha,Puri,19.807608,85.825254
+108,Odisha,Konark,19.907429,86.14202
+109,Odisha,Rourkela,22.230926,84.86787
+110,Odisha,Cuttack,20.4686,85.8792
+111,Odisha,Sambalpur,21.557061,84.152851
+112,Odisha,Berhampur,21.493085,86.63273
+113,Odisha,Keonjhar,21.5,85.5
+114,Odisha,Balasore,21.500642,86.919884
+115,Tamil Nadu,Chennai,13.083694,80.270186
+116,Tamil Nadu,Madurai,9.926115,78.114098
+117,Tamil Nadu,Rameswaram,9.284466,79.312555
+118,Tamil Nadu,Kanyakumari,8.079252,77.549934
+119,Tamil Nadu,Coimbatore,11.001812,76.962842
+120,Tamil Nadu,Kodaikanal,10.233712,77.491972
+121,Tamil Nadu,Thanjavur,10.659037,79.201428
+122,Tamil Nadu,Mahabalipuram,12.619598,80.19365
+123,Tamil Nadu,Yercaud,11.785207,78.207539
+124,Andhra Pradesh,Vijayawada,16.511531,80.616047
+125,Andhra Pradesh,Visakhapatnam,17.693553,83.29213
+126,Andhra Pradesh,Srisailam,16.073781,78.872707
+127,Andhra Pradesh,Kurnool,15.830925,78.042537
+128,Sikkim,Gangtok,27.329046,88.612267
+129,Sikkim,Pelling,27.300372,88.23565
+130,Sikkim,Namchi,27.303102,88.378596
+131,Sikkim,Ravangla,27.305127,88.364472
+132,Assam,Guwahati,26.180598,91.753943
+133,Assam,Kaziranga,26.658105,93.392744
+134,Arunachal Pradesh,Tawang,27.587919,91.863733
+135,Tripura,Agartala,23.831238,91.282382
+136,Nagaland,Kohima,25.661876,94.101916
+137,Meghalaya,Cherrapunji,25.277734,91.729242
+138,Chhattisgarh,Bastar,19.119128,81.829187
+139,Chhattisgarh,Raipur,21.238091,81.633699
+140,Jharkhand,Deoghar,24.489832,86.699018
+141,Jharkhand,Ranchi,23.37005,85.325039
+142,Bihar,Bodh Gaya,24.6979,84.9921
+143,Bihar,Patna,25.609324,85.123525
+144,Haryana,Gurugram,28.464615,77.029919
+145,Uttarakhand,Kedarnath,30.733888,79.066907
+146,Puducherry,Puducherry,11.934057,79.830645
+147,Andaman and Nicobar Islands,Port Blair,11.664535,92.739045
+148,Delhi,New Delhi,28.613895,77.209006
+149,Haryana,Gurugram,28.428262,77.0027
+150,Uttar Pradesh,Noida,28.570633,77.327215
+151,Uttar Pradesh,Ghaziabad,28.774997,77.458697
+152,Haryana,Faridabad,28.403148,77.310556

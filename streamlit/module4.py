@@ -13,8 +13,8 @@ st.write("Comprehensive analysis of weather events, micro-climate conditions, an
 # 1. Fetch and process data from Supabase and local fallback CSV with foolproof fallbacks
 @st.cache_data
 def load_data():
-    url = "https://megkqranyjwtlmfnejky.supabase.co"
-    key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1lZ2txcmFueWp3dGxtZm5lamt5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc4NTY1ODQ2MSwiZXhwIjoyMTAxMjM0NDYxfQ.RblsukLFblvPf72nVb4Hp_g5s0PPgsKL-RPSNiKwn-w"
+    url = "SUPABASE_URL"
+    key = "SUPABASE_KEY"
     supabase = create_client(url, key)
 
     # Fetch tables from Supabase

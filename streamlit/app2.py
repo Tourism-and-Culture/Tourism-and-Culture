@@ -40,8 +40,7 @@ st.divider()
 # =====================================================================================
 # MODULE 1 — placeholder (team still building this)
 # Drop the finished Module 1 code into a `render_module_1()` function and call it
-# here, right after the header, once it's ready. Keeping the slot visible now so the
-# final scroll order (1 -> 2 -> 3 -> 4) is easy to drop into place.
+# here, right after the header, once it's ready.
 # =====================================================================================
 # st.header("Module 1: <title>")
 # st.info("Module 1 is in progress.")
@@ -68,7 +67,6 @@ def render_module_2():
                 raise ValueError("Empty data returned")
             return df
         except Exception:
-            # Fallback values to ensure numbers always render
             return pd.DataFrame({
                 "stand_name": [
                     "Charminar Gate Hub",
@@ -87,7 +85,6 @@ def render_module_2():
 
     df = load_data_m2()
 
-    # Column normalization
     if "stand_name" not in df.columns:
         if "pickup_location" in df.columns:
             df["stand_name"] = df["pickup_location"]
@@ -123,7 +120,6 @@ def render_module_2():
         df["lat"] = [c[0] for c in coords]
         df["lon"] = [c[1] for c in coords]
 
-    # Aggregate metrics
     stand_summary = df.groupby("stand_name").agg({
         "supply": "mean",
         "demand": "mean",
@@ -142,7 +138,6 @@ def render_module_2():
     active_stands_val = int(len(stand_summary))
     alerts_count_val = int((stand_summary["alert_status"] != "Normal").sum())
 
-    # KPI Cards
     col1, col2, col3 = st.columns(3)
     col1.metric(label="Total Trips", value=total_trips_val)
     col2.metric(label="Active Stands", value=active_stands_val)
@@ -150,7 +145,6 @@ def render_module_2():
 
     st.divider()
 
-    # Map & Supply vs Demand Bar Chart
     c_map, c_chart = st.columns([1, 1])
 
     with c_map:
@@ -195,7 +189,6 @@ def render_module_2():
         )
         st.plotly_chart(bar_fig, width="stretch", key="m2_bar")
 
-    # Data Table
     st.divider()
     st.subheader("Stand Telemetry Overview")
     st.dataframe(
@@ -206,11 +199,223 @@ def render_module_2():
 
 
 # =====================================================================================
-# MODULE 3 — placeholder (team still building this)
+# MODULE 3 — Modal Substitution Analysis
+# Fixes applied vs. the version handed off:
+#   1. Secrets no longer crash the whole app if missing — uses .get() with a clear
+#      on-screen warning instead of st.secrets["..."] direct access.
+#   2. Secret key names namespaced to MODULE3_SUPABASE_URL / MODULE3_SUPABASE_KEY so
+#      they don't collide with Module 2's or Module 4's secrets.
+#   3. st.title() -> st.header() so it reads as a page section, not its own page.
+#   4. Added explicit widget/chart keys so this can safely sit on the same page as
+#      Module 2 and Module 4 without Streamlit's duplicate-ID errors.
 # =====================================================================================
-# st.header("Module 3: <title>")
-# st.info("Module 3 is in progress.")
-# st.divider()
+def render_module_3():
+    st.header("🚍 Module 3: Modal Substitution Analysis")
+    st.caption(
+        "Analysis of visitor transport patterns and simulated "
+        "transport shifts under infrastructure improvements."
+    )
+
+    SUPABASE_URL = st.secrets.get("MODULE3_SUPABASE_URL")
+    SUPABASE_KEY = st.secrets.get("MODULE3_SUPABASE_KEY")
+
+    @st.cache_resource
+    def get_supabase_m3():
+        return create_client(SUPABASE_URL, SUPABASE_KEY)
+
+    @st.cache_data(ttl=600)
+    def load_transport_data():
+        if not SUPABASE_URL or not SUPABASE_KEY:
+            return pd.DataFrame()
+        try:
+            supabase = get_supabase_m3()
+            response = (
+                supabase
+                .table("view_transport_tourism_summary")
+                .select(
+                    "trip_id,trip_date,trip_hour,location_id,"
+                    "city,state,stand_name,vehicles_available,"
+                    "trips_completed,demand_level"
+                )
+                .execute()
+            )
+            return pd.DataFrame(response.data)
+        except Exception:
+            return pd.DataFrame()
+
+    def identify_transport_mode(stand_name):
+        if pd.isna(stand_name):
+            return "Other"
+        name = stand_name.lower()
+        if "metro" in name:
+            return "Metro"
+        elif "isbt" in name or "bus" in name:
+            return "Bus"
+        elif "railway" in name or "train" in name:
+            return "Rail"
+        elif "taxi" in name or "cab" in name:
+            return "Taxi"
+        else:
+            return "Other"
+
+    if not SUPABASE_URL or not SUPABASE_KEY:
+        st.warning(
+            "Module 3 Supabase credentials aren't configured yet — add "
+            "MODULE3_SUPABASE_URL and MODULE3_SUPABASE_KEY to secrets to load live data."
+        )
+        return
+
+    df = load_transport_data()
+
+    if df.empty:
+        st.warning("No transport data available.")
+        return
+
+    df["trips_completed"] = pd.to_numeric(df["trips_completed"], errors="coerce").fillna(0)
+    df["vehicles_available"] = pd.to_numeric(df["vehicles_available"], errors="coerce").fillna(0)
+
+    df["transport_mode"] = df["stand_name"].apply(identify_transport_mode)
+
+    cities = sorted(df["city"].dropna().unique())
+
+    selected_city = st.selectbox(
+        "Select City",
+        ["All Cities"] + cities,
+        key="m3_city_filter"
+    )
+
+    if selected_city != "All Cities":
+        df = df[df["city"] == selected_city]
+
+    mode_summary = (
+        df.groupby("transport_mode")
+        .agg(
+            trips_completed=("trips_completed", "sum"),
+            vehicles_available=("vehicles_available", "sum")
+        )
+        .reset_index()
+    )
+
+    if mode_summary.empty:
+        st.warning("No data available for the selected city.")
+        return
+
+    total_trips = mode_summary["trips_completed"].sum()
+
+    if total_trips == 0:
+        st.warning("No completed trips found.")
+        return
+
+    mode_summary["baseline_share"] = mode_summary["trips_completed"] / total_trips
+
+    dominant_mode = (
+        mode_summary
+        .sort_values("trips_completed", ascending=False)
+        .iloc[0]["transport_mode"]
+    )
+
+    st.subheader("Infrastructure Improvement Simulation")
+
+    improvement = st.slider(
+        "Infrastructure Improvement (%)",
+        min_value=0,
+        max_value=50,
+        value=20,
+        step=5,
+        key="m3_improvement_slider"
+    )
+
+    improvement_factor = improvement / 100
+
+    max_vehicles = mode_summary["vehicles_available"].max()
+
+    if max_vehicles > 0:
+        mode_summary["capacity_score"] = mode_summary["vehicles_available"] / max_vehicles
+    else:
+        mode_summary["capacity_score"] = 0
+
+    mode_summary["simulation_weight"] = (
+        mode_summary["baseline_share"]
+        * (1 + improvement_factor * mode_summary["capacity_score"])
+    )
+
+    total_weight = mode_summary["simulation_weight"].sum()
+
+    mode_summary["simulated_share"] = mode_summary["simulation_weight"] / total_weight
+    mode_summary["simulated_trips"] = mode_summary["simulated_share"] * total_trips
+
+    transit_shift_index = (
+        0.5
+        * (mode_summary["simulated_share"] - mode_summary["baseline_share"]).abs().sum()
+        * 100
+    )
+
+    st.subheader("Key Performance Indicators")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.metric(label="🚍 Dominant Transit Mode", value=dominant_mode)
+
+    with col2:
+        st.metric(label="🔄 Transit Shift Index", value=f"{transit_shift_index:.2f}%")
+
+    st.divider()
+
+    st.subheader("Transport Mode Distribution")
+
+    donut = px.pie(
+        mode_summary,
+        names="transport_mode",
+        values="trips_completed",
+        hole=0.55
+    )
+    donut.update_layout(legend_title_text="Transport Mode")
+    st.plotly_chart(donut, use_container_width=True, key="m3_donut")
+
+    st.subheader("Infrastructure Shift Simulation")
+
+    simulation_df = mode_summary[
+        ["transport_mode", "trips_completed", "simulated_trips"]
+    ].copy()
+
+    simulation_df = simulation_df.rename(
+        columns={
+            "trips_completed": "Baseline",
+            "simulated_trips": "After Infrastructure Improvement"
+        }
+    )
+
+    simulation_long = simulation_df.melt(
+        id_vars="transport_mode",
+        var_name="Scenario",
+        value_name="Trips"
+    )
+
+    shift_chart = px.bar(
+        simulation_long,
+        x="transport_mode",
+        y="Trips",
+        color="Scenario",
+        barmode="group",
+        labels={"transport_mode": "Transport Mode", "Trips": "Completed / Estimated Trips"}
+    )
+    st.plotly_chart(shift_chart, use_container_width=True, key="m3_shift_chart")
+
+    with st.expander("View Transport Analysis Data"):
+        display_df = mode_summary[
+            ["transport_mode", "trips_completed", "vehicles_available", "baseline_share", "simulated_share"]
+        ].copy()
+
+        display_df["Baseline Share"] = (display_df["baseline_share"] * 100).round(2)
+        display_df["Simulated Share"] = (display_df["simulated_share"] * 100).round(2)
+
+        st.dataframe(
+            display_df[
+                ["transport_mode", "trips_completed", "vehicles_available", "Baseline Share", "Simulated Share"]
+            ],
+            use_container_width=True
+        )
 
 
 # =====================================================================================
@@ -221,9 +426,6 @@ def render_module_4():
     st.write("Comprehensive analysis of weather events, micro-climate conditions, and price elasticity impacting tourist demand.")
 
     SUPABASE_URL = st.secrets.get("MODULE4_SUPABASE_URL", "https://megkqranyjwtlmfnejky.supabase.co")
-    # SECURITY: the service_role key must live ONLY in Streamlit secrets, never in the
-    # source file. If it isn't set, Supabase calls below fail gracefully and the app
-    # falls back to the local CSV / empty-frame defaults already built into load_data_m4().
     SUPABASE_KEY = st.secrets.get("MODULE4_SUPABASE_SERVICE_KEY", None)
 
     @st.cache_data
@@ -259,7 +461,6 @@ def render_module_4():
             except Exception:
                 df_weather_shift = pd.DataFrame()
 
-        # Clean and convert dates to strings and create year-month keys
         if not df_booking_intel.empty and 'booking_date' in df_booking_intel.columns:
             df_booking_intel['clean_date'] = pd.to_datetime(df_booking_intel['booking_date']).dt.strftime('%Y-%m-%d')
             df_booking_intel['year_month'] = pd.to_datetime(df_booking_intel['booking_date']).dt.strftime('%Y-%m')
@@ -270,7 +471,6 @@ def render_module_4():
         if not df_dim_weather.empty and 'date' in df_dim_weather.columns:
             df_dim_weather['year_month'] = df_dim_weather['date'].astype(str).str.strip()
 
-        # Merge location metadata into bookings
         if not df_booking_intel.empty and not df_locations.empty:
             df_demand = pd.merge(df_booking_intel, df_locations, on="location_id", how="left")
         else:
@@ -281,7 +481,6 @@ def render_module_4():
         else:
             df_demand["cancellation_rate"] = 0.0
 
-        # Feature Engineering for Active Outdoor Mobility in weather shift data
         if not df_weather_shift.empty:
             bike_col = 'ebikes_bikes_pct' if 'ebikes_bikes_pct' in df_weather_shift.columns else None
             walk_col = 'shuttle_walk_pct' if 'shuttle_walk_pct' in df_weather_shift.columns else None
@@ -289,7 +488,6 @@ def render_module_4():
             w_val = df_weather_shift[walk_col] if walk_col else 30.0
             df_weather_shift['outdoor_pct'] = b_val + w_val
 
-        # Merge datasets safely on location_id and clean_date if both exist, otherwise fallback
         if not df_demand.empty and not df_weather_shift.empty and 'location_id' in df_demand.columns and 'location_id' in df_weather_shift.columns and 'clean_date' in df_demand.columns:
             df_full = pd.merge(df_demand, df_weather_shift, on=["location_id", "clean_date"], how="left", suffixes=('', '_weather'))
         elif not df_demand.empty:
@@ -301,7 +499,6 @@ def render_module_4():
         else:
             df_full = df_weather_shift.copy()
 
-        # Guaranteed fallback for weather conditions and rainfall so charts never blank out
         if 'weather_condition' not in df_full.columns or df_full['weather_condition'].isna().all():
             conditions = ['Clear / Sunny', 'Cloudy', 'Light Rain', 'Heavy Rain', 'Dense Fog / Smog']
             df_full['weather_condition'] = np.random.choice(conditions, size=len(df_full))
@@ -320,8 +517,6 @@ def render_module_4():
 
     df_demand, df_weather_shift, df_surge, df_full = load_data_m4()
 
-    # Sidebar Filters (namespaced under a Module 4 expander instead of raw sidebar,
-    # so filters don't get confused with future modules' filters)
     st.sidebar.header("Module 4 Filters")
 
     city_options = df_demand['city'].dropna().unique() if not df_demand.empty and 'city' in df_demand.columns else (df_full['location_id'].dropna().unique() if 'location_id' in df_full.columns else [])
@@ -350,7 +545,6 @@ def render_module_4():
         key="m4_price_filter"
     )
 
-    # Filter Datasets
     if not df_demand.empty and 'city' in df_demand.columns and 'avg_fee_inr' in df_demand.columns:
         filtered_demand = df_demand[
             (df_demand['city'].isin(selected_cities)) &
@@ -381,7 +575,6 @@ def render_module_4():
     if filtered_weather_shift.empty:
         filtered_weather_shift = df_weather_shift
 
-    # KPIs
     clear_avg = filtered_full[filtered_full['weather_condition'].isin(['Clear', 'Clear / Sunny', 'Pleasant / Cool'])]['total_bookings'].mean() if not filtered_full.empty and 'total_bookings' in filtered_full.columns else 0
     rain_avg = filtered_full[filtered_full['weather_condition'].isin(['Heavy Rain', 'Thunderstorm', 'Light Rain'])]['total_bookings'].mean() if not filtered_full.empty and 'total_bookings' in filtered_full.columns else 0
     rainfall_impact = ((clear_avg - rain_avg) / clear_avg * 100) if pd.notnull(clear_avg) and clear_avg > 0 and pd.notnull(rain_avg) else 0.0
@@ -398,7 +591,6 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 1: Transport Mode Shift by Weather Condition
     st.subheader("🚌 1. Transport Mode Shift by Weather Condition")
     value_cols = [c for c in ["car_pct", "bus_pct", "metro_pct", "shuttle_walk_pct", "ebikes_bikes_pct"] if not filtered_weather_shift.empty and c in filtered_weather_shift.columns]
 
@@ -424,7 +616,6 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 2: Weather Elasticity Scatter Plot
     st.subheader("📈 2. Weather Elasticity Curve (Rainfall vs Outdoor Mobility)")
     if not filtered_full.empty and 'rainfall_mm' in filtered_full.columns and 'outdoor_pct' in filtered_full.columns:
         fig_climate_elasticity = px.scatter(
@@ -443,7 +634,6 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 3: Demand Variance by Weather State
     st.subheader("📊 3. Demand Variance by Weather State")
     if not filtered_full.empty and 'weather_condition' in filtered_full.columns and 'total_bookings' in filtered_full.columns:
         df_variance = filtered_full.groupby("weather_condition")["total_bookings"].mean().reset_index()
@@ -461,7 +651,6 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 4: Price Elasticity of Demand across Weather Conditions
     st.subheader("🌦️ 4. Price Elasticity of Demand Across Weather Conditions")
     if not filtered_full.empty and 'avg_fee_inr' in filtered_full.columns and 'total_bookings' in filtered_full.columns:
         fig_weather_elasticity = px.scatter(
@@ -478,7 +667,6 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 5: Ticket Fee vs Total Bookings
     st.subheader("🏷️ 5. Ticket Fee vs Total Bookings by City")
     if not filtered_demand.empty and 'avg_fee_inr' in filtered_demand.columns and 'total_bookings' in filtered_demand.columns:
         fig_elasticity = px.scatter(
@@ -495,7 +683,6 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 6: Pricing vs. Cancellation Rate
     st.subheader("❌ 6. Pricing vs. Cancellation Rate")
     if not filtered_demand.empty and 'avg_fee_inr' in filtered_demand.columns and 'cancellation_rate' in filtered_demand.columns:
         fig_cancel = px.scatter(
@@ -512,8 +699,10 @@ def render_module_4():
 
 
 # =====================================================================================
-# RENDER IN ORDER: Module 2 -> Module 4 (Modules 1 & 3 slot in above once ready)
+# RENDER IN ORDER: Module 2 -> Module 3 -> Module 4 (Module 1 slots in above once ready)
 # =====================================================================================
 render_module_2()
+st.markdown("---")
+render_module_3()
 st.markdown("---")
 render_module_4()

@@ -43,6 +43,7 @@ st.divider()
 def render_module_1():
     st.header("🏛️ Module 1: Visit & Booking Intelligence")
     st.write("Comprehensive analysis of hourly visitor demand, booking status, entry queue wait times, and site bottlenecks.")
+    st.caption("Member 1: Padma Priya")
 
     SUPABASE_URL = st.secrets.get("MODULE1_SUPABASE_URL", "https://megkqranyjwtlmfnejky.supabase.co")
     SUPABASE_KEY = st.secrets.get("MODULE1_SUPABASE_SERVICE_KEY", None)
@@ -356,8 +357,9 @@ def render_module_2():
 # =====================================================================================
 def render_module_3():
     st.header("🚍 Module 3: Modal Substitution Analysis")
-    st.caption("Analysis of visitor transport patterns and simulated transport shifts under infrastructure improvements.")
-
+    st.write("Analysis of visitor transport patterns and simulated transport shifts under infrastructure improvements.")
+    st.caption("Member 3: Chaithanya EV")
+ 
     SUPABASE_URL = st.secrets.get("MODULE3_SUPABASE_URL")
     SUPABASE_KEY = st.secrets.get("MODULE3_SUPABASE_KEY")
 
@@ -451,6 +453,7 @@ def render_module_3():
 def render_module_4():
     st.header("🌧️ Module 4: Weather Sensitivity & Demand Elasticity")
     st.write("Comprehensive analysis of weather events, micro-climate conditions, and price elasticity impacting tourist demand.")
+    st.caption("Member 4: Aditi Dhuria")
 
     SUPABASE_URL = st.secrets.get("MODULE4_SUPABASE_URL", "https://megkqranyjwtlmfnejky.supabase.co")
     SUPABASE_KEY = st.secrets.get("MODULE4_SUPABASE_SERVICE_KEY", None)

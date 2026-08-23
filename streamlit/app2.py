@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 from supabase import create_client
 
 # =====================================================================================
-# PAGE CONFIG (must be called once, at the top of the whole app)
+# PAGE CONFIG
 # =====================================================================================
 st.set_page_config(
     page_title="Smart Tourism & Cultural Intelligence Platform",

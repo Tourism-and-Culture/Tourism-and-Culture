@@ -11,7 +11,7 @@ st.title("📊 Supabase Dashboard")
 
 # Get Supabase credentials from Streamlit Secrets
 SUPABASE_URL = st.secrets["db.megkqranyjwtlmfnejky.supabase.co"]
-SUPABASE_KEY = st.secrets["sb_publishable_Y-wPElO-p0-zjmtKKiqSLQ_Z8YiIwR5"]
+SUPABASE_KEY = st.secrets["sb_secret_kPHnSxCpTNznvgS2pK5_6Q_iMGbKkpj"]
 
 # Connect to Supabase
 supabase: Client = create_client(

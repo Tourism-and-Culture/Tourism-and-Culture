@@ -9,9 +9,9 @@ st.set_page_config(
 
 st.title("📊 Supabase Dashboard")
 
-# Get Supabase credentials from Streamlit Secrets
-SUPABASE_URL = st.secrets["db.megkqranyjwtlmfnejky.supabase.co"]
-SUPABASE_KEY = st.secrets["sb_secret_kPHnSxCpTNznvgS2pK5_6Q_iMGbKkpj"]
+# Get credentials from Streamlit Secrets
+SUPABASE_URL = st.secrets["https://megkqranyjwtlmfnejky.supabase.co"]
+SUPABASE_KEY = st.secrets["sb_publishable_Y-wPElO-p0-zjmtKKiqSLQ_Z8YiIwR5"]
 
 # Connect to Supabase
 supabase: Client = create_client(
@@ -21,7 +21,7 @@ supabase: Client = create_client(
 
 st.success("Connected to Supabase successfully!")
 
-# Example: read data from a table
+# Replace this with your actual table name
 table_name = "your_table_name"
 
 try:

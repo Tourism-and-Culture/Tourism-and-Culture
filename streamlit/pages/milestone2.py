@@ -656,7 +656,7 @@ if not filtered_weather.empty and {"month", "temp_c", "foreign_tourist_arrivals"
             y=weather_agg["foreign_tourist_arrivals"],
             name="Tourist Arrivals",
             marker_color=COLORS["blue"],
-            opacity=0.7
+            opacity=0.75
         ),
         secondary_y=False,
     )
@@ -667,23 +667,30 @@ if not filtered_weather.empty and {"month", "temp_c", "foreign_tourist_arrivals"
             y=weather_agg["temp_c"],
             name="Avg Temperature (°C)",
             mode="lines+markers",
-            line=dict(color=COLORS["gold"], width=2)
+            line=dict(color="#FFD33D", width=3),  # Brighter gold and thicker line
+            marker=dict(size=6)
         ),
         secondary_y=True,
     )
 
     fig_weather.update_layout(
-        title="Monthly Tourist Arrivals vs. Temperature Overlays",
+        title=dict(
+            text="Monthly Tourist Arrivals vs. Temperature Overlays",
+            x=0.02,
+            xanchor="left",
+            font=dict(size=14, color=COLORS["text"], family="Helvetica, Arial, sans-serif")
+        ),
         height=380,
         paper_bgcolor=COLORS["panel"],
         plot_bgcolor=COLORS["panel"],
-        font=dict(color=COLORS["text"], size=11),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
+        font=dict(color=COLORS["text"], size=11, family="Helvetica, Arial, sans-serif"),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0, font=dict(color=COLORS["muted"], size=10)),
         margin=dict(l=65, r=65, t=55, b=55),
+        hoverlabel=dict(bgcolor="#21262D", bordercolor="#30363D", font_color="#FFFFFF"),
     )
-    fig_weather.update_xaxes(gridcolor=COLORS["grid"])
-    fig_weather.update_yaxes(title_text="Tourist Arrivals", secondary_y=False, gridcolor=COLORS["grid"])
-    fig_weather.update_yaxes(title_text="Temperature (°C)", secondary_y=True, gridcolor="rgba(0,0,0,0)")
+    fig_weather.update_xaxes(gridcolor=COLORS["grid"], zeroline=False, tickfont=dict(color=COLORS["muted"]), linecolor="#30363D")
+    fig_weather.update_yaxes(title_text="Tourist Arrivals", secondary_y=False, gridcolor=COLORS["grid"], zeroline=False, tickfont=dict(color=COLORS["muted"]), linecolor="#30363D")
+    fig_weather.update_yaxes(title_text="Temperature (°C)", secondary_y=True, gridcolor="rgba(0,0,0,0)", zeroline=False, tickfont=dict(color=COLORS["muted"]), linecolor="rgba(0,0,0,0)")
 
     st.plotly_chart(fig_weather, use_container_width=True)
 else:

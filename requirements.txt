@@ -3,3 +3,4 @@ pandas
 requests
 supabase
 plotly
+numpy

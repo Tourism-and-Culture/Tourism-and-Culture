@@ -18,15 +18,13 @@ st.set_page_config(
 # =====================================================================================
 # SUPABASE CREDENTIALS & CLIENT
 # =====================================================================================
-try:
-    SUPABASE_URL = st.secrets["SUPABASE_URL"]
-    SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
-except Exception:
-    SUPABASE_URL = "https://megkqranyjwtlmfnejky.supabase.co"
-    SUPABASE_KEY = "sb_publishable_Y-wPElO-p0-zjmtKKiqSLQ_Z8YiIwR5"
+SUPABASE_URL = st.secrets.get("SUPABASE_URL")
+SUPABASE_KEY = st.secrets.get("SUPABASE_KEY")
 
 @st.cache_resource
 def init_supabase():
+    if not SUPABASE_URL or not SUPABASE_KEY:
+        return None
     try:
         return create_client(SUPABASE_URL, SUPABASE_KEY)
     except Exception:

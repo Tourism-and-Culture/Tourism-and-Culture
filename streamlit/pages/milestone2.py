@@ -2,6 +2,7 @@ from pathlib import Path
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import streamlit as st
 import folium
 from folium.plugins import HeatMap
@@ -21,7 +22,7 @@ st.set_page_config(
 
 
 # ============================================================
-# 3. SUPABASE CONNECTION & CONFIGURATION (USING SECRETS)
+# 2. SUPABASE CONNECTION & CONFIGURATION (SECRETS ONLY)
 # ============================================================
 SUPABASE_URL = st.secrets["supabase"]["url"]
 SUPABASE_KEY = st.secrets["supabase"]["key"]
@@ -34,7 +35,7 @@ supabase = init_supabase()
 
 
 # ============================================================
-# 4. LOAD DATA DIRECTLY FROM SUPABASE TABLES
+# 3. LOAD DATA DIRECTLY FROM SUPABASE TABLES
 # ============================================================
 @st.cache_data(ttl=600)
 def load_data():
@@ -190,7 +191,7 @@ dim_time = data["dim_time"]
 
 
 # ============================================================
-# 5. HELPER FUNCTIONS
+# 4. HELPER FUNCTIONS
 # ============================================================
 COLORS = {
     "cyan": "#58A6FF", "blue": "#1F6FEB", "teal": "#3FB950",
@@ -255,7 +256,7 @@ def empty_chart(message="No data available for the selected filters."):
 
 
 # ============================================================
-# 6. SIDEBAR FILTERS
+# 5. SIDEBAR FILTERS
 # ============================================================
 st.sidebar.title("🔍 Filters")
 st.sidebar.markdown("Configure global parameters to filter tourism & cultural metrics.")
@@ -313,7 +314,7 @@ st.sidebar.caption("Source: Live Supabase database integration.")
 
 
 # ============================================================
-# 7. APPLY FILTERS
+# 6. APPLY FILTERS
 # ============================================================
 filtered_attr = attr.copy()
 if selected_state != "All" and "state" in filtered_attr.columns:
@@ -371,7 +372,7 @@ if selected_city != "All" and "city" in filtered_weather.columns:
 
 
 # ============================================================
-# 8. HEADER BLOCK
+# 7. HEADER BLOCK
 # ============================================================
 st.markdown(
     """
@@ -396,7 +397,7 @@ st.divider()
 
 
 # ============================================================
-# 9. KPI CARDS
+# 8. KPI CARDS
 # ============================================================
 total_places = len(filtered_attr)
 avg_rating = filtered_attr["google_rating"].mean() if not filtered_attr.empty and "google_rating" in filtered_attr.columns else 0
@@ -424,14 +425,10 @@ k6.metric("Festival Records", format_number(festival_count))
 
 
 # ============================================================
-# 10. MAIN DEMAND & GEOGRAPHY
+# 9. MAIN DEMAND & GEOGRAPHY
 # ============================================================
 st.markdown(
     '<div class="section-title">Demand & Geographic Intelligence</div>',
-    unsafe_allow_html=True,
-)
-st.markdown(
-    '<div class="section-note">Attraction density, location distribution and geographic drill-down.</div>',
     unsafe_allow_html=True,
 )
 
@@ -509,7 +506,7 @@ with cat_col:
 
 
 # ============================================================
-# 11. TOP PLACES + VALUE ANALYSIS
+# 10. TOP PLACES + VALUE ANALYSIS
 # ============================================================
 st.markdown('<div class="section-title">Attraction Performance</div>', unsafe_allow_html=True)
 left, right = st.columns([1, 1])
@@ -571,7 +568,7 @@ with right:
 
 
 # ============================================================
-# 12. TOURISM ARRIVALS + REVENUE
+# 11. TOURISM DEMAND & ECONOMIC TRENDS
 # ============================================================
 st.markdown('<div class="section-title">Tourism Demand & Economic Trends</div>', unsafe_allow_html=True)
 trend1, trend2 = st.columns(2)
@@ -603,7 +600,98 @@ else:
 
 
 # ============================================================
-# 13. FOOTER
+# 12. GEOGRAPHICAL DRILL-DOWN ANALYSIS TABLE
+# ============================================================
+st.markdown('<div class="section-title">Geographical Drill-Down Analysis</div>', unsafe_allow_html=True)
+
+if not filtered_attr.empty and {"state", "google_rating", "entry_fee"}.issubset(filtered_attr.columns):
+    geo_table_df = (
+        filtered_attr.groupby("state", as_index=False)
+        .agg(
+            attraction_count=("place_name", "count"),
+            google_rating=("google_rating", "mean"),
+            entry_fee=("entry_fee", "mean")
+        )
+        .sort_values(by="attraction_count", ascending=False)
+    )
+    geo_table_df["google_rating"] = geo_table_df["google_rating"].round(2)
+    geo_table_df["entry_fee"] = geo_table_df["entry_fee"].round(2)
+    
+    st.dataframe(
+        geo_table_df,
+        column_config={
+            "state": "State / Region",
+            "attraction_count": "Attractions",
+            "google_rating": st.column_config.NumberColumn("Avg Google Rating", format="%.2f ⭐️"),
+            "entry_fee": st.column_config.NumberColumn("Avg Entry Fee", format="₹ %.2f")
+        },
+        use_container_width=True,
+        hide_index=True
+    )
+else:
+    st.info("No geographical drill-down data available for selected filters.")
+
+
+# ============================================================
+# 13. WEATHER OVERLAYS AND TEMPORAL ANALYSIS
+# ============================================================
+st.markdown('<div class="section-title">Weather Overlays and Temporal Analysis</div>', unsafe_allow_html=True)
+
+if not filtered_weather.empty and {"month", "temp_c", "foreign_tourist_arrivals"}.issubset(filtered_weather.columns):
+    weather_agg = (
+        filtered_weather.groupby("month", as_index=False)
+        .agg({
+            "temp_c": "mean",
+            "foreign_tourist_arrivals": "sum",
+            "rainfall_mm": "mean"
+        })
+    )
+    weather_agg = month_sort(weather_agg, "month")
+
+    fig_weather = make_subplots(specs=[[{"secondary_y": True}]])
+
+    fig_weather.add_trace(
+        go.Bar(
+            x=weather_agg["month"],
+            y=weather_agg["foreign_tourist_arrivals"],
+            name="Tourist Arrivals",
+            marker_color=COLORS["blue"],
+            opacity=0.7
+        ),
+        secondary_y=False,
+    )
+
+    fig_weather.add_trace(
+        go.Scatter(
+            x=weather_agg["month"],
+            y=weather_agg["temp_c"],
+            name="Avg Temperature (°C)",
+            mode="lines+markers",
+            line=dict(color=COLORS["gold"], width=2)
+        ),
+        secondary_y=True,
+    )
+
+    fig_weather.update_layout(
+        title="Monthly Tourist Arrivals vs. Temperature Overlays",
+        height=380,
+        paper_bgcolor=COLORS["panel"],
+        plot_bgcolor=COLORS["panel"],
+        font=dict(color=COLORS["text"], size=11),
+        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0),
+        margin=dict(l=65, r=65, t=55, b=55),
+    )
+    fig_weather.update_xaxes(gridcolor=COLORS["grid"])
+    fig_weather.update_yaxes(title_text="Tourist Arrivals", secondary_y=False, gridcolor=COLORS["grid"])
+    fig_weather.update_yaxes(title_text="Temperature (°C)", secondary_y=True, gridcolor="rgba(0,0,0,0)")
+
+    st.plotly_chart(fig_weather, use_container_width=True)
+else:
+    st.info("No weather overlay data available for the selected filters.")
+
+
+# ============================================================
+# 14. FOOTER
 # ============================================================
 st.markdown(
     """

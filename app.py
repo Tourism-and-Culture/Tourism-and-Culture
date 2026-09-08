@@ -2,7 +2,7 @@ import streamlit as st
 from supabase import create_client
 
 # =========================================================
-# STREAMLIT PAGE CONFIG
+# PAGE CONFIG
 # =========================================================
 
 st.set_page_config(
@@ -13,58 +13,31 @@ st.set_page_config(
 
 
 # =========================================================
-# SUPABASE CONFIGURATION
+# SUPABASE CONNECTIONS
 # =========================================================
 
-# -------------------------
 # Module 1
-# -------------------------
-
-MODULE1_SUPABASE_URL = st.secrets["MODULE1_SUPABASE_URL"]
-MODULE1_SUPABASE_SERVICE_KEY = st.secrets["MODULE1_SUPABASE_SERVICE_KEY"]
-
 module1_supabase = create_client(
-    MODULE1_SUPABASE_URL,
-    MODULE1_SUPABASE_SERVICE_KEY
+    st.secrets["MODULE1_SUPABASE_URL"],
+    st.secrets["MODULE1_SUPABASE_SERVICE_KEY"]
 )
 
-
-# -------------------------
 # Module 2
-# -------------------------
-
-MODULE2_SUPABASE_URL = st.secrets["MODULE2_SUPABASE_URL"]
-MODULE2_SUPABASE_ANON_KEY = st.secrets["MODULE2_SUPABASE_ANON_KEY"]
-
 module2_supabase = create_client(
-    MODULE2_SUPABASE_URL,
-    MODULE2_SUPABASE_ANON_KEY
+    st.secrets["MODULE2_SUPABASE_URL"],
+    st.secrets["MODULE2_SUPABASE_ANON_KEY"]
 )
 
-
-# -------------------------
 # Module 3
-# -------------------------
-
-MODULE3_SUPABASE_URL = st.secrets["MODULE3_SUPABASE_URL"]
-MODULE3_SUPABASE_KEY = st.secrets["MODULE3_SUPABASE_KEY"]
-
 module3_supabase = create_client(
-    MODULE3_SUPABASE_URL,
-    MODULE3_SUPABASE_KEY
+    st.secrets["MODULE3_SUPABASE_URL"],
+    st.secrets["MODULE3_SUPABASE_KEY"]
 )
 
-
-# -------------------------
 # Module 4
-# -------------------------
-
-MODULE4_SUPABASE_URL = st.secrets["MODULE4_SUPABASE_URL"]
-MODULE4_SUPABASE_SERVICE_KEY = st.secrets["MODULE4_SUPABASE_SERVICE_KEY"]
-
 module4_supabase = create_client(
-    MODULE4_SUPABASE_URL,
-    MODULE4_SUPABASE_SERVICE_KEY
+    st.secrets["MODULE4_SUPABASE_URL"],
+    st.secrets["MODULE4_SUPABASE_SERVICE_KEY"]
 )
 
 
@@ -74,11 +47,11 @@ module4_supabase = create_client(
 
 st.title("🏛️ Heritage Circuit Analytics")
 
-st.success("All Supabase connections initialized successfully.")
+st.success("Supabase connections initialized successfully!")
 
 
 # =========================================================
-# MODULE SELECTION
+# SIDEBAR
 # =========================================================
 
 module = st.sidebar.selectbox(
@@ -99,8 +72,11 @@ module = st.sidebar.selectbox(
 if module == "Module 1":
 
     st.header("Module 1")
+    st.write("Module 1 Supabase connection is ready.")
 
-    st.info("Module 1 Supabase connection is ready.")
+    # To read data later:
+    # response = module1_supabase.table("YOUR_TABLE_NAME").select("*").execute()
+    # st.dataframe(response.data)
 
 
 # =========================================================
@@ -110,8 +86,14 @@ if module == "Module 1":
 elif module == "Module 2":
 
     st.header("Module 2 - Last-Mile Heritage Circuit Analytics")
+    st.write("Module 2 Supabase connection is ready.")
 
-    st.info("Module 2 Supabase connection is ready.")
+    # Example:
+    # response = module2_supabase.table(
+    #     "fact_heritage_transport_rows"
+    # ).select("*").execute()
+    #
+    # st.dataframe(response.data)
 
 
 # =========================================================
@@ -121,8 +103,11 @@ elif module == "Module 2":
 elif module == "Module 3":
 
     st.header("Module 3")
+    st.write("Module 3 Supabase connection is ready.")
 
-    st.info("Module 3 Supabase connection is ready.")
+    # Example:
+    # response = module3_supabase.table("YOUR_TABLE_NAME").select("*").execute()
+    # st.dataframe(response.data)
 
 
 # =========================================================
@@ -132,5 +117,8 @@ elif module == "Module 3":
 elif module == "Module 4":
 
     st.header("Module 4")
+    st.write("Module 4 Supabase connection is ready.")
 
-    st.info("Module 4 Supabase connection is ready.")
+    # Example:
+    # response = module4_supabase.table("YOUR_TABLE_NAME").select("*").execute()
+    # st.dataframe(response.data)

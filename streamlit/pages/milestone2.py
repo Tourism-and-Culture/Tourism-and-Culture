@@ -1,55 +1,378 @@
-from datetime import date, datetime, timedelta
-import io
-import os
-import numpy as np
+from pathlib import Path
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from reportlab.lib import colors
-from reportlab.lib.pagesizes import letter
-from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
-from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, TableStyle
 import streamlit as st
-from supabase import create_client
+import folium
+from folium.plugins import HeatMap
+from streamlit_folium import st_folium
+from supabase import create_client, Client
 
-# =====================================================================================
-# PAGE CONFIG 
-# =====================================================================================
+
+# ============================================================
+# 1. PAGE CONFIGURATION
+# ============================================================
 st.set_page_config(
-    page_title="Smart Tourism & Cultural Intelligence Platform - Milestone 2",
-    layout="wide"
+    page_title="Smart Tourism & Cultural Intelligence Platform",
+    page_icon="🇮🇳",
+    layout="wide",
+    initial_sidebar_state="expanded",
 )
 
-# =====================================================================================
-# SUPABASE CREDENTIALS & CLIENT 
-# =====================================================================================
-try:
-    if "supabase" in st.secrets:
-        SUPABASE_URL = st.secrets["supabase"].get("SUPABASE_URL") or st.secrets["supabase"].get("url")
-        SUPABASE_KEY = st.secrets["supabase"].get("SUPABASE_KEY") or st.secrets["supabase"].get("key")
-    else:
-        SUPABASE_URL = st.secrets.get("SUPABASE_URL")
-        SUPABASE_KEY = st.secrets.get("SUPABASE_KEY")
-        
-    if not SUPABASE_URL or not SUPABASE_KEY:
-        raise KeyError("Missing Supabase URL or Key in secrets.")
-except Exception as e:
-    st.error("⚠️ Error loading data from Supabase: Supabase credentials not configured in Streamlit secrets.")
-    st.stop()
+
+# ============================================================
+# 3. SUPABASE CONNECTION & CONFIGURATION (USING SECRETS)
+# ============================================================
+SUPABASE_URL = st.secrets["supabase"]["url"]
+SUPABASE_KEY = st.secrets["supabase"]["key"]
 
 @st.cache_resource
-def init_supabase():
-    try:
-        client = create_client(SUPABASE_URL, SUPABASE_KEY)
-        return client
-    except Exception:
-        return None
+def init_supabase() -> Client:
+    return create_client(SUPABASE_URL, SUPABASE_KEY)
 
 supabase = init_supabase()
 
-# =====================================================================================
-# HEADER BLOCK
-# =====================================================================================
+
+# ============================================================
+# 4. LOAD DATA DIRECTLY FROM SUPABASE TABLES
+# ============================================================
+@st.cache_data(ttl=600)
+def load_data():
+    def fetch_table(table_name):
+        response = supabase.table(table_name).select("*").execute()
+        return pd.DataFrame(response.data)
+
+    dim_country = fetch_table("dim_country")
+    dim_location = fetch_table("dim_location")
+    dim_time = fetch_table("dim_time")
+    dim_weather = fetch_table("dim_weather")
+    attractions = fetch_table("fact_attractions")
+    country_arrivals = fetch_table("fact_country_arrivals")
+    festivals = fetch_table("fact_festivals")
+    monthly = fetch_table("fact_monthly_tourism")
+    galaxy = fetch_table("view_galaxy_monthly_tourism")
+    weather_tourism = fetch_table("view_weather_tourism_analysis")
+
+    # Numeric cleanup
+    for df, cols in [
+        (dim_location, ["latitude", "longitude"]),
+        (attractions, ["google_rating", "entry_fee"]),
+        (country_arrivals, ["arrivals_in_numbers", "average_duration_of_stay_in_days"]),
+        (festivals, ["amount_sanctioned", "amount_released"]),
+        (monthly, ["tourism_revenue_crore_inr", "foreign_tourist_arrivals"]),
+        (galaxy, ["tourism_revenue_crore_inr", "foreign_tourist_arrivals"]),
+        (
+            weather_tourism,
+            [
+                "tourism_revenue_crore_inr",
+                "foreign_tourist_arrivals",
+                "temp_c",
+                "rainfall_mm",
+                "humidity_pct",
+            ],
+        ),
+        (
+            dim_weather,
+            ["temp_c", "rainfall_mm", "humidity_pct"],
+        ),
+    ]:
+        for col in cols:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    if "google_rating" in attractions.columns:
+        attractions = attractions[
+            attractions["google_rating"].between(0, 5, inclusive="both")
+        ].copy()
+
+    # Join attraction + location.
+    attr = attractions.merge(
+        dim_location,
+        on="location_id",
+        how="left",
+        suffixes=("", "_location"),
+    )
+
+    # Join country arrivals + country dimension.
+    countries = country_arrivals.merge(
+        dim_country,
+        on="country_id",
+        how="left",
+    )
+
+    # Time enrichment.
+    time = dim_time.copy()
+    if "month_name" in time.columns:
+        time["Season"] = time["month_name"].apply(
+            lambda m: (
+                "Peak Season"
+                if m in [
+                    "October", "November", "December",
+                    "January", "February", "March",
+                ]
+                else "Off-Peak Season"
+            )
+        )
+
+    time_lookup = time[[
+        "time_id", "year", "month_name", "month_num", "quarter", "Season"
+    ]].copy() if all(c in time.columns for c in ["time_id", "year", "month_name", "month_num", "quarter", "Season"]) else time
+
+    monthly_enriched = monthly.merge(
+        time_lookup,
+        on="time_id",
+        how="left",
+        suffixes=("", "_time"),
+    ) if "time_id" in monthly.columns and "time_id" in time_lookup.columns else monthly
+
+    for col in ["year", "month_name", "month_num", "quarter", "Season"]:
+        dim_col = f"{col}_time"
+        if col not in monthly_enriched.columns and dim_col in monthly_enriched.columns:
+            monthly_enriched.rename(columns={dim_col: col}, inplace=True)
+        elif col in monthly_enriched.columns and dim_col in monthly_enriched.columns:
+            monthly_enriched[col] = monthly_enriched[col].combine_first(
+                monthly_enriched[dim_col]
+            )
+            monthly_enriched.drop(columns=[dim_col], inplace=True)
+
+    if "year" in monthly_enriched.columns:
+        monthly_enriched["year"] = pd.to_numeric(
+            monthly_enriched["year"], errors="coerce"
+        )
+
+    galaxy_enriched = galaxy.copy()
+    if "month_name" in galaxy_enriched.columns:
+        galaxy_enriched["Season"] = galaxy_enriched["month_name"].apply(
+            lambda m: (
+                "Peak Season"
+                if m in [
+                    "October", "November", "December",
+                    "January", "February", "March",
+                ]
+                else "Off-Peak Season"
+            )
+        )
+
+    weather_geo = weather_tourism.merge(
+        dim_location[["city", "state", "latitude", "longitude"]],
+        left_on="location_name",
+        right_on="city",
+        how="left",
+    ) if "location_name" in weather_tourism.columns and "city" in dim_location.columns else weather_tourism
+
+    return {
+        "dim_country": dim_country,
+        "dim_location": dim_location,
+        "dim_time": time,
+        "dim_weather": dim_weather,
+        "attractions": attr,
+        "countries": countries,
+        "festivals": festivals,
+        "monthly": monthly_enriched,
+        "galaxy": galaxy_enriched,
+        "weather": weather_geo,
+    }
+
+
+try:
+    data = load_data()
+except Exception as exc:
+    st.error(f"Error loading data from Supabase: {exc}")
+    st.stop()
+
+
+attr = data["attractions"]
+countries = data["countries"]
+festivals = data["festivals"]
+monthly = data["monthly"]
+weather = data["weather"]
+dim_time = data["dim_time"]
+
+
+# ============================================================
+# 5. HELPER FUNCTIONS
+# ============================================================
+COLORS = {
+    "cyan": "#58A6FF", "blue": "#1F6FEB", "teal": "#3FB950",
+    "gold": "#D29922", "green": "#238636", "red": "#DA3633",
+    "purple": "#8957E5", "orange": "#F0883E", "text": "#FAFAFA",
+    "muted": "#8B949E", "grid": "#30363D", "panel": "#161B22",
+    "bg": "#0E1117",
+}
+
+
+def format_number(value):
+    if pd.isna(value):
+        return "—"
+    value = float(value)
+    if abs(value) >= 1_000_000_000:
+        return f"{value / 1_000_000_000:.2f}B"
+    if abs(value) >= 1_000_000:
+        return f"{value / 1_000_000:.2f}M"
+    if abs(value) >= 1_000:
+        return f"{value / 1_000:.1f}K"
+    return f"{value:,.0f}"
+
+
+MONTH_ORDER = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+]
+
+
+def month_sort(df, col="month_name"):
+    out = df.copy()
+    if col in out.columns:
+        out[col] = pd.Categorical(out[col], categories=MONTH_ORDER, ordered=True)
+        out = out.sort_values(col)
+    return out
+
+
+def chart_layout(fig, height=330, title=None):
+    fig.update_layout(
+        title=dict(text=title or "", x=0.02, xanchor="left", font=dict(size=14, color=COLORS["text"], family="Helvetica, Arial, sans-serif")),
+        height=height, paper_bgcolor=COLORS["panel"], plot_bgcolor=COLORS["panel"],
+        font=dict(color=COLORS["text"], size=11, family="Helvetica, Arial, sans-serif"),
+        margin=dict(l=65, r=35, t=65 if title else 20, b=55),
+        legend=dict(orientation="h", yanchor="bottom", y=1.01, xanchor="left", x=0, bgcolor="rgba(0,0,0,0)", font=dict(color=COLORS["muted"], size=10)),
+        hoverlabel=dict(bgcolor="#21262D", bordercolor="#30363D", font_color="#FFFFFF"),
+        xaxis=dict(gridcolor=COLORS["grid"], zeroline=False, automargin=True, tickfont=dict(color=COLORS["muted"]), title_font=dict(color=COLORS["text"]), linecolor="#30363D"),
+        yaxis=dict(gridcolor=COLORS["grid"], zeroline=False, automargin=True, tickfont=dict(color=COLORS["muted"]), title_font=dict(color=COLORS["text"]), linecolor="#30363D"),
+    )
+    return fig
+
+
+def empty_chart(message="No data available for the selected filters."):
+    fig = go.Figure()
+    fig.add_annotation(
+        text=message, x=0.5, y=0.5, xref="paper", yref="paper",
+        showarrow=False, font=dict(color=COLORS["muted"], size=12, family="Helvetica, Arial, sans-serif"),
+    )
+    chart_layout(fig, height=300)
+    fig.update_xaxes(visible=False)
+    fig.update_yaxes(visible=False)
+    return fig
+
+
+# ============================================================
+# 6. SIDEBAR FILTERS
+# ============================================================
+st.sidebar.title("🔍 Filters")
+st.sidebar.markdown("Configure global parameters to filter tourism & cultural metrics.")
+
+st.sidebar.subheader("Year")
+years = sorted(monthly["year"].dropna().unique().astype(int).tolist()) if "year" in monthly.columns else []
+selected_year = st.sidebar.selectbox("Select Year", ["All"] + years)
+
+st.sidebar.subheader("Quarter")
+quarters = ["All", "Q1", "Q2", "Q3", "Q4"]
+selected_quarter = st.sidebar.selectbox("Select Quarter", quarters)
+
+st.sidebar.subheader("Month")
+months = ["All"] + MONTH_ORDER
+selected_month = st.sidebar.selectbox("Select Month", months)
+
+st.sidebar.subheader("Season")
+selected_season = st.sidebar.selectbox(
+    "Select Season",
+    ["All", "Peak Season", "Off-Peak Season"],
+)
+
+st.sidebar.subheader("State")
+states = ["All"] + sorted(attr["state"].dropna().astype(str).unique()) if "state" in attr.columns else ["All"]
+selected_state = st.sidebar.selectbox("Select State", states)
+
+if selected_state != "All" and "state" in attr.columns and "city" in attr.columns:
+    city_values = sorted(
+        attr.loc[attr["state"] == selected_state, "city"]
+        .dropna().astype(str).unique()
+    )
+else:
+    city_values = sorted(attr["city"].dropna().astype(str).unique()) if "city" in attr.columns else []
+
+st.sidebar.subheader("City")
+selected_city = st.sidebar.selectbox("Select City", ["All"] + city_values)
+
+st.sidebar.subheader("Category")
+categories = ["All"] + sorted(
+    attr["category"].dropna().astype(str).unique()
+) if "category" in attr.columns else ["All"]
+selected_category = st.sidebar.selectbox("Select Category", categories)
+
+st.sidebar.subheader("Country")
+country_values = sorted(
+    countries.loc[
+        ~countries["country_name"].astype(str).str.strip().isin(["Total", "Others"]),
+        "country_name",
+    ].dropna().astype(str).unique()
+) if "country_name" in countries.columns else []
+selected_country = st.sidebar.selectbox("Select Country", ["All"] + country_values)
+
+st.sidebar.markdown("---")
+st.sidebar.caption("Source: Live Supabase database integration.")
+
+
+# ============================================================
+# 7. APPLY FILTERS
+# ============================================================
+filtered_attr = attr.copy()
+if selected_state != "All" and "state" in filtered_attr.columns:
+    filtered_attr = filtered_attr[filtered_attr["state"] == selected_state]
+if selected_city != "All" and "city" in filtered_attr.columns:
+    filtered_attr = filtered_attr[filtered_attr["city"] == selected_city]
+if selected_category != "All" and "category" in filtered_attr.columns:
+    filtered_attr = filtered_attr[filtered_attr["category"] == selected_category]
+
+
+filtered_monthly = monthly.copy()
+if selected_year != "All" and "year" in filtered_monthly.columns:
+    filtered_monthly = filtered_monthly[filtered_monthly["year"] == int(selected_year)]
+if selected_quarter != "All" and "quarter" in filtered_monthly.columns:
+    filtered_monthly = filtered_monthly[filtered_monthly["quarter"] == selected_quarter]
+if selected_month != "All" and "month_name" in filtered_monthly.columns:
+    filtered_monthly = filtered_monthly[filtered_monthly["month_name"] == selected_month]
+if selected_season != "All" and "Season" in filtered_monthly.columns:
+    filtered_monthly = filtered_monthly[filtered_monthly["Season"] == selected_season]
+
+
+filtered_country = countries.copy()
+if "country_name" in filtered_country.columns:
+    filtered_country = filtered_country[
+        ~filtered_country["country_name"].astype(str).str.strip().isin(["Total", "Others"])
+    ].copy()
+    if selected_country != "All":
+        filtered_country = filtered_country[filtered_country["country_name"] == selected_country]
+
+
+filtered_festivals = festivals.copy()
+if selected_state != "All" and "state" in filtered_festivals.columns:
+    filtered_festivals = filtered_festivals[
+        filtered_festivals["state"].astype(str).str.contains(selected_state, na=False)
+    ]
+if selected_year != "All" and "year" in filtered_festivals.columns:
+    filtered_festivals = filtered_festivals[
+        filtered_festivals["year"].astype(str).str.startswith(str(selected_year))
+    ]
+
+
+filtered_weather = weather.copy()
+if selected_year != "All" and "year" in filtered_weather.columns:
+    filtered_weather = filtered_weather[filtered_weather["year"] == int(selected_year)]
+if selected_month != "All" and "month" in filtered_weather.columns:
+    filtered_weather = filtered_weather[filtered_weather["month"] == selected_month]
+if selected_state != "All" and "state" in filtered_weather.columns:
+    filtered_weather = filtered_weather[
+        filtered_weather["state"].astype(str).str.contains(selected_state, na=False)
+    ]
+if selected_city != "All" and "city" in filtered_weather.columns:
+    filtered_weather = filtered_weather[
+        filtered_weather["city"].astype(str).str.contains(selected_city, na=False)
+    ]
+
+
+# ============================================================
+# 8. HEADER BLOCK
+# ============================================================
 st.markdown(
     """
     <div style='text-align:center; padding-top: 0.5rem;'>
@@ -63,7 +386,7 @@ st.markdown(
         </h3>
         <h4 style='font-family: Helvetica, Arial, sans-serif; font-weight: 400;
                     font-size: 1rem; color: #8a8a8a; margin-top: 0;'>
-           Data Integration, Exploratory Analysis & Executive Intelligence
+            Geospatial, Weather &amp; Transit Analytics
         </h4>
     </div>
     """,
@@ -71,335 +394,222 @@ st.markdown(
 )
 st.divider()
 
-# =====================================================================================
-# SIDEBAR FILTERS & CONTROLS
-# =====================================================================================
-st.sidebar.title("🎛️ Dashboard Controls")
-st.sidebar.markdown("Configure global parameters and filters for the platform modules.")
 
-st.sidebar.subheader("📅 Date Range Filter")
-default_start = date(2019, 1, 1)
-default_end = date(2022, 12, 31)
-global_date_range = st.sidebar.date_input("Select Operating Window", value=(default_start, default_end), key="global_date_picker")
+# ============================================================
+# 9. KPI CARDS
+# ============================================================
+total_places = len(filtered_attr)
+avg_rating = filtered_attr["google_rating"].mean() if not filtered_attr.empty and "google_rating" in filtered_attr.columns else 0
+avg_fee = filtered_attr["entry_fee"].mean() if not filtered_attr.empty and "entry_fee" in filtered_attr.columns else 0
+foreign_arrivals = (
+    filtered_monthly["foreign_tourist_arrivals"].sum()
+    if not filtered_monthly.empty and "foreign_tourist_arrivals" in filtered_monthly.columns
+    else 0
+)
+revenue = (
+    filtered_monthly["tourism_revenue_crore_inr"].sum()
+    if not filtered_monthly.empty and "tourism_revenue_crore_inr" in filtered_monthly.columns
+    else 0
+)
+festival_count = len(filtered_festivals)
 
-st.sidebar.subheader("📍 Regional Filter")
-global_states = st.sidebar.multiselect(
-    "Select States / Zones",
-    options=["Delhi", "Karnataka", "Maharashtra", "Punjab", "Telangana", "Rajasthan", "Uttar Pradesh", "General"],
-    default=["Delhi", "Karnataka", "Maharashtra", "Punjab", "Telangana", "General"],
-    key="global_state_filter"
+k1, k2, k3, k4, k5, k6 = st.columns(6)
+
+k1.metric("Tourist Places", format_number(total_places))
+k2.metric("Average Rating", f"{avg_rating:.2f} / 5")
+k3.metric("Average Entry Fee", f"₹{avg_fee:,.0f}")
+k4.metric("Foreign Arrivals", format_number(foreign_arrivals))
+k5.metric("Tourism Revenue", f"₹{revenue:,.0f} Cr")
+k6.metric("Festival Records", format_number(festival_count))
+
+
+# ============================================================
+# 10. MAIN DEMAND & GEOGRAPHY
+# ============================================================
+st.markdown(
+    '<div class="section-title">Demand & Geographic Intelligence</div>',
+    unsafe_allow_html=True,
+)
+st.markdown(
+    '<div class="section-note">Attraction density, location distribution and geographic drill-down.</div>',
+    unsafe_allow_html=True,
 )
 
-st.sidebar.markdown("---")
-st.sidebar.info("💡 **Tip:** Use the cache clear button below if datasets are updated.")
-if st.sidebar.button("🧹 Clear Global Cache", key="sidebar_clear_cache"):
-    st.cache_data.clear()
-    st.success("Cache cleared!")
+map_col, cat_col = st.columns([1.55, 1])
 
+with map_col:
+    st.markdown("**Tourist Attraction Density Map**")
+    if not filtered_attr.empty and {"latitude", "longitude"}.issubset(filtered_attr.columns):
+        map_df = filtered_attr.dropna(subset=["latitude", "longitude"]).copy()
 
-# =====================================================================================
-# MODULE 1 — Mobility Access Index & Equity Analysis
-# =====================================================================================
-def render_module_1():
-    st.title("🚍 Module 1: Mobility Access & Equity Dashboard")
-    st.subheader("Mobility Access Index & Equity Analysis across Heritage Zones")
+        if not map_df.empty:
+            m = folium.Map(
+                location=[map_df["latitude"].mean(), map_df["longitude"].mean()],
+                zoom_start=5,
+                tiles="CartoDB positron",
+            )
 
-    @st.cache_data
-    def load_data_m1():
-        try:
-            if supabase:
-                transport_response = supabase.table("fact_heritage_transport").select("*").execute()
-                location_response = supabase.table("dim_location").select("*").execute()
-                transport_df = pd.DataFrame(transport_response.data) if transport_response and transport_response.data else pd.DataFrame()
-                locations_df = pd.DataFrame(location_response.data) if location_response and location_response.data else pd.DataFrame()
-                return transport_df, locations_df
-        except Exception:
-            pass
-        return pd.DataFrame(), pd.DataFrame()
+            location_density = (
+                map_df.groupby(["latitude", "longitude"])
+                .size()
+                .reset_index(name="attraction_count")
+            )
 
-    transport, locations = load_data_m1()
+            heat_data = [
+                [r.latitude, r.longitude, r.attraction_count]
+                for r in location_density.itertuples()
+            ]
 
-    if transport.empty or locations.empty:
-        transport = pd.DataFrame({
-            "location_id": [1, 2, 3, 4, 5],
-            "stand_name": ["Qutab Minar Metro Exit", "Red Fort Hub", "India Gate Stand", "Lotus Temple Stand", "Humayun's Tomb Hub"],
-            "vehicles_available": [12, 25, 18, 10, 15],
-            "trips_completed": [45, 95, 60, 30, 50],
-            "demand_level": ["high", "medium", "high", "low", "medium"]
-        })
-        locations = pd.DataFrame({
-            "location_id": [1, 2, 3, 4, 5],
-            "state": ["Delhi", "Delhi", "Delhi", "Delhi", "Delhi"],
-            "city": ["New Delhi", "New Delhi", "New Delhi", "New Delhi", "New Delhi"],
-            "latitude": [28.5244, 28.6562, 28.6129, 28.5535, 28.5933],
-            "longitude": [77.1855, 77.2410, 77.2295, 77.2588, 77.2507]
-        })
+            HeatMap(heat_data, radius=20, blur=18, min_opacity=0.35, max_zoom=8).add_to(m)
 
-    transport["vehicles_available"] = pd.to_numeric(transport.get("vehicles_available", 0), errors="coerce").fillna(0)
-    transport["trips_completed"] = pd.to_numeric(transport.get("trips_completed", 0), errors="coerce").fillna(0)
-    transport["demand_level"] = transport.get("demand_level", "medium").astype(str).str.lower().str.strip()
+            for row in (
+                map_df.groupby(["location_id", "state", "city", "latitude", "longitude"])
+                .agg(attractions=("place_name", "count"), avg_rating=("google_rating", "mean"))
+                .reset_index()
+                .itertuples()
+            ):
+                folium.CircleMarker(
+                    location=[row.latitude, row.longitude],
+                    radius=max(4, min(10, row.attractions)),
+                    tooltip=f"{row.city}, {row.state}",
+                    popup=f"<b>{row.city}</b><br>{row.state}<br>Attractions: {row.attractions}<br>Avg rating: {row.avg_rating:.2f}",
+                    color=COLORS["cyan"],
+                    fill=True,
+                    fill_opacity=0.75,
+                ).add_to(m)
 
-    demand_map = {"low": 30, "medium": 60, "high": 100}
-    transport["demand_score"] = transport["demand_level"].map(demand_map).fillna(60)
-
-    transport["location_id"] = transport["location_id"].astype(str)
-    locations["location_id"] = locations["location_id"].astype(str)
-
-    zone = (
-        transport.groupby(["location_id", "stand_name"], as_index=False)
-        .agg(
-            vehicles_available=("vehicles_available", "sum"),
-            trips_completed=("trips_completed", "sum"),
-            demand_score=("demand_score", "mean")
-        )
-    )
-
-    max_vehicle = zone["vehicles_available"].max()
-    zone["supply_score"] = (zone["vehicles_available"] / max_vehicle * 100) if max_vehicle > 0 else 0
-
-    zone["trips_per_vehicle"] = np.where(zone["vehicles_available"] > 0, zone["trips_completed"] / zone["vehicles_available"], 0)
-    max_usage = zone["trips_per_vehicle"].max()
-    zone["usage_score"] = (zone["trips_per_vehicle"] / max_usage * 100) if max_usage > 0 else 0
-
-    zone["Mobility_Access_Index"] = (
-        0.30 * zone["supply_score"] + 0.30 * zone["usage_score"] + 0.40 * zone["demand_score"]
-    ).round(2)
-
-    def equity_category(score):
-        if score >= 70:
-            return "Well Connected"
-        elif score >= 40:
-            return "Moderately Connected"
+            st_folium(m, width=None, height=430, use_container_width=True)
         else:
-            return "Underserved"
-
-    zone["Equity_Category"] = zone["Mobility_Access_Index"].apply(equity_category)
-
-    required_location_columns = ["location_id", "state", "city", "latitude", "longitude"]
-    available_location_columns = [col for col in required_location_columns if col in locations.columns]
-    locations_small = locations[available_location_columns].drop_duplicates("location_id")
-    zone = zone.merge(locations_small, on="location_id", how="left")
-
-    total_zones = zone["location_id"].nunique()
-    well_connected_count = zone[zone["Equity_Category"] == "Well Connected"]["location_id"].nunique()
-    underserved_count = zone[zone["Equity_Category"] == "Underserved"]["location_id"].nunique()
-    average_index = round(zone["Mobility_Access_Index"].mean(), 2)
-
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Total Heritage Zones", total_zones)
-    col2.metric("Average Access Index", average_index)
-    col3.metric("Well Connected", well_connected_count)
-    col4.metric("Underserved", underserved_count)
-
-    st.divider()
-
-    st.header("1. Monument Accessibility & Equity Index")
-    index_table = zone[["location_id", "stand_name", "Mobility_Access_Index", "Equity_Category"]].sort_values("Mobility_Access_Index", ascending=False)
-    st.dataframe(index_table, use_container_width=True, hide_index=True)
-
-    fig_index = px.bar(
-        zone.sort_values("Mobility_Access_Index", ascending=False),
-        x="stand_name",
-        y="Mobility_Access_Index",
-        color="Equity_Category",
-        title="Monument Accessibility & Equity Index",
-        labels={"stand_name": "Heritage Zone", "Mobility_Access_Index": "Mobility Access Index", "Equity_Category": "Equity Category"}
-    )
-    fig_index.add_hline(y=70, line_dash="dash", annotation_text="Well Connected")
-    fig_index.add_hline(y=40, line_dash="dash", annotation_text="Moderately Connected")
-    fig_index.update_layout(xaxis_tickangle=-45)
-    st.plotly_chart(fig_index, use_container_width=True, key="m1_bar_chart")
-
-    csv_data_m1 = zone.to_csv(index=False).encode("utf-8")
-    st.download_button(
-        label="Download Mobility Access Index CSV",
-        data=csv_data_m1,
-        file_name="mobility_access_equity_index.csv",
-        mime="text/csv",
-        key="download_m1_csv"
-    )
-    st.caption("Module 1 - Mobility Access Index & Equity Dashboards")
-    return zone
+            st.info("No geographic attraction coordinates found.")
+    else:
+        st.info("No geographic records match the selected filters.")
 
 
-# =====================================================================================
-# MODULE 2 — Executive Intelligence Dashboard
-# =====================================================================================
-def render_module_2():
-    st.title("📈 Module 2: Executive Intelligence Dashboard")
-    st.subheader("High-Level Overview & Mobility Health Analytics")
+with cat_col:
+    if not filtered_attr.empty and "category" in filtered_attr.columns:
+        category_counts = (
+            filtered_attr["category"]
+            .value_counts()
+            .reset_index()
+        )
+        category_counts.columns = ["Category", "Places"]
+        category_counts = category_counts.head(10).sort_values("Places")
 
-    @st.cache_data(ttl=300)
-    def load_data_m2():
-        try:
-            if supabase:
-                response = supabase.table("view_transport_tourism_summary").select("*").execute()
-                if response and response.data:
-                    return pd.DataFrame(response.data)
-        except Exception:
-            pass
-        
-        try:
-            if supabase:
-                response = supabase.table("fact_heritage_transport").select("*").execute()
-                if response and response.data:
-                    return pd.DataFrame(response.data)
-        except Exception:
-            pass
-
-        return pd.DataFrame({
-            "trip_date": pd.date_range(start="2022-01-01", periods=50),
-            "state": ["Delhi", "Karnataka", "Maharashtra", "Punjab", "Telangana"] * 10,
-            "city": ["New Delhi", "Bengaluru", "Mumbai", "Amritsar", "Hyderabad"] * 10,
-            "stand_name": ["Qutab Minar Metro", "Mysore Palace Hub", "Gateway of India", "Golden Temple Stand", "Charminar Station"] * 10,
-            "trips_completed": np.random.randint(20, 100, 50),
-            "vehicles_available": np.random.randint(10, 40, 50),
-            "avg_travel_time_min": np.random.uniform(25.0, 60.0, 50),
-            "on_time_pct": np.random.uniform(80.0, 98.0, 50)
-        })
-
-    raw_df = load_data_m2()
-    if raw_df.empty:
-        st.warning("No data found in Supabase tables for Module 2.")
-        return pd.DataFrame()
-
-    df = raw_df.copy()
-    
-    if "trip_date" not in df.columns:
-        df["trip_date"] = pd.date_range(start="2022-01-01", periods=len(df))
-    df["trip_date"] = pd.to_datetime(df["trip_date"], errors="coerce")
-    df = df.dropna(subset=["trip_date"])
-
-    if "trips_completed" not in df.columns:
-        df["trips_completed"] = 50
-    df["trips_completed"] = pd.to_numeric(df["trips_completed"], errors="coerce").fillna(0)
-
-    if "vehicles_available" not in df.columns:
-        df["vehicles_available"] = 20
-    df["vehicles_available"] = pd.to_numeric(df["vehicles_available"], errors="coerce").fillna(0)
-
-    if "avg_travel_time_min" not in df.columns:
-        df["avg_travel_time_min"] = 40.0
-    df["avg_travel_time_min"] = pd.to_numeric(df["avg_travel_time_min"], errors="coerce").fillna(40.0)
-
-    if "on_time_pct" not in df.columns:
-        df["on_time_pct"] = 85.0
-    df["on_time_pct"] = pd.to_numeric(df["on_time_pct"], errors="coerce").fillna(85.0)
-
-    for col in ["state", "city", "stand_name"]:
-        if col not in df.columns:
-            df[col] = "General"
-        df[col] = df[col].astype(str).str.strip()
-
-    def classify_mode(name):
-        n = str(name).lower()
-        if "metro" in n:
-            return "Metro"
-        elif "bus" in n or "isbt" in n:
-            return "Bus"
+        if not category_counts.empty:
+            fig = px.bar(category_counts, x="Places", y="Category", orientation="h", text="Places")
+            fig.update_traces(marker_color=COLORS["teal"], texttemplate="%{text:,}", textposition="outside", cliponaxis=False)
+            fig.update_xaxes(title="Number of Places", rangemode="tozero")
+            fig.update_yaxes(title="", automargin=True)
+            chart_layout(fig, height=430, title="Top Tourism Categories")
+            st.plotly_chart(fig, use_container_width=True)
         else:
-            return "Others"
-
-    if "transport_mode" not in df.columns:
-        df["transport_mode"] = df["stand_name"].apply(classify_mode)
+            st.plotly_chart(empty_chart(), use_container_width=True)
     else:
-        df["transport_mode"] = df["transport_mode"].astype(str).str.strip()
+        st.plotly_chart(empty_chart(), use_container_width=True)
 
-    if not df.empty and not df["trip_date"].isna().all():
-        min_dt = df["trip_date"].min().date()
-        max_dt = df["trip_date"].max().date()
+
+# ============================================================
+# 11. TOP PLACES + VALUE ANALYSIS
+# ============================================================
+st.markdown('<div class="section-title">Attraction Performance</div>', unsafe_allow_html=True)
+left, right = st.columns([1, 1])
+
+with left:
+    if not filtered_attr.empty and {"google_rating", "place_name"}.issubset(filtered_attr.columns):
+        top_places = (
+            filtered_attr.sort_values(["google_rating", "place_name"], ascending=[False, True])
+            .head(10)
+            .sort_values("google_rating")
+        )
+        if not top_places.empty:
+            fig = px.bar(top_places, x="google_rating", y="place_name", orientation="h", text="google_rating")
+            fig.update_traces(marker_color=COLORS["cyan"], texttemplate="%{text:.1f}", textposition="outside")
+            fig.update_xaxes(range=[0, 5.2], title="Google Rating")
+            fig.update_yaxes(title="")
+            chart_layout(fig, height=420, title="Top 10 Highest-Rated Tourist Places")
+            st.plotly_chart(fig, use_container_width=True)
+        else:
+            st.plotly_chart(empty_chart(), use_container_width=True)
     else:
-        min_dt, max_dt = date(2022, 1, 1), date(2022, 12, 31)
+        st.plotly_chart(empty_chart(), use_container_width=True)
 
-    start_date, end_date = global_date_range if isinstance(global_date_range, tuple) and len(global_date_range) == 2 else (min_dt, max_dt)
-    
-    mask = (df["trip_date"].dt.date >= start_date) & (df["trip_date"].dt.date <= end_date)
-    if global_states:
-        mask &= df["state"].isin(global_states)
+with right:
+    if not filtered_attr.empty:
+        value_df = filtered_attr[["place_name", "city", "state", "category", "entry_fee", "google_rating"]].copy() if all(c in filtered_attr.columns for c in ["place_name", "city", "state", "category", "entry_fee", "google_rating"]) else pd.DataFrame()
 
-    filtered_df = df.loc[mask].copy()
-    if filtered_df.empty:
-        filtered_df = df.copy()
+        if not value_df.empty:
+            value_df["entry_fee"] = pd.to_numeric(value_df["entry_fee"], errors="coerce")
+            value_df["google_rating"] = pd.to_numeric(value_df["google_rating"], errors="coerce")
+            value_df = value_df.dropna(subset=["entry_fee", "google_rating"])
 
-    total_trips = int(filtered_df["trips_completed"].sum())
-    total_weighted_time = (filtered_df["avg_travel_time_min"] * filtered_df["trips_completed"]).sum()
-    avg_travel_time = total_weighted_time / total_trips if total_trips > 0 else 0.0
+            if not value_df.empty:
+                fig_value = go.Figure()
+                fee_plot = value_df["entry_fee"].where(value_df["entry_fee"] > 0, 1)
 
-    total_weighted_on_time = (filtered_df["on_time_pct"] * filtered_df["trips_completed"]).sum()
-    on_time_performance = total_weighted_on_time / total_trips if total_trips > 0 else 0.0
+                fig_value.add_trace(
+                    go.Scatter(
+                        x=fee_plot, y=value_df["google_rating"],
+                        mode="markers",
+                        marker=dict(size=8, color="#58A6FF", opacity=0.75, line=dict(width=0.8, color="#8B949E")),
+                        name="Tourist Places",
+                    )
+                )
+                fig_value.update_layout(
+                    height=420, margin=dict(l=65, r=30, t=35, b=65),
+                    title=dict(text="Entry Fee vs Google Rating", x=0.02, xanchor="left", font=dict(size=14, family="Helvetica, Arial, sans-serif")),
+                    xaxis=dict(title="Entry Fee (₹)", type="log", tickformat="~s", showgrid=True),
+                    yaxis=dict(title="Google Rating (out of 5)", range=[0, 5.2], dtick=1, showgrid=True),
+                    paper_bgcolor=COLORS["panel"], plot_bgcolor=COLORS["panel"], font=dict(color=COLORS["text"], size=11, family="Helvetica, Arial, sans-serif"),
+                )
+                st.plotly_chart(fig_value, use_container_width=True, config={"displayModeBar": False})
+            else:
+                st.info("No valid value data.")
+        else:
+            st.info("Columns missing for value chart.")
+    else:
+        st.info("No records available.")
 
-    target_travel_time = 45.0
-    travel_efficiency = min(target_travel_time / avg_travel_time * 100, 100) if avg_travel_time > 0 else 100.0
-    health_score = (0.60 * on_time_performance) + (0.40 * travel_efficiency)
 
-    k1, k2, k3, k4 = st.columns(4)
-    k1.metric("Total Trips", f"{total_trips:,}")
-    k2.metric("Average Travel Time", f"{avg_travel_time:.1f} min")
-    k3.metric("On-Time Performance", f"{on_time_performance:.1f}%")
-    k4.metric("Mobility Health Score", f"{health_score:.1f} / 100")
+# ============================================================
+# 12. TOURISM ARRIVALS + REVENUE
+# ============================================================
+st.markdown('<div class="section-title">Tourism Demand & Economic Trends</div>', unsafe_allow_html=True)
+trend1, trend2 = st.columns(2)
 
-    st.divider()
-
-    col_left, col_right = st.columns(2)
-    with col_left:
-        st.header("Daily Trip Trends")
-        daily_trend = (
-            filtered_df.groupby(filtered_df["trip_date"].dt.date, as_index=False)["trips_completed"]
-            .sum()
-            .rename(columns={"trip_date": "Date", "trips_completed": "Completed Trips"})
-        )
-        fig_line = px.line(
-            daily_trend, x="Date", y="Completed Trips", markers=True, title="Trip Volume Over Time", color_discrete_sequence=["#2563EB"]
-        )
-        fig_line.update_layout(xaxis_title="Date", yaxis_title="Trips Completed")
-        st.plotly_chart(fig_line, use_container_width=True, key="m2_line_chart")
-
-    with col_right:
-        st.header("Transport Mode Share")
-        mode_share = (
-            filtered_df.groupby("transport_mode", as_index=False)["trips_completed"]
-            .sum()
-            .rename(columns={"trips_completed": "Completed Trips"})
-        )
-        fig_pie = px.pie(
-            mode_share, names="transport_mode", values="Completed Trips", hole=0.55, title="Share of Trips by Transport Mode", color_discrete_sequence=px.colors.qualitative.Prism
-        )
-        fig_pie.update_traces(textposition="inside", textinfo="percent+label")
-        st.plotly_chart(fig_pie, use_container_width=True, key="m2_pie_chart")
-
-    st.divider()
-    st.header("Zone & City Mobility Performance")
-    summary_table = (
-        filtered_df.groupby(["state", "city", "transport_mode"], as_index=False)
+if not filtered_monthly.empty and {"year", "month_name", "foreign_tourist_arrivals", "tourism_revenue_crore_inr"}.issubset(filtered_monthly.columns):
+    trend_monthly = (
+        filtered_monthly.groupby(["year", "month_name"], as_index=False)
         .agg(
-            Total_Trips=("trips_completed", "sum"),
-            Vehicles_Available=("vehicles_available", "sum"),
-            Avg_Travel_Time_Min=("avg_travel_time_min", "mean"),
-            On_Time_Pct=("on_time_pct", "mean")
+            foreign_tourist_arrivals=("foreign_tourist_arrivals", "sum"),
+            tourism_revenue_crore_inr=("tourism_revenue_crore_inr", "sum"),
         )
-        .sort_values(by="Total_Trips", ascending=False)
     )
-    summary_table["Avg_Travel_Time_Min"] = summary_table["Avg_Travel_Time_Min"].round(1)
-    summary_table["On_Time_Pct"] = summary_table["On_Time_Pct"].round(1)
-    st.dataframe(summary_table, use_container_width=True, hide_index=True)
+    trend_monthly = month_sort(trend_monthly, "month_name")
 
-    csv_export_m2 = summary_table.to_csv(index=False).encode("utf-8")
-    st.download_button(
-        label="Download Executive Summary CSV",
-        data=csv_export_m2,
-        file_name="executive_mobility_intelligence.csv",
-        mime="text/csv",
-        key="download_m2_csv"
-    )
-    st.caption("Module 2 - Executive Intelligence Dashboards & Mobility Health Analytics")
-    return summary_table
+    with trend1:
+        fig = px.line(trend_monthly, x="month_name", y="foreign_tourist_arrivals", color="year", markers=True)
+        chart_layout(fig, height=350, title="Foreign Tourist Arrivals")
+        st.plotly_chart(fig, use_container_width=True)
+
+    with trend2:
+        fig = px.line(trend_monthly, x="month_name", y="tourism_revenue_crore_inr", color="year", markers=True)
+        chart_layout(fig, height=350, title="Tourism Revenue")
+        st.plotly_chart(fig, use_container_width=True)
+else:
+    with trend1:
+        st.plotly_chart(empty_chart(), use_container_width=True)
+    with trend2:
+        st.plotly_chart(empty_chart(), use_container_width=True)
 
 
-# =====================================================================================
-# RENDER MODULES IN SEQUENCE (MILESTONE 2 FOCUS)
-# =====================================================================================
-m1_data = render_module_1()
-st.markdown("---")
-m2_data = render_module_2()
-
-st.caption("Smart Tourism & Cultural Intelligence Platform - Milestone 2 Final Suite")
+# ============================================================
+# 13. FOOTER
+# ============================================================
+st.markdown(
+    """
+    <div style="margin-top:26px;padding:16px 0 4px 0;border-top:1px solid #30363D;color:#8B949E;font-size:11px;text-align:center;font-family:Helvetica, Arial, sans-serif;">
+        Smart Tourism &amp; Cultural Intelligence Platform • Milestone 2 (Powered by Supabase)
+    </div>
+    """,
+    unsafe_allow_html=True,
+)

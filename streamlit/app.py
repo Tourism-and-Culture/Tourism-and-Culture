@@ -1,5 +1,9 @@
 import streamlit as st
 
+# ============================================================
+# PAGE CONFIG
+# ============================================================
+
 st.set_page_config(
     page_title="Smart Tourism & Cultural Intelligence Platform",
     page_icon="🇮🇳",
@@ -48,15 +52,57 @@ st.markdown(
 )
 
 # ============================================================
-# HEADER
+# SIDEBAR MILESTONE NAVIGATION
+# ============================================================
+
+st.sidebar.title("📚 Project Navigation")
+
+st.sidebar.write("Select a milestone to explore:")
+
+milestone = st.sidebar.selectbox(
+    "Choose Milestone",
+    [
+        "🏠 Home",
+        "📊 Milestone 1",
+        "📈 Milestone 2",
+        "🔮 Milestone 3",
+        "⚡ Milestone 4"
+    ]
+)
+
+# ============================================================
+# MILESTONE NAVIGATION
+# ============================================================
+
+if milestone == "📊 Milestone 1":
+    st.switch_page("pages/milestone1.py")
+
+elif milestone == "📈 Milestone 2":
+    st.switch_page("pages/milestone2.py")
+
+elif milestone == "🔮 Milestone 3":
+    st.switch_page("pages/milestone3.py")
+
+elif milestone == "⚡ Milestone 4":
+    st.switch_page("pages/milestone4.py")
+
+# ============================================================
+# HOME PAGE HEADER
 # ============================================================
 
 st.markdown(
     """
     <div class="center-header">
         <h2>TEAM 1</h2>
-        <h1>Smart Tourism &amp; Cultural Intelligence Platform</h1>
-        <p>Tourism, Cultural Heritage, Mobility &amp; Intelligence Dashboard</p>
+
+        <h1>
+            Smart Tourism &amp; Cultural Intelligence Platform
+        </h1>
+
+        <p>
+            Tourism, Cultural Heritage, Mobility &amp;
+            Intelligence Dashboard
+        </p>
     </div>
     """,
     unsafe_allow_html=True
@@ -75,11 +121,18 @@ st.write(
     This platform brings together all four milestones of the
     Tourism & Cultural Analysis project into one Streamlit application.
 
-    Use the **sidebar** to navigate between the four milestone dashboards.
+    Use the **Choose Milestone** menu in the sidebar to navigate
+    between the four milestone dashboards.
     """
 )
 
 st.divider()
+
+# ============================================================
+# PROJECT MILESTONES
+# ============================================================
+
+st.subheader("Project Milestones")
 
 # ============================================================
 # MILESTONE 1 & 2
@@ -88,34 +141,22 @@ st.divider()
 col1, col2 = st.columns(2)
 
 with col1:
-    st.subheader("📊 Milestone 1")
-
-    st.write(
+    st.markdown(
         """
+        ### 📊 Milestone 1
+
         **Global Tourism Trends, Cultural Attractions &
         Financial Analytics Overview**
         """
     )
 
-    st.page_link(
-        "pages/milestone1.py",
-        label="Open Milestone 1",
-        icon="📊"
-    )
-
 with col2:
-    st.subheader("📈 Milestone 2")
-
-    st.write(
+    st.markdown(
         """
+        ### 📈 Milestone 2
+
         **Mobility Access, Equity & Executive Intelligence**
         """
-    )
-
-    st.page_link(
-        "pages/milestone2.py",
-        label="Open Milestone 2",
-        icon="📈"
     )
 
 # ============================================================
@@ -125,33 +166,21 @@ with col2:
 col3, col4 = st.columns(2)
 
 with col3:
-    st.subheader("🔮 Milestone 3")
-
-    st.write(
+    st.markdown(
         """
+        ### 🔮 Milestone 3
+
         **Demand Intelligence & Visitor Mobility**
         """
     )
 
-    st.page_link(
-        "pages/milestone3.py",
-        label="Open Milestone 3",
-        icon="🔮"
-    )
-
 with col4:
-    st.subheader("⚡ Milestone 4")
-
-    st.write(
+    st.markdown(
         """
+        ### ⚡ Milestone 4
+
         **Equity, Forecasting & Finalization**
         """
-    )
-
-    st.page_link(
-        "pages/milestone4.py",
-        label="Open Milestone 4",
-        icon="⚡"
     )
 
 st.divider()
@@ -163,8 +192,16 @@ st.divider()
 st.markdown(
     """
     <div class="center-footer">
-        <p>Padma Priya • Aditi Dhuria • Madhusri Gone • Chaithanya E V</p>
-        <p>Smart Tourism &amp; Cultural Intelligence Platform - Integrated Milestones 1-4</p>
+
+        <p>
+            Padma Priya • Aditi Dhuria • Madhusri Gone • Chaithanya E V
+        </p>
+
+        <p>
+            Smart Tourism &amp; Cultural Intelligence Platform
+            - Integrated Milestones 1-4
+        </p>
+
     </div>
     """,
     unsafe_allow_html=True

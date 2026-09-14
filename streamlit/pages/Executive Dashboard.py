@@ -515,7 +515,7 @@ with right:
 
 show_section(
     "2 · Demand heatmaps & tourism flows",
-    "These are your original HTML maps. They are saved map views, "
+    "These are our original HTML maps. They are saved map views, "
     "so the dashboard filters do not change their plotted data.",
 )
 

@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_8650f3d0dcddfcfc279c30f48b779a2b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        background: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+    ">
+    Tourism Flow: Top 15 Source Countries → India
+    </div>
+    
+    
+            <div class="folium-map" id="map_8650f3d0dcddfcfc279c30f48b779a2b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_8650f3d0dcddfcfc279c30f48b779a2b = L.map(
+                "map_8650f3d0dcddfcfc279c30f48b779a2b",
+                {
+                    center: [22.9734, 78.6569],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 3,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a29da1d96af71dfdad30b8e9fe889c5a = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_a29da1d96af71dfdad30b8e9fe889c5a.addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            var marker_6e35c01c163a2fff854ce91b7949e892 = L.marker(
+                [22.9734, 78.6569],
+                {
+}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            var icon_622439d8e69f5a218997be1c1d538bc1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "flag",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_edbb0b52b43c16bd566d2eed1cedec7f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8fa254a511d9b1c63d439f6b67b46f93 = $(`<div id="html_8fa254a511d9b1c63d439f6b67b46f93" style="width: 100.0%; height: 100.0%;">India - Tourism Destination</div>`)[0];
+                popup_edbb0b52b43c16bd566d2eed1cedec7f.setContent(html_8fa254a511d9b1c63d439f6b67b46f93);
+            
+        
+
+        marker_6e35c01c163a2fff854ce91b7949e892.bindPopup(popup_edbb0b52b43c16bd566d2eed1cedec7f)
+        ;
+
+        
+    
+    
+            marker_6e35c01c163a2fff854ce91b7949e892.bindTooltip(
+                `<div>
+                     India
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6e35c01c163a2fff854ce91b7949e892.setIcon(icon_622439d8e69f5a218997be1c1d538bc1);
+            
+    
+            var circle_marker_e9a596e8fe7769d272d63703c4f6e115 = L.circleMarker(
+                [37.0902, -95.7129],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 13.0, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_f803854ed68aa03f6cb3125c26bd8ded = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_00762f4b3c1658d46cd0764893b5b6ef = $(`<div id="html_00762f4b3c1658d46cd0764893b5b6ef" style="width: 100.0%; height: 100.0%;"><b>United States</b><br>Tourist Arrivals: 120,000</div>`)[0];
+                popup_f803854ed68aa03f6cb3125c26bd8ded.setContent(html_00762f4b3c1658d46cd0764893b5b6ef);
+            
+        
+
+        circle_marker_e9a596e8fe7769d272d63703c4f6e115.bindPopup(popup_f803854ed68aa03f6cb3125c26bd8ded)
+        ;
+
+        
+    
+    
+            circle_marker_e9a596e8fe7769d272d63703c4f6e115.bindTooltip(
+                `<div>
+                     United States
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_7e22ff481acee79d6f7e3e0d392c8a05 = L.polyline(
+                [[37.0902, -95.7129], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 9.0}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_7e22ff481acee79d6f7e3e0d392c8a05.bindTooltip(
+                `<div>
+                     United States → India | 120,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_869b8f2989017c0a1abe9ec641adb9ad = L.circleMarker(
+                [55.3781, -3.436],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12.333333333333332, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_4b5743101d0ba9a70b3a86a7bae31c8f = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_11cb0007a52fc89144629742636faa60 = $(`<div id="html_11cb0007a52fc89144629742636faa60" style="width: 100.0%; height: 100.0%;"><b>United Kingdom</b><br>Tourist Arrivals: 110,000</div>`)[0];
+                popup_4b5743101d0ba9a70b3a86a7bae31c8f.setContent(html_11cb0007a52fc89144629742636faa60);
+            
+        
+
+        circle_marker_869b8f2989017c0a1abe9ec641adb9ad.bindPopup(popup_4b5743101d0ba9a70b3a86a7bae31c8f)
+        ;
+
+        
+    
+    
+            circle_marker_869b8f2989017c0a1abe9ec641adb9ad.bindTooltip(
+                `<div>
+                     United Kingdom
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_23d3df5b61cdb0f7d5690dae575ffaf4 = L.polyline(
+                [[55.3781, -3.436], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 8.333333333333332}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_23d3df5b61cdb0f7d5690dae575ffaf4.bindTooltip(
+                `<div>
+                     United Kingdom → India | 110,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d678f05d06eada83c0ee92359aeeba30 = L.circleMarker(
+                [23.4241, 53.8478],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.333333333333332, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_7233cefb462f927bd6144c052852385a = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_9f5f00fea3d26e9319f370dc20a6e1b9 = $(`<div id="html_9f5f00fea3d26e9319f370dc20a6e1b9" style="width: 100.0%; height: 100.0%;"><b>Uae</b><br>Tourist Arrivals: 95,000</div>`)[0];
+                popup_7233cefb462f927bd6144c052852385a.setContent(html_9f5f00fea3d26e9319f370dc20a6e1b9);
+            
+        
+
+        circle_marker_d678f05d06eada83c0ee92359aeeba30.bindPopup(popup_7233cefb462f927bd6144c052852385a)
+        ;
+
+        
+    
+    
+            circle_marker_d678f05d06eada83c0ee92359aeeba30.bindTooltip(
+                `<div>
+                     Uae
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_a004533254e5682abf9e416f858e2390 = L.polyline(
+                [[23.4241, 53.8478], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 7.333333333333333}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_a004533254e5682abf9e416f858e2390.bindTooltip(
+                `<div>
+                     Uae → India | 95,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_cba51696d2ec2ef4e7d9e7cdb1134865 = L.circleMarker(
+                [28.3949, 84.124],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 11.0, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_a4fe4f8aa2f0d39ced71e083f64fdda1 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5202e27e09da045f721b15e3b0aaa8d1 = $(`<div id="html_5202e27e09da045f721b15e3b0aaa8d1" style="width: 100.0%; height: 100.0%;"><b>Nepal</b><br>Tourist Arrivals: 90,000</div>`)[0];
+                popup_a4fe4f8aa2f0d39ced71e083f64fdda1.setContent(html_5202e27e09da045f721b15e3b0aaa8d1);
+            
+        
+
+        circle_marker_cba51696d2ec2ef4e7d9e7cdb1134865.bindPopup(popup_a4fe4f8aa2f0d39ced71e083f64fdda1)
+        ;
+
+        
+    
+    
+            circle_marker_cba51696d2ec2ef4e7d9e7cdb1134865.bindTooltip(
+                `<div>
+                     Nepal
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_c13f481aacba1061a94e4b29ba52bf81 = L.polyline(
+                [[28.3949, 84.124], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 7.0}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_c13f481aacba1061a94e4b29ba52bf81.bindTooltip(
+                `<div>
+                     Nepal → India | 90,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4e7f7744be02c92999979a98b1f6cb86 = L.circleMarker(
+                [-25.2744, 133.7751],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.666666666666668, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_52272d0f45ca39064b580c927a98d8f4 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_072a662d39a032ad74b665268905bc64 = $(`<div id="html_072a662d39a032ad74b665268905bc64" style="width: 100.0%; height: 100.0%;"><b>Australia</b><br>Tourist Arrivals: 85,000</div>`)[0];
+                popup_52272d0f45ca39064b580c927a98d8f4.setContent(html_072a662d39a032ad74b665268905bc64);
+            
+        
+
+        circle_marker_4e7f7744be02c92999979a98b1f6cb86.bindPopup(popup_52272d0f45ca39064b580c927a98d8f4)
+        ;
+
+        
+    
+    
+            circle_marker_4e7f7744be02c92999979a98b1f6cb86.bindTooltip(
+                `<div>
+                     Australia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_b1318c8bed9313eed1e29a61865e775f = L.polyline(
+                [[-25.2744, 133.7751], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 6.666666666666667}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_b1318c8bed9313eed1e29a61865e775f.bindTooltip(
+                `<div>
+                     Australia → India | 85,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4890968606bfaaa54864253e59a3f1a5 = L.circleMarker(
+                [23.685, 90.3563],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 10.333333333333332, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_96e2add962610e3f18246cdfeadd938b = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c07757eaf4b9345dbda2f7da0c6c33dc = $(`<div id="html_c07757eaf4b9345dbda2f7da0c6c33dc" style="width: 100.0%; height: 100.0%;"><b>Bangladesh</b><br>Tourist Arrivals: 80,000</div>`)[0];
+                popup_96e2add962610e3f18246cdfeadd938b.setContent(html_c07757eaf4b9345dbda2f7da0c6c33dc);
+            
+        
+
+        circle_marker_4890968606bfaaa54864253e59a3f1a5.bindPopup(popup_96e2add962610e3f18246cdfeadd938b)
+        ;
+
+        
+    
+    
+            circle_marker_4890968606bfaaa54864253e59a3f1a5.bindTooltip(
+                `<div>
+                     Bangladesh
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_3f6b2718b106aa7be566f830bac1e84f = L.polyline(
+                [[23.685, 90.3563], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 6.333333333333333}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_3f6b2718b106aa7be566f830bac1e84f.bindTooltip(
+                `<div>
+                     Bangladesh → India | 80,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4842d24aaed30d9e5bf8b65804228d74 = L.circleMarker(
+                [56.1304, -106.3468],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.666666666666668, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_51c73882571d6b1779cc44bdf1967659 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_4ab70d49b5212f0d571e26ec0ad2e87b = $(`<div id="html_4ab70d49b5212f0d571e26ec0ad2e87b" style="width: 100.0%; height: 100.0%;"><b>Canada</b><br>Tourist Arrivals: 70,000</div>`)[0];
+                popup_51c73882571d6b1779cc44bdf1967659.setContent(html_4ab70d49b5212f0d571e26ec0ad2e87b);
+            
+        
+
+        circle_marker_4842d24aaed30d9e5bf8b65804228d74.bindPopup(popup_51c73882571d6b1779cc44bdf1967659)
+        ;
+
+        
+    
+    
+            circle_marker_4842d24aaed30d9e5bf8b65804228d74.bindTooltip(
+                `<div>
+                     Canada
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_06886e2beddabcf12f10dd68d3fe8612 = L.polyline(
+                [[56.1304, -106.3468], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 5.666666666666667}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_06886e2beddabcf12f10dd68d3fe8612.bindTooltip(
+                `<div>
+                     Canada → India | 70,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_519e06e1584424924acfc7a1312978a3 = L.circleMarker(
+                [7.8731, 80.7718],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.666666666666668, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_bf6ead29b45aca420342cb6ab05cdf69 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c8dd8a93752cfc451f8ade5bd9961418 = $(`<div id="html_c8dd8a93752cfc451f8ade5bd9961418" style="width: 100.0%; height: 100.0%;"><b>Sri Lanka</b><br>Tourist Arrivals: 70,000</div>`)[0];
+                popup_bf6ead29b45aca420342cb6ab05cdf69.setContent(html_c8dd8a93752cfc451f8ade5bd9961418);
+            
+        
+
+        circle_marker_519e06e1584424924acfc7a1312978a3.bindPopup(popup_bf6ead29b45aca420342cb6ab05cdf69)
+        ;
+
+        
+    
+    
+            circle_marker_519e06e1584424924acfc7a1312978a3.bindTooltip(
+                `<div>
+                     Sri Lanka
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_f5fe5942cc578fa74de002120b1b0bc8 = L.polyline(
+                [[7.8731, 80.7718], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 5.666666666666667}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_f5fe5942cc578fa74de002120b1b0bc8.bindTooltip(
+                `<div>
+                     Sri Lanka → India | 70,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d282895110d053345a54bec2da573669 = L.circleMarker(
+                [51.1657, 10.4515],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.333333333333332, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_308ffc929b59c53a78956435b7250912 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8dc9adfdd4b724c51b07f83e550ad305 = $(`<div id="html_8dc9adfdd4b724c51b07f83e550ad305" style="width: 100.0%; height: 100.0%;"><b>Germany</b><br>Tourist Arrivals: 65,000</div>`)[0];
+                popup_308ffc929b59c53a78956435b7250912.setContent(html_8dc9adfdd4b724c51b07f83e550ad305);
+            
+        
+
+        circle_marker_d282895110d053345a54bec2da573669.bindPopup(popup_308ffc929b59c53a78956435b7250912)
+        ;
+
+        
+    
+    
+            circle_marker_d282895110d053345a54bec2da573669.bindTooltip(
+                `<div>
+                     Germany
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_558d6f5889655c0296b28a0c52675573 = L.polyline(
+                [[51.1657, 10.4515], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 5.333333333333333}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_558d6f5889655c0296b28a0c52675573.bindTooltip(
+                `<div>
+                     Germany → India | 65,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ec4d66e710c8fd5fbf1604d48b952de1 = L.circleMarker(
+                [46.2276, 2.2137],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 9.0, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_d8239a0dc427be703147c59972433bfc = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_5f462fd3b25df6b8ba86f83f3e1b5bbe = $(`<div id="html_5f462fd3b25df6b8ba86f83f3e1b5bbe" style="width: 100.0%; height: 100.0%;"><b>France</b><br>Tourist Arrivals: 60,000</div>`)[0];
+                popup_d8239a0dc427be703147c59972433bfc.setContent(html_5f462fd3b25df6b8ba86f83f3e1b5bbe);
+            
+        
+
+        circle_marker_ec4d66e710c8fd5fbf1604d48b952de1.bindPopup(popup_d8239a0dc427be703147c59972433bfc)
+        ;
+
+        
+    
+    
+            circle_marker_ec4d66e710c8fd5fbf1604d48b952de1.bindTooltip(
+                `<div>
+                     France
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_39e6b63c90de8f3e94ec799c85dab0b4 = L.polyline(
+                [[46.2276, 2.2137], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 5.0}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_39e6b63c90de8f3e94ec799c85dab0b4.bindTooltip(
+                `<div>
+                     France → India | 60,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_71d64f58d93a46354f9e101a1400261f = L.circleMarker(
+                [1.3521, 103.8198],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.666666666666666, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_56d44ff354547eaf7fe7fc9786311051 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cdc3c781a49c63f83d390974dca67a29 = $(`<div id="html_cdc3c781a49c63f83d390974dca67a29" style="width: 100.0%; height: 100.0%;"><b>Singapore</b><br>Tourist Arrivals: 55,000</div>`)[0];
+                popup_56d44ff354547eaf7fe7fc9786311051.setContent(html_cdc3c781a49c63f83d390974dca67a29);
+            
+        
+
+        circle_marker_71d64f58d93a46354f9e101a1400261f.bindPopup(popup_56d44ff354547eaf7fe7fc9786311051)
+        ;
+
+        
+    
+    
+            circle_marker_71d64f58d93a46354f9e101a1400261f.bindTooltip(
+                `<div>
+                     Singapore
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_36ae2ea52eecab952231e724b797a20b = L.polyline(
+                [[1.3521, 103.8198], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 4.666666666666666}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_36ae2ea52eecab952231e724b797a20b.bindTooltip(
+                `<div>
+                     Singapore → India | 55,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_a9cb01f767b84815e722964b037a9611 = L.circleMarker(
+                [4.2105, 101.9758],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.333333333333334, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_7b5992dbeddc250121b899bbc17ed303 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_45902a3244488c8841156ec8ac9c300e = $(`<div id="html_45902a3244488c8841156ec8ac9c300e" style="width: 100.0%; height: 100.0%;"><b>Malaysia</b><br>Tourist Arrivals: 50,000</div>`)[0];
+                popup_7b5992dbeddc250121b899bbc17ed303.setContent(html_45902a3244488c8841156ec8ac9c300e);
+            
+        
+
+        circle_marker_a9cb01f767b84815e722964b037a9611.bindPopup(popup_7b5992dbeddc250121b899bbc17ed303)
+        ;
+
+        
+    
+    
+            circle_marker_a9cb01f767b84815e722964b037a9611.bindTooltip(
+                `<div>
+                     Malaysia
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_efa8ddb229a6e3d378e6a876362bc1e6 = L.polyline(
+                [[4.2105, 101.9758], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 4.333333333333334}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_efa8ddb229a6e3d378e6a876362bc1e6.bindTooltip(
+                `<div>
+                     Malaysia → India | 50,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_707db441666b9e00bcaa173d6865a41a = L.circleMarker(
+                [36.2048, 138.2529],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8.0, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_18331fa1beaf5034c4d48dec14e49b14 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_e5056cdbbbe06014650a461b0f2f5743 = $(`<div id="html_e5056cdbbbe06014650a461b0f2f5743" style="width: 100.0%; height: 100.0%;"><b>Japan</b><br>Tourist Arrivals: 45,000</div>`)[0];
+                popup_18331fa1beaf5034c4d48dec14e49b14.setContent(html_e5056cdbbbe06014650a461b0f2f5743);
+            
+        
+
+        circle_marker_707db441666b9e00bcaa173d6865a41a.bindPopup(popup_18331fa1beaf5034c4d48dec14e49b14)
+        ;
+
+        
+    
+    
+            circle_marker_707db441666b9e00bcaa173d6865a41a.bindTooltip(
+                `<div>
+                     Japan
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_e7c0a94dcc32997841358d23b1468ac7 = L.polyline(
+                [[36.2048, 138.2529], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 4.0}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_e7c0a94dcc32997841358d23b1468ac7.bindTooltip(
+                `<div>
+                     Japan → India | 45,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_d132815a65c58d4bb10fdaf3c1b301bb = L.circleMarker(
+                [15.87, 100.9925],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 7.666666666666666, "stroke": true, "weight": 3}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+        var popup_bdecc51e391650ced5d80eae28d11452 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_0c9459fce64c12142c0ff01db9a6c04d = $(`<div id="html_0c9459fce64c12142c0ff01db9a6c04d" style="width: 100.0%; height: 100.0%;"><b>Thailand</b><br>Tourist Arrivals: 40,000</div>`)[0];
+                popup_bdecc51e391650ced5d80eae28d11452.setContent(html_0c9459fce64c12142c0ff01db9a6c04d);
+            
+        
+
+        circle_marker_d132815a65c58d4bb10fdaf3c1b301bb.bindPopup(popup_bdecc51e391650ced5d80eae28d11452)
+        ;
+
+        
+    
+    
+            circle_marker_d132815a65c58d4bb10fdaf3c1b301bb.bindTooltip(
+                `<div>
+                     Thailand
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var poly_line_8e3ee2440ded87b1538d7c28450ad4ef = L.polyline(
+                [[15.87, 100.9925], [22.9734, 78.6569]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.55, "smoothFactor": 1.0, "stroke": true, "weight": 3.6666666666666665}
+            ).addTo(map_8650f3d0dcddfcfc279c30f48b779a2b);
+        
+    
+            poly_line_8e3ee2440ded87b1538d7c28450ad4ef.bindTooltip(
+                `<div>
+                     Thailand → India | 40,000 arrivals
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

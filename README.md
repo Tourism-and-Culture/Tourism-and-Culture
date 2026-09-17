@@ -136,9 +136,12 @@ The platform uses a galaxy schema containing shared dimensions and multiple fact
 - Introduce trained forecasting models and model evaluation metrics.
 - Integrate real-time mobility, weather, traffic, and crowd-density feeds.
 
+## Live Application
+🚀 **Explore the live platform here:** [https://tourism-and-culture.streamlit.app/](https://tourism-and-culture.streamlit.app/)
+
 ## Team (Team 1)
 
-- Padma Priya *Team Lead*
+- Padma Priya *(Team Lead)*
 - Aditi Dhuria
 - Madhusri Gone
 - Chaithanya E V

@@ -126,28 +126,28 @@ The platform uses a galaxy schema containing shared dimensions and multiple fact
 
 ## Limitations
 
-- Some operational dashboards analyze the first page of rows returned by Supabase unless pagination is implemented[cite: 12].
-- Milestone 3 transport and modal-shift data include synthetic or simulated project data[cite: 12].
-- Forecasting is based on historical rolling patterns and is not a trained machine-learning model[cite: 12].
+- Some operational dashboards analyze the first page of rows returned by Supabase unless pagination is implemented.
+- Milestone 3 transport and modal-shift data include synthetic or simulated project data.
+- Forecasting is based on historical rolling patterns and is not a trained machine-learning model.
 
 ## Future Enhancements
 
-- Add pagination to analyze complete Supabase tables[cite: 12].
-- Introduce trained forecasting models and model evaluation metrics[cite: 12].
-- Integrate real-time mobility, weather, traffic, and crowd-density feeds[cite: 12].
+- Add pagination to analyze complete Supabase tables.
+- Introduce trained forecasting models and model evaluation metrics.
+- Integrate real-time mobility, weather, traffic, and crowd-density feeds.
 
 ## Team (Team 1)
 
-- Padma Priya[cite: 3, 10, 12]
-- Aditi Dhuria[cite: 3, 10, 12]
-- Madhusri Gone[cite: 3, 10, 12]
-- Chaithanya E V[cite: 3, 10, 12]
-- Raj Chandravanshi[cite: 6, 12]
+- Padma Priya *Team Lead*
+- Aditi Dhuria
+- Madhusri Gone
+- Chaithanya E V
+- Raj Chandravanshi
 
 ## Academic Context
 
-This project was developed as a team internship project on smart urban tourism and cultural intelligence[cite: 12].
+This project was developed as a team internship project on smart urban tourism and cultural intelligence.
 
 ## License
 
-This project is intended for academic and internship evaluation[cite: 12].
+This project is intended for academic and internship evaluation.

@@ -2,7 +2,6 @@ from pathlib import Path
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 import streamlit as st
 import folium
 from folium.plugins import HeatMap
@@ -10,22 +9,22 @@ from streamlit_folium import st_folium
 from supabase import create_client, Client
 
 
-# ============================================================
-# 1. PAGE CONFIGURATION
-# ============================================================
+# page setup
 st.set_page_config(
-    page_title="Smart Tourism & Cultural Intelligence Platform",
+    page_title="Smart Urban Mobility and Traffic Intelligence — Milestone 2",
     page_icon="🇮🇳",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
 
-# ============================================================
-# 2. SUPABASE CONNECTION & CONFIGURATION (SECRETS ONLY)
-# ============================================================
-SUPABASE_URL = st.secrets["supabase"]["url"]
-SUPABASE_KEY = st.secrets["supabase"]["key"]
+# connect to supabase
+try:
+    SUPABASE_URL = st.secrets.get("SUPABASE_URL") or st.secrets["supabase"]["url"]
+    SUPABASE_KEY = st.secrets.get("SUPABASE_KEY") or st.secrets["supabase"]["key"]
+except Exception:
+    st.error("Supabase secrets are missing. Configure SUPABASE_URL and SUPABASE_KEY.")
+    st.stop()
 
 @st.cache_resource
 def init_supabase() -> Client:
@@ -34,9 +33,7 @@ def init_supabase() -> Client:
 supabase = init_supabase()
 
 
-# ============================================================
-# 3. LOAD DATA DIRECTLY FROM SUPABASE TABLES
-# ============================================================
+# load data from supabase
 @st.cache_data(ttl=600)
 def load_data():
     def fetch_table(table_name):
@@ -190,9 +187,7 @@ weather = data["weather"]
 dim_time = data["dim_time"]
 
 
-# ============================================================
-# 4. HELPER FUNCTIONS
-# ============================================================
+# 
 COLORS = {
     "cyan": "#58A6FF", "blue": "#1F6FEB", "teal": "#3FB950",
     "gold": "#D29922", "green": "#238636", "red": "#DA3633",
@@ -255,9 +250,7 @@ def empty_chart(message="No data available for the selected filters."):
     return fig
 
 
-# ============================================================
-# 5. SIDEBAR FILTERS
-# ============================================================
+# sidebar filters
 st.sidebar.title("🔍 Filters")
 st.sidebar.markdown("Configure global parameters to filter tourism & cultural metrics.")
 
@@ -278,6 +271,7 @@ selected_season = st.sidebar.selectbox(
     "Select Season",
     ["All", "Peak Season", "Off-Peak Season"],
 )
+st.sidebar.caption("Peak Season: October–March · Off-Peak Season: April–September")
 
 st.sidebar.subheader("State")
 states = ["All"] + sorted(attr["state"].dropna().astype(str).unique()) if "state" in attr.columns else ["All"]
@@ -313,9 +307,7 @@ st.sidebar.markdown("---")
 st.sidebar.caption("Source: Live Supabase database integration.")
 
 
-# ============================================================
-# 6. APPLY FILTERS
-# ============================================================
+# apply filters
 filtered_attr = attr.copy()
 if selected_state != "All" and "state" in filtered_attr.columns:
     filtered_attr = filtered_attr[filtered_attr["state"] == selected_state]
@@ -371,15 +363,13 @@ if selected_city != "All" and "city" in filtered_weather.columns:
     ]
 
 
-# ============================================================
-# 7. HEADER BLOCK
-# ============================================================
+# header
 st.markdown(
     """
     <div style='text-align:center; padding-top: 0.5rem;'>
         <h1 style='font-family: Helvetica, Arial, sans-serif; font-weight: 700;
                     font-size: 2.6rem; margin-bottom: 0.2rem;'>
-            Smart Tourism &amp; Cultural Intelligence Platform
+            Smart Urban Mobility and Traffic Intelligence Dashboard
         </h1>
         <h3 style='font-family: Helvetica, Arial, sans-serif; font-weight: 600;
                     font-size: 1.1rem; letter-spacing: 2px; color: #6b6b6b; margin: 0.2rem 0;'>
@@ -387,6 +377,7 @@ st.markdown(
         </h3>
         <h4 style='font-family: Helvetica, Arial, sans-serif; font-weight: 400;
                     font-size: 1rem; color: #8a8a8a; margin-top: 0;'>
+            Tourism &amp; Cultural Intelligence Use Case<br>
             Geospatial, Weather &amp; Transit Analytics
         </h4>
     </div>
@@ -396,9 +387,7 @@ st.markdown(
 st.divider()
 
 
-# ============================================================
-# 8. KPI CARDS
-# ============================================================
+# KPI calculations
 total_places = len(filtered_attr)
 avg_rating = filtered_attr["google_rating"].mean() if not filtered_attr.empty and "google_rating" in filtered_attr.columns else 0
 avg_fee = filtered_attr["entry_fee"].mean() if not filtered_attr.empty and "entry_fee" in filtered_attr.columns else 0
@@ -424,11 +413,13 @@ k5.metric("Tourism Revenue", f"₹{revenue:,.0f} Cr")
 k6.metric("Festival Records", format_number(festival_count))
 
 
-# ============================================================
-# 9. MAIN DEMAND & GEOGRAPHY
-# ============================================================
+# demand and geographic intelligence
 st.markdown(
     '<div class="section-title">Demand & Geographic Intelligence</div>',
+    unsafe_allow_html=True,
+)
+st.markdown(
+    '<div class="section-note">Attraction density, location distribution and geographic drill-down.</div>',
     unsafe_allow_html=True,
 )
 
@@ -505,9 +496,7 @@ with cat_col:
         st.plotly_chart(empty_chart(), use_container_width=True)
 
 
-# ============================================================
-# 10. TOP PLACES + VALUE ANALYSIS
-# ============================================================
+# top places visit and value analysis
 st.markdown('<div class="section-title">Attraction Performance</div>', unsafe_allow_html=True)
 left, right = st.columns([1, 1])
 
@@ -567,9 +556,7 @@ with right:
         st.info("No records available.")
 
 
-# ============================================================
-# 11. TOURISM DEMAND & ECONOMIC TRENDS
-# ============================================================
+# FTAs and Revenue
 st.markdown('<div class="section-title">Tourism Demand & Economic Trends</div>', unsafe_allow_html=True)
 trend1, trend2 = st.columns(2)
 
@@ -599,111 +586,91 @@ else:
         st.plotly_chart(empty_chart(), use_container_width=True)
 
 
-# ============================================================
-# 12. GEOGRAPHICAL DRILL-DOWN ANALYSIS TABLE
-# ============================================================
-st.markdown('<div class="section-title">Geographical Drill-Down Analysis</div>', unsafe_allow_html=True)
+# original Looker Studio implementation evidence
+st.markdown(
+    '<div class="section-title">Original Looker Studio Prototype</div>',
+    unsafe_allow_html=True,
+)
+st.caption(
+    "Milestone 2 was initially developed in Looker Studio for geographical "
+    "drill-down, site-performance analysis, weather overlays and tourism-demand "
+    "mapping. The team later migrated the implementation to Streamlit so all five "
+    "members could contribute separate milestone modules and combine them in one "
+    "Executive Dashboard. These screenshots document the original prototype; the "
+    "interactive Streamlit sections above use the current validated Supabase data."
+)
 
-if not filtered_attr.empty and {"state", "google_rating", "entry_fee"}.issubset(filtered_attr.columns):
-    geo_table_df = (
-        filtered_attr.groupby("state", as_index=False)
-        .agg(
-            attraction_count=("place_name", "count"),
-            google_rating=("google_rating", "mean"),
-            entry_fee=("entry_fee", "mean")
-        )
-        .sort_values(by="attraction_count", ascending=False)
-    )
-    geo_table_df["google_rating"] = geo_table_df["google_rating"].round(2)
-    geo_table_df["entry_fee"] = geo_table_df["entry_fee"].round(2)
-    
-    st.dataframe(
-        geo_table_df,
-        column_config={
-            "state": "State / Region",
-            "attraction_count": "Attractions",
-            "google_rating": st.column_config.NumberColumn("Avg Google Rating", format="%.2f ⭐️"),
-            "entry_fee": st.column_config.NumberColumn("Avg Entry Fee", format="₹ %.2f")
-        },
+BASE_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = BASE_DIR.parent if BASE_DIR.name == "pages" else BASE_DIR
+
+
+def find_prototype_image(filename):
+    """Find prototype images whether zz2.py is in the root or pages folder."""
+    candidates = [
+        PROJECT_ROOT / "images" / filename,
+        PROJECT_ROOT / filename,
+        BASE_DIR / "images" / filename,
+        BASE_DIR / filename,
+    ]
+    return next((path for path in candidates if path.exists()), None)
+
+
+prototype_images = {
+    "overview": find_prototype_image("looker_studio_milestone2_overview.png"),
+    "weather": find_prototype_image("looker_studio_weather_overlays.png"),
+    "geography": find_prototype_image("looker_studio_geographical_drilldown.png"),
+    "performance": find_prototype_image("looker_studio_site_performance.png"),
+}
+
+if prototype_images["overview"]:
+    st.image(
+        str(prototype_images["overview"]),
+        caption="Milestone 2 — Original Looker Studio overview",
         use_container_width=True,
-        hide_index=True
     )
 else:
-    st.info("No geographical drill-down data available for selected filters.")
-
-
-# ============================================================
-# 13. WEATHER OVERLAYS AND TEMPORAL ANALYSIS
-# ============================================================
-st.markdown('<div class="section-title">Weather Overlays and Temporal Analysis</div>', unsafe_allow_html=True)
-
-if not filtered_weather.empty and {"month", "temp_c", "foreign_tourist_arrivals"}.issubset(filtered_weather.columns):
-    weather_agg = (
-        filtered_weather.groupby("month", as_index=False)
-        .agg({
-            "temp_c": "mean",
-            "foreign_tourist_arrivals": "sum",
-            "rainfall_mm": "mean"
-        })
+    st.info(
+        "Add `looker_studio_milestone2_overview.png` to the repository's "
+        "`images` folder to display the original Looker Studio overview."
     )
-    weather_agg = month_sort(weather_agg, "month")
 
-    fig_weather = make_subplots(specs=[[{"secondary_y": True}]])
-
-    fig_weather.add_trace(
-        go.Bar(
-            x=weather_agg["month"],
-            y=weather_agg["foreign_tourist_arrivals"],
-            name="Tourist Arrivals",
-            marker_color=COLORS["blue"],
-            opacity=0.75
+with st.expander("View detailed Looker Studio prototype screens"):
+    detail_specs = [
+        (
+            "weather",
+            "Weather Overlays and Temporal Filters",
+            "looker_studio_weather_overlays.png",
         ),
-        secondary_y=False,
-    )
-
-    fig_weather.add_trace(
-        go.Scatter(
-            x=weather_agg["month"],
-            y=weather_agg["temp_c"],
-            name="Avg Temperature (°C)",
-            mode="lines+markers",
-            line=dict(color="#FFD33D", width=3),  # Brighter gold and thicker line
-            marker=dict(size=6)
+        (
+            "geography",
+            "Geographical Drill-Down Analysis",
+            "looker_studio_geographical_drilldown.png",
         ),
-        secondary_y=True,
-    )
-
-    fig_weather.update_layout(
-        title=dict(
-            text="Monthly Tourist Arrivals vs. Temperature Overlays",
-            x=0.02,
-            xanchor="left",
-            font=dict(size=14, color=COLORS["text"], family="Helvetica, Arial, sans-serif")
+        (
+            "performance",
+            "Site Performance and Reliability",
+            "looker_studio_site_performance.png",
         ),
-        height=380,
-        paper_bgcolor=COLORS["panel"],
-        plot_bgcolor=COLORS["panel"],
-        font=dict(color=COLORS["text"], size=11, family="Helvetica, Arial, sans-serif"),
-        legend=dict(orientation="h", yanchor="bottom", y=1.02, x=0, font=dict(color=COLORS["muted"], size=10)),
-        margin=dict(l=65, r=65, t=55, b=55),
-        hoverlabel=dict(bgcolor="#21262D", bordercolor="#30363D", font_color="#FFFFFF"),
-    )
-    fig_weather.update_xaxes(gridcolor=COLORS["grid"], zeroline=False, tickfont=dict(color=COLORS["muted"]), linecolor="#30363D")
-    fig_weather.update_yaxes(title_text="Tourist Arrivals", secondary_y=False, gridcolor=COLORS["grid"], zeroline=False, tickfont=dict(color=COLORS["muted"]), linecolor="#30363D")
-    fig_weather.update_yaxes(title_text="Temperature (°C)", secondary_y=True, gridcolor="rgba(0,0,0,0)", zeroline=False, tickfont=dict(color=COLORS["muted"]), linecolor="rgba(0,0,0,0)")
+    ]
 
-    st.plotly_chart(fig_weather, use_container_width=True)
-else:
-    st.info("No weather overlay data available for the selected filters.")
+    for image_key, caption, filename in detail_specs:
+        image_path = prototype_images[image_key]
+        if image_path:
+            st.image(str(image_path), caption=caption, use_container_width=True)
+        else:
+            st.warning(f"Missing prototype image: `images/{filename}`")
+
+st.caption(
+    "Prototype screenshots are retained as implementation evidence. Values shown "
+    "inside the screenshots may reflect the earlier Looker Studio data snapshot."
+)
 
 
-# ============================================================
-# 14. FOOTER
-# ============================================================
+# footer
 st.markdown(
     """
     <div style="margin-top:26px;padding:16px 0 4px 0;border-top:1px solid #30363D;color:#8B949E;font-size:11px;text-align:center;font-family:Helvetica, Arial, sans-serif;">
-        Smart Tourism &amp; Cultural Intelligence Platform • Milestone 2 (Powered by Supabase)
+        Smart Urban Mobility and Traffic Intelligence Dashboard • Tourism and Cultural Use Case • Milestone 2
     </div>
     """,
     unsafe_allow_html=True,

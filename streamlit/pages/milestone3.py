@@ -5,23 +5,19 @@ import plotly.express as px
 import plotly.graph_objects as go
 from supabase import create_client
 
-# =====================================================================================
-# PAGE CONFIG 
-# =====================================================================================
+# page setup
 st.set_page_config(
-    page_title="Smart Tourism & Cultural Intelligence Platform",
+    page_title="Smart Urban Mobility and Traffic Intelligence Dashboard",
     layout="wide"
 )
 
-# =====================================================================================
-# HEADER BLOCK
-# =====================================================================================
+# header
 st.markdown(
     """
     <div style='text-align:center; padding-top: 0.5rem;'>
         <h1 style='font-family: Helvetica, Arial, sans-serif; font-weight: 700;
                     font-size: 2.6rem; margin-bottom: 0.2rem;'>
-            Smart Tourism &amp; Cultural Intelligence Platform
+            Smart Urban Mobility and Traffic Intelligence Dashboard
         </h1>
         <h3 style='font-family: Helvetica, Arial, sans-serif; font-weight: 600;
                     font-size: 1.1rem; letter-spacing: 2px; color: #6b6b6b; margin: 0.2rem 0;'>
@@ -29,7 +25,8 @@ st.markdown(
         </h3>
         <h4 style='font-family: Helvetica, Arial, sans-serif; font-weight: 400;
                     font-size: 1rem; color: #8a8a8a; margin-top: 0;'>
-            Demand Intelligence &amp; Visitor Mobility
+            Tourism &amp; Cultural Intelligence Use Case<br>
+            Demand, Mobility &amp; Traffic Intelligence
         </h4>
     </div>
     """,
@@ -37,14 +34,13 @@ st.markdown(
 )
 st.divider()
 
-# =====================================================================================
-# MODULE 1 — Visit & Booking Intelligence 
-# =====================================================================================
+# module1 visit and booking intelligence
 def render_module_1():
     st.header("🏛️ Module 1: Visit & Booking Intelligence")
     st.write("Comprehensive analysis of hourly visitor demand, booking status, entry queue wait times, and site bottlenecks.")
     st.caption("Member 1: Padma Priya")
 
+# connect to supabase
     SUPABASE_URL = st.secrets.get("MODULE1_SUPABASE_URL", "https://megkqranyjwtlmfnejky.supabase.co")
     SUPABASE_KEY = st.secrets.get("MODULE1_SUPABASE_SERVICE_KEY", None)
 
@@ -88,6 +84,7 @@ def render_module_1():
 
     df_visits = load_module1_data()
 
+# module1 filters
     st.sidebar.header("Module 1 Filters")
 
     if not df_visits.empty and 'city' in df_visits.columns:
@@ -119,7 +116,7 @@ def render_module_1():
 
     st.markdown("---")
 
-    # Chart 1: Hourly Visitor Demand
+  # Chart 1: Hourly Visitor Demand
     st.subheader("⏰ 1. Hourly Visitor Demand & Peak Arrival Windows")
     if not filtered_visits.empty and 'hour' in filtered_visits.columns:
         df_hourly = filtered_visits.groupby("hour")["total_bookings"].sum().reset_index(name="visitor_count")
@@ -136,7 +133,7 @@ def render_module_1():
 
     st.markdown("---")
 
-    # Chart 2: Booking Completion vs. Cancellation Status by Monument
+  # Chart 2: Booking Completion vs. Cancellation Status by Monument
     st.subheader("📊 2. Booking Completion vs. Cancellation by Monument")
     if not filtered_visits.empty and 'place_name' in filtered_visits.columns:
         df_status = filtered_visits.groupby("place_name")[['completed_visits', 'cancelled_visits']].sum().reset_index().head(20)
@@ -159,7 +156,7 @@ def render_module_1():
 
     st.markdown("---")
 
-    # Chart 3: Entry Queue Bottlenecks & Wait Times
+  # Chart 3: Entry Queue Bottlenecks & Wait Times
     st.subheader("⌛ 3. Entry Queue Congestion & Wait Times by Site")
     if not filtered_visits.empty and 'place_name' in filtered_visits.columns:
         df_queue = filtered_visits.groupby("place_name")["avg_wait_time_mins"].mean().reset_index().head(20)
@@ -175,7 +172,7 @@ def render_module_1():
 
     st.markdown("---")
 
-    # Chart 4: Cancellation Rate Risk Analysis Scatter (FIXED)
+  # Chart 4: Cancellation Rate Risk Analysis Scatter 
     st.subheader("⚠️ 4. Cancellation Rate Risk Analysis by Location")
     if not filtered_visits.empty and 'place_name' in filtered_visits.columns:
         df_loc_summary = filtered_visits.groupby(["place_name", "city"]).agg(
@@ -201,18 +198,18 @@ def render_module_1():
         )
         st.plotly_chart(fig_cancel, use_container_width=True, key="m1_cancel_risk")
 
-# =====================================================================================
-# MODULE 2 — Last-Mile Heritage Circuit Analytics
-# =====================================================================================
+# module2 last mile heritage circuit analysis
 def render_module_2():
     st.header("🏛️ Module 2: Last-Mile Heritage Circuit Analytics")
     st.caption("Member 2: Madhusri Gone | Hyderabad Heritage Circuit Live Telemetry")
 
     SUPABASE_URL = st.secrets.get("MODULE2_SUPABASE_URL", "https://megkqranyjwtlmfnejky.supabase.co")
-    SUPABASE_KEY = st.secrets.get("MODULE2_SUPABASE_ANON_KEY", "sb_publishable_Y-wPElO-p0-zjmtKKiqSLQ_Z8YiIwR5")
+    SUPABASE_KEY = st.secrets.get("MODULE2_SUPABASE_ANON_KEY", None)
 
     @st.cache_data(ttl=60)
     def load_data_m2():
+        if not SUPABASE_KEY:
+            return pd.DataFrame()
         try:
             supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
             res = supabase.table("fact_heritage_transport").select("*").execute()
@@ -352,9 +349,7 @@ def render_module_2():
     )
 
 
-# =====================================================================================
-# MODULE 3 — Modal Substitution Analysis
-# =====================================================================================
+# module3 modal susbtitution analysis
 def render_module_3():
     st.header("🚍 Module 3: Modal Substitution Analysis")
     st.write("Analysis of visitor transport patterns and simulated transport shifts under infrastructure improvements.")
@@ -447,12 +442,10 @@ def render_module_3():
     donut = px.pie(mode_summary, names="transport_mode", values="trips_completed", hole=0.55, title="Transport Mode Distribution")
     st.plotly_chart(donut, use_container_width=True, key="m3_donut")
 
-# =====================================================================================
-# MODULE 4 — Weather Sensitivity & Demand Elasticity 
-# =====================================================================================
+# module4 weather senstivity and demand elasticity
 def render_module_4():
-    st.header("🌧️ Module 4: Weather Sensitivity & Demand Elasticity")
-    st.write("Comprehensive analysis of weather events, micro-climate conditions, and price elasticity impacting tourist demand.")
+    st.header("🌧️ Module 4: Weather, Traffic Intelligence & Demand Elasticity")
+    st.write("Analysis of traffic conditions, weather events, modal behaviour, micro-climate conditions, and price elasticity impacting tourist demand.")
     st.caption("Member 4: Aditi Dhuria")
 
     SUPABASE_URL = st.secrets.get("MODULE4_SUPABASE_URL", "https://megkqranyjwtlmfnejky.supabase.co")
@@ -462,6 +455,7 @@ def render_module_4():
     def load_data_m4():
         df_demand = pd.DataFrame()
         df_weather_shift = pd.DataFrame()
+        df_traffic_locations = pd.DataFrame()
 
         if SUPABASE_KEY:
             try:
@@ -474,18 +468,16 @@ def render_module_4():
             try:
                 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
                 df_weather_shift = pd.DataFrame(supabase.table("fact_modal_shift_weather").select("*").execute().data)
-                if df_weather_shift.empty:
-                    df_weather_shift = pd.read_csv("fact_modal_shift_weather_rows.csv")
-            except Exception:
-                try:
-                    df_weather_shift = pd.read_csv("fact_modal_shift_weather_rows.csv")
-                except Exception:
-                    df_weather_shift = pd.DataFrame()
-        else:
-            try:
-                df_weather_shift = pd.read_csv("fact_modal_shift_weather_rows.csv")
             except Exception:
                 df_weather_shift = pd.DataFrame()
+
+            try:
+                supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+                df_traffic_locations = pd.DataFrame(
+                    supabase.table("dim_location").select("location_id,city,state").execute().data
+                )
+            except Exception:
+                df_traffic_locations = pd.DataFrame()
 
         if df_demand.empty:
             df_demand = pd.DataFrame({
@@ -530,9 +522,9 @@ def render_module_4():
         if 'outdoor_pct' not in df_demand.columns:
             df_demand['outdoor_pct'] = np.random.uniform(20, 70, size=len(df_demand))
 
-        return df_demand, df_weather_shift
+        return df_demand, df_weather_shift, df_traffic_locations
 
-    df_demand, df_weather_shift = load_data_m4()
+    df_demand, df_weather_shift, df_traffic_locations = load_data_m4()
 
     st.sidebar.header("Module 4 Filters")
 
@@ -585,7 +577,7 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 1: Transport Mode Shift by Weather Condition
+  # Chart 1: Transport Mode Shift by Weather Condition
     st.subheader("🚌 1. Transport Mode Shift by Weather Condition")
     value_cols = [c for c in ["car_pct", "bus_pct", "metro_pct", "shuttle_walk_pct", "ebikes_bikes_pct"] if not df_weather_shift.empty and c in df_weather_shift.columns]
     if value_cols and 'weather_condition' in df_weather_shift.columns:
@@ -609,8 +601,231 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 2: Weather Elasticity Curve (Rainfall vs Outdoor Mobility)
-    st.subheader("📈 2. Weather Elasticity Curve (Rainfall vs Outdoor Mobility)")
+  # Traffic Intelligence Section
+    st.subheader("🚦 2. Traffic Intelligence Overview")
+    st.caption(
+        "Historical traffic-condition analysis for tourism and heritage mobility. "
+        "This section uses fact_modal_shift_weather and joins dim_location through location_id."
+    )
+
+    required_traffic_cols = {
+        "traffic_level", "weather_condition", "aqi", "rainfall_mm",
+        "car_pct", "bus_pct", "metro_pct", "ebikes_bikes_pct", "shuttle_walk_pct"
+    }
+
+    if not df_weather_shift.empty and required_traffic_cols.issubset(df_weather_shift.columns):
+        traffic_df = df_weather_shift.copy()
+        traffic_df["traffic_level"] = traffic_df["traffic_level"].astype(str).str.strip()
+        traffic_df = traffic_df[traffic_df["traffic_level"].ne("")]
+
+        traffic_df["date"] = pd.to_datetime(traffic_df.get("date"), errors="coerce")
+        traffic_df["Season"] = np.where(
+            traffic_df["date"].dt.month.isin([10, 11, 12, 1, 2, 3]),
+            "Peak Season",
+            "Off-Peak Season",
+        )
+
+        if not df_traffic_locations.empty and "location_id" in traffic_df.columns:
+            location_lookup = df_traffic_locations.copy()
+            traffic_df["location_id"] = traffic_df["location_id"].astype(str)
+            location_lookup["location_id"] = location_lookup["location_id"].astype(str)
+            location_lookup["state"] = (
+                location_lookup["state"].astype(str).str.strip().replace(
+                    {"Maharahtra": "Maharashtra", "Maharastra": "Maharashtra"}
+                )
+            )
+            traffic_df = traffic_df.merge(
+                location_lookup.drop_duplicates("location_id"),
+                on="location_id",
+                how="left",
+            )
+
+        traffic_order = ["Low Traffic", "Moderate Traffic", "Heavy Congestion"]
+        available_traffic = [level for level in traffic_order if level in traffic_df["traffic_level"].unique()]
+        available_traffic += sorted(
+            set(traffic_df["traffic_level"].dropna().unique()) - set(available_traffic)
+        )
+
+        selected_traffic = st.multiselect(
+            "Traffic conditions",
+            options=available_traffic,
+            default=available_traffic,
+            key="m4_traffic_level_filter",
+        )
+        traffic_filtered = traffic_df[
+            traffic_df["traffic_level"].isin(selected_traffic)
+        ].copy()
+
+        if traffic_filtered.empty:
+            st.info("Select at least one traffic condition to view the analysis.")
+        else:
+            for col in ["aqi", "rainfall_mm", *value_cols]:
+                traffic_filtered[col] = pd.to_numeric(traffic_filtered[col], errors="coerce")
+
+            heavy_share = (
+                traffic_filtered["traffic_level"].eq("Heavy Congestion").mean() * 100
+            )
+            dominant_level = traffic_filtered["traffic_level"].mode().iloc[0]
+
+            tk1, tk2, tk3, tk4 = st.columns(4)
+            tk1.metric("Dominant Traffic State", dominant_level)
+            tk2.metric("Heavy Congestion Share", f"{heavy_share:.1f}%")
+            tk3.metric("Average AQI", f"{traffic_filtered['aqi'].mean():.0f}")
+            tk4.metric("Average Rainfall", f"{traffic_filtered['rainfall_mm'].mean():.1f} mm")
+
+            traffic_counts = (
+                traffic_filtered["traffic_level"]
+                .value_counts()
+                .rename_axis("traffic_level")
+                .reset_index(name="records")
+            )
+            traffic_counts["traffic_level"] = pd.Categorical(
+                traffic_counts["traffic_level"], categories=traffic_order, ordered=True
+            )
+            traffic_counts = traffic_counts.sort_values("traffic_level")
+
+            tc1, tc2 = st.columns(2)
+            with tc1:
+                fig_traffic_count = px.bar(
+                    traffic_counts,
+                    x="traffic_level",
+                    y="records",
+                    color="traffic_level",
+                    title="Traffic Condition Distribution",
+                    labels={"traffic_level": "Traffic condition", "records": "Observations"},
+                )
+                st.plotly_chart(fig_traffic_count, use_container_width=True, key="m4_traffic_distribution")
+
+            with tc2:
+                traffic_modes = (
+                    traffic_filtered.groupby("traffic_level", as_index=False)[value_cols].mean()
+                )
+                traffic_modes_long = traffic_modes.melt(
+                    id_vars="traffic_level",
+                    value_vars=value_cols,
+                    var_name="Transport Mode",
+                    value_name="Average Share (%)",
+                )
+                fig_traffic_modes = px.bar(
+                    traffic_modes_long,
+                    x="traffic_level",
+                    y="Average Share (%)",
+                    color="Transport Mode",
+                    barmode="stack",
+                    title="Modal Share by Traffic Condition",
+                )
+                st.plotly_chart(fig_traffic_modes, use_container_width=True, key="m4_modes_by_traffic")
+
+            weather_traffic = pd.crosstab(
+                traffic_filtered["weather_condition"], traffic_filtered["traffic_level"]
+            )
+            fig_weather_traffic = px.imshow(
+                weather_traffic,
+                text_auto=True,
+                aspect="auto",
+                color_continuous_scale="YlOrRd",
+                title="Weather–Traffic Interaction Matrix",
+                labels={"x": "Traffic condition", "y": "Weather condition", "color": "Observations"},
+            )
+            st.plotly_chart(fig_weather_traffic, use_container_width=True, key="m4_weather_traffic_heatmap")
+
+            st.markdown("#### 📍 Place and Tourism-Season Traffic Analysis")
+            st.caption(
+                "Peak Season follows the Milestone 2 rule: October–March. "
+                "Off-Peak Season covers April–September."
+            )
+
+            place_col, season_col = st.columns(2)
+
+            with place_col:
+                if {"city", "state"}.issubset(traffic_filtered.columns):
+                    city_traffic = (
+                        traffic_filtered.dropna(subset=["city"])
+                        .assign(
+                            heavy_record=traffic_filtered["traffic_level"].eq("Heavy Congestion").astype(int)
+                        )
+                        .groupby(["city", "state"], as_index=False)
+                        .agg(records=("traffic_level", "size"), heavy_records=("heavy_record", "sum"))
+                    )
+                    city_traffic["Heavy Congestion Rate (%)"] = (
+                        city_traffic["heavy_records"] / city_traffic["records"] * 100
+                    )
+                    city_traffic["Place"] = city_traffic["city"] + ", " + city_traffic["state"]
+                    city_traffic = city_traffic.sort_values(
+                        ["Heavy Congestion Rate (%)", "records"], ascending=False
+                    ).head(10)
+
+                    fig_city_traffic = px.bar(
+                        city_traffic.sort_values("Heavy Congestion Rate (%)"),
+                        x="Heavy Congestion Rate (%)",
+                        y="Place",
+                        orientation="h",
+                        color="Heavy Congestion Rate (%)",
+                        color_continuous_scale="Reds",
+                        hover_data={"records": True, "heavy_records": True},
+                        title="Top Places by Heavy-Congestion Rate",
+                    )
+                    st.plotly_chart(fig_city_traffic, use_container_width=True, key="m4_place_congestion")
+                else:
+                    st.info("Location fields are unavailable from dim_location.")
+
+            with season_col:
+                seasonal_traffic = (
+                    traffic_filtered.assign(
+                        heavy_record=traffic_filtered["traffic_level"].eq("Heavy Congestion").astype(int)
+                    )
+                    .groupby("Season", as_index=False)
+                    .agg(records=("traffic_level", "size"), heavy_records=("heavy_record", "sum"))
+                )
+                seasonal_traffic["Heavy Congestion Rate (%)"] = (
+                    seasonal_traffic["heavy_records"] / seasonal_traffic["records"] * 100
+                )
+                fig_season_traffic = px.bar(
+                    seasonal_traffic,
+                    x="Season",
+                    y="Heavy Congestion Rate (%)",
+                    color="Season",
+                    text_auto=".1f",
+                    title="Peak vs Off-Peak Heavy Congestion",
+                    hover_data={"records": True, "heavy_records": True},
+                )
+                st.plotly_chart(fig_season_traffic, use_container_width=True, key="m4_season_congestion")
+
+            if {"city", "Season"}.issubset(traffic_filtered.columns):
+                city_season = (
+                    traffic_filtered.dropna(subset=["city"])
+                    .assign(heavy_record=traffic_filtered["traffic_level"].eq("Heavy Congestion").astype(int))
+                    .groupby(["city", "Season"], as_index=False)["heavy_record"].mean()
+                )
+                city_season["Heavy Congestion Rate (%)"] = city_season["heavy_record"] * 100
+                top_cities = (
+                    traffic_filtered.dropna(subset=["city"])["city"].value_counts().head(12).index
+                )
+                city_season = city_season[city_season["city"].isin(top_cities)]
+                city_season_matrix = city_season.pivot(
+                    index="city", columns="Season", values="Heavy Congestion Rate (%)"
+                )
+                fig_city_season = px.imshow(
+                    city_season_matrix,
+                    text_auto=".1f",
+                    aspect="auto",
+                    color_continuous_scale="YlOrRd",
+                    title="City × Tourism Season Heavy-Congestion Rate (%)",
+                    labels={"x": "Tourism season", "y": "City", "color": "Heavy congestion (%)"},
+                )
+                st.plotly_chart(fig_city_season, use_container_width=True, key="m4_city_season_heatmap")
+
+            st.info(
+                "Decision insight: use traffic-state and modal-share patterns to plan shuttle, bus, "
+                "metro and visitor-management capacity around tourism and heritage destinations."
+            )
+    else:
+        st.info("Traffic intelligence fields are unavailable from fact_modal_shift_weather.")
+
+    st.markdown("---")
+
+  # Chart 3: Weather Elasticity Curve (Rainfall vs Outdoor Mobility)
+    st.subheader("📈 3. Weather Elasticity Curve (Rainfall vs Outdoor Mobility)")
     if not filtered_demand.empty and 'rainfall_mm' in filtered_demand.columns and 'outdoor_pct' in filtered_demand.columns:
         fig_climate_elasticity = px.scatter(
             filtered_demand,
@@ -627,8 +842,8 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 3: Demand Variance by Weather State
-    st.subheader("📊 3. Demand Variance by Weather State")
+  # Chart 4: Demand Variance by Weather State
+    st.subheader("📊 4. Demand Variance by Weather State")
     if not filtered_demand.empty and 'weather_condition' in filtered_demand.columns and 'total_bookings' in filtered_demand.columns:
         df_variance = filtered_demand.groupby("weather_condition")["total_bookings"].mean().reset_index()
         fig_variance = px.bar(
@@ -642,8 +857,8 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 4: Price Elasticity of Demand across Weather Conditions (CORRECTED)
-    st.subheader("🌦️ 4. Price Elasticity of Demand Across Weather Conditions")
+  # Chart 5: Price Elasticity of Demand across Weather Conditions
+    st.subheader("🌦️ 5. Price Elasticity of Demand Across Weather Conditions")
     if not filtered_demand.empty and 'avg_fee_inr' in filtered_demand.columns and 'total_bookings' in filtered_demand.columns:
         group_cols = ["avg_fee_inr", "weather_condition"]
         if 'city' in filtered_demand.columns:
@@ -670,8 +885,8 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 5: Ticket Fee vs Total Bookings by City
-    st.subheader("🏷️ 5. Ticket Fee vs Total Bookings by City")
+  # Chart 6: Ticket Fee vs Total Bookings by City
+    st.subheader("🏷️ 6. Ticket Fee vs Total Bookings by City")
     if not filtered_demand.empty and 'avg_fee_inr' in filtered_demand.columns:
         df_fee_city = filtered_demand.groupby(["city", "avg_fee_inr"]).agg({"total_bookings": "sum"}).reset_index()
         fig_elasticity = px.scatter(
@@ -687,8 +902,8 @@ def render_module_4():
 
     st.markdown("---")
 
-    # Chart 6: Pricing vs. Cancellation Rate
-    st.subheader("❌ 6. Pricing vs. Cancellation Rate")
+  # Chart 7: Pricing vs. Cancellation Rate
+    st.subheader("❌ 7. Pricing vs. Cancellation Rate")
     if not filtered_demand.empty and 'avg_fee_inr' in filtered_demand.columns:
         df_cancel_city = filtered_demand.groupby(["city", "avg_fee_inr"]).agg({"cancellation_rate": "mean", "total_bookings": "sum"}).reset_index()
         fig_cancel = px.scatter(
@@ -703,9 +918,7 @@ def render_module_4():
         st.plotly_chart(fig_cancel, use_container_width=True, key="m4_price_vs_cancel")
 
 
-# =====================================================================================
-# RENDER IN ORDER
-# =====================================================================================
+# render in order
 render_module_1()
 st.markdown("---")
 render_module_2()

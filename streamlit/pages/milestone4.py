@@ -12,43 +12,36 @@ from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer, Table, Tabl
 import streamlit as st
 from supabase import create_client
 
-# =====================================================================================
-# PAGE CONFIG 
-# =====================================================================================
+# page setup
 st.set_page_config(
-    page_title="Smart Tourism & Cultural Intelligence Platform",
+    page_title="Smart Urban Mobility and Traffic Intelligence - Milestone 4",
     layout="wide"
 )
 
-# =====================================================================================
-# SUPABASE CREDENTIALS & CLIENT (SECURE SECRETS MANAGEMENT)
-# =====================================================================================
+# connect to supabase
 try:
-    SUPABASE_URL = st.secrets["SUPABASE_URL"]
-    SUPABASE_KEY = st.secrets["SUPABASE_KEY"]
-except Exception as e:
-    st.error("⚠️ Missing Streamlit Secrets! Please configure `SUPABASE_URL` and `SUPABASE_KEY` in your `.streamlit/secrets.toml` file.")
+    SUPABASE_URL = st.secrets.get("SUPABASE_URL") or st.secrets["supabase"]["url"]
+    SUPABASE_KEY = st.secrets.get("SUPABASE_KEY") or st.secrets["supabase"]["key"]
+except Exception:
+    st.error("Supabase secrets are missing. Configure SUPABASE_URL and SUPABASE_KEY.")
     st.stop()
 
 @st.cache_resource
 def init_supabase():
     try:
-        client = create_client(SUPABASE_URL, SUPABASE_KEY)
-        return client
+        return create_client(SUPABASE_URL, SUPABASE_KEY)
     except Exception:
         return None
 
 supabase = init_supabase()
 
-# =====================================================================================
-# HEADER BLOCK
-# =====================================================================================
+# header
 st.markdown(
     """
     <div style='text-align:center; padding-top: 0.5rem;'>
         <h1 style='font-family: Helvetica, Arial, sans-serif; font-weight: 700;
                     font-size: 2.6rem; margin-bottom: 0.2rem;'>
-            Smart Tourism &amp; Cultural Intelligence Platform
+            Smart Urban Mobility and Traffic Intelligence Dashboard
         </h1>
         <h3 style='font-family: Helvetica, Arial, sans-serif; font-weight: 600;
                     font-size: 1.1rem; letter-spacing: 2px; color: #6b6b6b; margin: 0.2rem 0;'>
@@ -56,7 +49,8 @@ st.markdown(
         </h3>
         <h4 style='font-family: Helvetica, Arial, sans-serif; font-weight: 400;
                     font-size: 1rem; color: #8a8a8a; margin-top: 0;'>
-           Equity, Forecasting & Finalization
+           Tourism &amp; Cultural Intelligence Use Case<br>
+           Equity, Forecasting &amp; Decision Support
         </h4>
     </div>
     """,
@@ -64,9 +58,7 @@ st.markdown(
 )
 st.divider()
 
-# =====================================================================================
-# SIDEBAR FILTERS & CONTROLS
-# =====================================================================================
+# sidebar filters
 st.sidebar.title("🎛️ Dashboard Controls")
 st.sidebar.markdown("Configure global parameters and filters for the platform modules.")
 
@@ -90,9 +82,8 @@ if st.sidebar.button("🧹 Clear Global Cache", key="sidebar_clear_cache"):
     st.success("Cache cleared!")
 
 
-# =====================================================================================
-# MODULE 1 — Mobility Access Index & Equity Analysis
-# =====================================================================================
+# module1 mobility access index and equity analysis
+
 def render_module_1():
     st.title("🚍 Module 1: Mobility Access & Equity Dashboard")
     st.subheader("Mobility Access Index & Equity Analysis across Heritage Zones")
@@ -103,8 +94,8 @@ def render_module_1():
             if supabase:
                 transport_response = supabase.table("fact_heritage_transport").select("*").execute()
                 location_response = supabase.table("dim_location").select("*").execute()
-                transport_df = pd.DataFrame(transport_response.data) if transport_response and transport_response.data else pd.DataFrame()
-                locations_df = pd.DataFrame(location_response.data) if location_response and location_response.data else pd.DataFrame()
+                transport_df = pd.DataFrame(transport_response.data)
+                locations_df = pd.DataFrame(location_response.data)
                 return transport_df, locations_df
         except Exception:
             pass
@@ -134,10 +125,6 @@ def render_module_1():
 
     demand_map = {"low": 30, "medium": 60, "high": 100}
     transport["demand_score"] = transport["demand_level"].map(demand_map).fillna(60)
-
-    # Ensure consistent type for location_id before grouping/merging
-    transport["location_id"] = transport["location_id"].astype(str)
-    locations["location_id"] = locations["location_id"].astype(str)
 
     zone = (
         transport.groupby(["location_id", "stand_name"], as_index=False)
@@ -216,11 +203,9 @@ def render_module_1():
     return zone
 
 
-# =====================================================================================
-# MODULE 2 — Executive Intelligence Dashboard
-# =====================================================================================
+# module2 mobility performance intelligence
 def render_module_2():
-    st.title("📈 Module 2: Executive Intelligence Dashboard")
+    st.title("📈 Module 2: Mobility Performance Intelligence")
     st.subheader("High-Level Overview & Mobility Health Analytics")
 
     @st.cache_data(ttl=300)
@@ -228,7 +213,7 @@ def render_module_2():
         try:
             if supabase:
                 response = supabase.table("view_transport_tourism_summary").select("*").execute()
-                if response and response.data:
+                if response.data:
                     return pd.DataFrame(response.data)
         except Exception:
             pass
@@ -236,7 +221,7 @@ def render_module_2():
         try:
             if supabase:
                 response = supabase.table("fact_heritage_transport").select("*").execute()
-                if response and response.data:
+                if response.data:
                     return pd.DataFrame(response.data)
         except Exception:
             pass
@@ -262,7 +247,6 @@ def render_module_2():
     if "trip_date" not in df.columns:
         df["trip_date"] = pd.date_range(start="2022-01-01", periods=len(df))
     df["trip_date"] = pd.to_datetime(df["trip_date"], errors="coerce")
-    df = df.dropna(subset=["trip_date"])
 
     if "trips_completed" not in df.columns:
         df["trips_completed"] = 50
@@ -299,13 +283,9 @@ def render_module_2():
     else:
         df["transport_mode"] = df["transport_mode"].astype(str).str.strip()
 
-    if not df.empty and not df["trip_date"].isna().all():
-        min_dt = df["trip_date"].min().date()
-        max_dt = df["trip_date"].max().date()
-    else:
-        min_dt, max_dt = date(2022, 1, 1), date(2022, 12, 31)
+    df = df.dropna(subset=["trip_date"])
 
-    start_date, end_date = global_date_range if isinstance(global_date_range, tuple) and len(global_date_range) == 2 else (min_dt, max_dt)
+    start_date, end_date = global_date_range if isinstance(global_date_range, tuple) and len(global_date_range) == 2 else (df["trip_date"].min().date(), df["trip_date"].max().date())
     
     mask = (df["trip_date"].dt.date >= start_date) & (df["trip_date"].dt.date <= end_date)
     if global_states:
@@ -334,6 +314,7 @@ def render_module_2():
 
     st.divider()
 
+# Module 2 Charts 
     col_left, col_right = st.columns(2)
     with col_left:
         st.header("Daily Trip Trends")
@@ -385,13 +366,12 @@ def render_module_2():
         mime="text/csv",
         key="download_m2_csv"
     )
-    st.caption("Module 2 - Executive Intelligence Dashboards & Mobility Health Analytics")
+    st.caption("Module 2 - Mobility Performance Intelligence & Health Analytics")
     return summary_table
 
 
-# =====================================================================================
-# MODULE 3 — Demand Forecasting, Anomaly Detection & Live Alerts
-# =====================================================================================
+# module3 demand forecasting, anomaly detection and live alerts 
+
 def render_module_3():
     st.title("📊 Module 3: Demand Forecasting, Anomaly Detection & Live Alerts")
     st.markdown("Predicting future visitor footfall, catching weather/crowd anomalies, and tracking live system alerts.")
@@ -401,7 +381,7 @@ def render_module_3():
         try:
             if supabase:
                 response = supabase.table("view_booking_intelligence").select("*").execute()
-                if response and response.data:
+                if response.data:
                     df = pd.DataFrame(response.data)
                     if not df.empty:
                         return df
@@ -461,6 +441,7 @@ def render_module_3():
     fig_m3.update_layout(template="plotly_dark", legend_title_text="Legend", hovermode="x unified")
     st.plotly_chart(fig_m3, use_container_width=True, key="m3_forecast_chart")
 
+# Module 3 Anomaly Table (Restored)
     st.markdown("---")
     st.subheader("🔍 Anomaly Log & Statistical Flags")
     st.markdown("Dates flagged with unusual booking spikes or drops beyond standard deviation boundaries.")
@@ -494,13 +475,13 @@ def render_module_3():
     return daily_demand
 
 
-# =====================================================================================
-# MODULE 4 — Performance Optimization & Reporting Suite
-# =====================================================================================
+# module4 performance optimization and reporting suite 
+
 def render_module_4():
     st.title("📊 Module 4: Performance Optimization & Reporting Suite")
     st.markdown("Review live transport datasets, monitor query caching performance, and download executive reports.")
 
+    # System Optimization Caching UI (Restored)
     st.markdown("---")
     st.subheader("⚙️ System & Database Performance Optimization")
     col_opt1, col_opt2 = st.columns(2)
@@ -517,7 +498,7 @@ def render_module_4():
         try:
             if supabase:
                 response = supabase.table("fact_heritage_transport").select("*").execute()
-                if response and response.data:
+                if response.data:
                     return pd.DataFrame(response.data)
         except Exception:
             pass
@@ -537,6 +518,7 @@ def render_module_4():
     st.write(f"Displaying {len(df_summary)} records from your project dataset.")
     st.dataframe(df_summary, use_container_width=True)
 
+    # Module 4 Automated Reporting Suite with PDF export 
     st.markdown("---")
     st.subheader("📥 Automated Reporting Suite")
     col_csv, col_pdf = st.columns(2)
@@ -571,14 +553,7 @@ def render_module_4():
             story.append(Spacer(1, 8))
 
             df_to_render = dataframe.head(15)
-            
-            cell_style = ParagraphStyle("TableCell", parent=styles["Normal"], fontName="Helvetica", fontSize=7, textColor=colors.HexColor("#334155"))
-            header_style = ParagraphStyle("TableHeader", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=8, textColor=colors.white)
-
-            table_data = [[Paragraph(str(col), header_style) for col in df_to_render.columns]]
-            for _, row in df_to_render.iterrows():
-                table_data.append([Paragraph(str(val), cell_style) for val in row.values])
-
+            table_data = [list(df_to_render.columns)] + df_to_render.values.tolist()
             num_cols = len(df_to_render.columns)
             col_width = 500 / num_cols if num_cols > 0 else 80
             col_widths = [col_width] * num_cols
@@ -586,10 +561,15 @@ def render_module_4():
             t = Table(table_data, colWidths=col_widths)
             t.setStyle(TableStyle([
                 ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0f172a")),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
                 ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, 0), 8),
                 ("BOTTOMPADDING", (0, 0), (-1, 0), 5),
                 ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#f8fafc")),
                 ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
+                ("FONTNAME", (0, 1), (-1, -1), "Helvetica"),
+                ("FONTSIZE", (0, 1), (-1, -1), 7),
                 ("TOPPADDING", (0, 1), (-1, -1), 4),
                 ("BOTTOMPADDING", (0, 1), (-1, -1), 4),
             ]))
@@ -614,9 +594,7 @@ def render_module_4():
     return df_summary
 
 
-# =====================================================================================
-# RENDER ALL MODULES IN SEQUENCE
-# =====================================================================================
+# render modules in sequence
 m1_data = render_module_1()
 st.markdown("---")
 m2_data = render_module_2()
@@ -625,9 +603,7 @@ m3_data = render_module_3()
 st.markdown("---")
 m4_data = render_module_4()
 
-# =====================================================================================
-# ENTIRE DASHBOARD REPORT SUITE (ALL MODULES CSV & PDF)
-# =====================================================================================
+# report suit
 st.markdown("---")
 st.header("📦 Entire Dashboard Report Suite (Global Export)")
 st.markdown("Download a consolidated master CSV or a multi-section executive PDF report covering **all four modules**.")
@@ -693,57 +669,87 @@ with col_full_pdf:
         title_style = ParagraphStyle("FullTitle", parent=styles["Title"], fontName="Helvetica-Bold", fontSize=15, textColor=colors.HexColor("#0f172a"), spaceAfter=8)
         h2_style = ParagraphStyle("FullH2", parent=styles["Heading2"], fontName="Helvetica-Bold", fontSize=10, textColor=colors.HexColor("#1e293b"), spaceBefore=8, spaceAfter=3)
         body_style = ParagraphStyle("FullBody", parent=styles["Normal"], fontName="Helvetica", fontSize=8, textColor=colors.HexColor("#334155"), spaceAfter=4)
-        
-        cell_style = ParagraphStyle("TableCell", parent=styles["Normal"], fontName="Helvetica", fontSize=6, textColor=colors.HexColor("#334155"))
-        header_style = ParagraphStyle("TableHeader", parent=styles["Normal"], fontName="Helvetica-Bold", fontSize=7, textColor=colors.white)
 
         story = []
-        story.append(Paragraph("Smart Tourism & Cultural Intelligence Platform", title_style))
+        story.append(Paragraph("Smart Urban Mobility and Traffic Intelligence Dashboard", title_style))
         story.append(Paragraph("Comprehensive Global Executive Report - Milestone 4 Finalization (Modules 1 to 4)", body_style))
         story.append(Spacer(1, 6))
 
-        def make_table(df_sub, widths):
-            t_data = [[Paragraph(str(col), header_style) for col in df_sub.columns]]
-            for _, row in df_sub.iterrows():
-                t_data.append([Paragraph(str(val), cell_style) for val in row.values])
-            t = Table(t_data, colWidths=widths)
-            t.setStyle(TableStyle([
-                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0f172a")),
-                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-                ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#f8fafc")),
-                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
-                ("TOPPADDING", (0, 1), (-1, -1), 3),
-                ("BOTTOMPADDING", (0, 1), (-1, -1), 3),
-            ]))
-            return t
-
-        # Module 1 Table
+    # Module 1 Table
         story.append(Paragraph("1. Mobility Access & Equity Summary (Module 1)", h2_style))
         if isinstance(df_m1, pd.DataFrame) and not df_m1.empty:
             df_m1_sub = df_m1[["stand_name", "Mobility_Access_Index", "Equity_Category"]].head(4)
-            story.append(make_table(df_m1_sub, [200, 140, 160]))
+            t_data1 = [list(df_m1_sub.columns)] + df_m1_sub.values.tolist()
+            t1 = Table(t_data1, colWidths=[200, 140, 160])
+            t1.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0f172a")),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, 0), 8),
+                ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#f8fafc")),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
+                ("FONTSIZE", (0, 1), (-1, -1), 7),
+            ]))
+            story.append(t1)
 
-        # Module 2 Table
+    # Module 2 Table
         story.append(Paragraph("2. Executive Intelligence Performance (Module 2)", h2_style))
         if isinstance(df_m2, pd.DataFrame) and not df_m2.empty:
             df_m2_sub = df_m2.head(4)
+            t_data2 = [list(df_m2_sub.columns)] + df_m2_sub.values.tolist()
             col_w = max(50, 500 / len(df_m2_sub.columns))
-            story.append(make_table(df_m2_sub, [col_w] * len(df_m2_sub.columns)))
+            t2 = Table(t_data2, colWidths=[col_w] * len(df_m2_sub.columns))
+            t2.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1e293b")),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, 0), 8),
+                ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#f8fafc")),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
+                ("FONTSIZE", (0, 1), (-1, -1), 7),
+            ]))
+            story.append(t2)
 
-        # Module 3 Table
+    # Module 3 Table
         story.append(Paragraph("3. Demand Forecasting & Anomalies (Module 3)", h2_style))
         if isinstance(df_m3, pd.DataFrame) and not df_m3.empty:
             df_m3_sub = df_m3[["booking_date", "total_bookings", "forecast"]].head(4)
             if "booking_date" in df_m3_sub.columns:
                 df_m3_sub["booking_date"] = pd.to_datetime(df_m3_sub["booking_date"]).dt.strftime("%Y-%m-%d")
-            story.append(make_table(df_m3_sub, [160, 170, 170]))
+            t_data3 = [list(df_m3_sub.columns)] + df_m3_sub.values.tolist()
+            t3 = Table(t_data3, colWidths=[160, 170, 170])
+            t3.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#0f172a")),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, 0), 8),
+                ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#f8fafc")),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
+                ("FONTSIZE", (0, 1), (-1, -1), 7),
+            ]))
+            story.append(t3)
 
         # Module 4 Table
         story.append(Paragraph("4. Performance Optimization & Reporting Suite (Module 4)", h2_style))
         if isinstance(df_m4, pd.DataFrame) and not df_m4.empty:
             df_m4_sub = df_m4.head(4)
+            t_data4 = [list(df_m4_sub.columns)] + df_m4_sub.values.tolist()
             col_w4 = max(50, 500 / len(df_m4_sub.columns))
-            story.append(make_table(df_m4_sub, [col_w4] * len(df_m4_sub.columns)))
+            t4 = Table(t_data4, colWidths=[col_w4] * len(df_m4_sub.columns))
+            t4.setStyle(TableStyle([
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#1e293b")),
+                ("TEXTCOLOR", (0, 0), (-1, 0), colors.white),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                ("FONTSIZE", (0, 0), (-1, 0), 8),
+                ("BACKGROUND", (0, 1), (-1, -1), colors.HexColor("#f8fafc")),
+                ("GRID", (0, 0), (-1, -1), 0.5, colors.HexColor("#cbd5e1")),
+                ("FONTSIZE", (0, 1), (-1, -1), 7),
+            ]))
+            story.append(t4)
 
         doc.build(story)
         buffer.seek(0)
@@ -761,4 +767,4 @@ with col_full_pdf:
     except Exception as e:
         st.error(f"Error generating entire dashboard PDF: {e}")
 
-st.caption("Smart Tourism & Cultural Intelligence Platform - Milestone 4 Final Suite")
+st.caption("Smart Urban Mobility and Traffic Intelligence Dashboard · Tourism and Cultural Use Case · Milestone 4")

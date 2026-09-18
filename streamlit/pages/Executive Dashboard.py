@@ -7,13 +7,9 @@ import streamlit as st
 import streamlit.components.v1 as components
 from supabase import create_client
 
-
-# ============================================================
-# PAGE CONFIGURATION
-# ============================================================
-
+# page setup
 st.set_page_config(
-    page_title="Executive Dashboard | Smart Tourism",
+    page_title="Executive Dashboard | Smart Urban Mobility & Traffic Intelligence",
     page_icon="🇮🇳",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -49,10 +45,6 @@ FLOW_MAPS = {
 }
 
 
-# ============================================================
-# STYLING
-# ============================================================
-
 st.markdown(
     """
     <style>
@@ -81,10 +73,7 @@ st.markdown(
 )
 
 
-# ============================================================
-# SUPABASE SECRETS
-# ============================================================
-
+# connect to supabase
 def secret_value(name):
     """Read a secret without crashing when secrets.toml is absent."""
     try:
@@ -187,10 +176,7 @@ def load_table(dataset_name):
         )
 
 
-# ============================================================
-# HELPERS
-# ============================================================
-
+# helpers
 def numeric(df, column):
     if column not in df.columns:
         return pd.Series(0.0, index=df.index)
@@ -233,13 +219,10 @@ def show_section(title, description=None):
         st.caption(description)
 
 
-# ============================================================
-# SIDEBAR AND DATA LOADING
-# ============================================================
-
+# sidebar filters and cache
 with st.sidebar:
     st.title("🇮🇳 Executive view")
-    st.caption("Smart Tourism & Cultural Intelligence Platform · Team 1")
+    st.caption("Smart Urban Mobility and Traffic Intelligence · Team 1")
 
     st.info(
         "The saved HTML maps retain their original appearance. "
@@ -299,6 +282,30 @@ modal["date"] = pd.to_datetime(
     modal["date"], errors="coerce"
 )
 
+modal["Season"] = modal["date"].dt.month.map(
+    lambda month: (
+        "Peak Season"
+        if month in [10, 11, 12, 1, 2, 3]
+        else "Off-Peak Season"
+    )
+)
+
+if "location_id" in modal.columns and "location_id" in locations.columns:
+    traffic_locations = locations[["location_id", "city", "state"]].copy()
+    traffic_locations["state"] = (
+        traffic_locations["state"].astype(str).str.strip().replace(
+            {"Maharahtra": "Maharashtra", "Maharastra": "Maharashtra"}
+        )
+    )
+    modal["location_id"] = modal["location_id"].astype(str)
+    traffic_locations["location_id"] = traffic_locations["location_id"].astype(str)
+    modal = modal.merge(
+        traffic_locations.drop_duplicates("location_id"),
+        on="location_id",
+        how="left",
+        suffixes=("", "_location"),
+    )
+
 monthly["year"] = pd.to_numeric(
     monthly["year"], errors="coerce"
 )
@@ -328,12 +335,10 @@ with st.sidebar:
 
     st.caption("Data source: Supabase only")
     st.caption("Query scope: first 1,000 rows per table or view")
+    st.caption("Tourism seasons: Peak = Oct–Mar · Off-Peak = Apr–Sep")
 
 
-# ============================================================
-# GLOBAL FILTERS
-# ============================================================
-
+# filters
 if selected_year != "All":
     monthly = monthly[monthly["year"] == selected_year]
 
@@ -380,11 +385,9 @@ if selected_state != "All":
         ]
 
 
-# ============================================================
-# HEADER AND KPI CARDS
-# ============================================================
-
-st.title("Smart Tourism & Cultural Intelligence Platform")
+# KPI Calculations
+st.title("Smart Urban Mobility and Traffic Intelligence Dashboard")
+st.caption("TOURISM AND CULTURAL INTELLIGENCE USE CASE")
 st.caption("MASTER EXECUTIVE DASHBOARD · MILESTONES 1–4")
 
 st.caption(
@@ -428,11 +431,7 @@ k6.metric(
     f"{numeric(transport, 'trips_completed').sum():,.0f}",
 )
 
-
-# ============================================================
 # 1. TOURISM DEMAND AND CULTURE
-# ============================================================
-
 show_section("1 · Tourism demand & cultural overview")
 
 left, right = st.columns(2)
@@ -509,10 +508,7 @@ with right:
         show_chart(fig)
 
 
-# ============================================================
-# 2. ORIGINAL DEMAND HEATMAPS AND FLOW MAPS
-# ============================================================
-
+# 2 ORIGINAL DEMAND HEATMAPS AND FLOW MAPS
 show_section(
     "2 · Demand heatmaps & tourism flows",
     "These are our original HTML maps. They are saved map views, "
@@ -536,10 +532,7 @@ with right:
     show_map(FLOW_MAPS[flow_choice])
 
 
-# ============================================================
-# 3. BOOKING AND TRANSPORT
-# ============================================================
-
+# 3 BOOKING AND TRANSPORT
 show_section("3 · Booking & transport intelligence")
 
 left, right = st.columns(2)
@@ -609,11 +602,7 @@ with right:
         )
         show_chart(fig)
 
-
-# ============================================================
-# 4. WEATHER AND MODAL SUBSTITUTION
-# ============================================================
-
+# 4 WEATHER AND MODAL SUBSTITUTION
 show_section("4 · Weather sensitivity & modal substitution")
 
 mode_columns = [
@@ -672,13 +661,182 @@ if not modal.empty:
         )
         show_chart(fig)
 
-
-# ============================================================
-# 5. MOBILITY ACCESS AND EQUITY
-# ============================================================
-
+# 5 TRAFFIC INTELLIGENCE
 show_section(
-    "5 · Mobility access & equity",
+    "5 · Traffic intelligence overview",
+    "Historical traffic-state analysis from Supabase fact_modal_shift_weather. "
+    "This is analytical traffic intelligence, not real-time road-sensor monitoring.",
+)
+
+traffic_required = {
+    "traffic_level", "weather_condition", "aqi", "rainfall_mm",
+    "car_pct", "bus_pct", "metro_pct", "ebikes_bikes_pct", "shuttle_walk_pct"
+}
+
+if traffic_required.issubset(modal.columns):
+    traffic = modal.copy()
+    traffic["traffic_level"] = traffic["traffic_level"].astype(str).str.strip()
+    traffic = traffic[traffic["traffic_level"].ne("")]
+
+    traffic_order = ["Low Traffic", "Moderate Traffic", "Heavy Congestion"]
+    available_traffic = [level for level in traffic_order if level in traffic["traffic_level"].unique()]
+    available_traffic += sorted(set(traffic["traffic_level"].dropna().unique()) - set(available_traffic))
+
+    selected_traffic = st.multiselect(
+        "Traffic conditions included in the overview",
+        available_traffic,
+        default=available_traffic,
+        key="executive_traffic_filter",
+    )
+    traffic = traffic[traffic["traffic_level"].isin(selected_traffic)].copy()
+
+    if traffic.empty:
+        st.info("Select at least one traffic condition to view the analysis.")
+    else:
+        for column in ["aqi", "rainfall_mm", *mode_columns]:
+            traffic[column] = numeric(traffic, column)
+
+        heavy_share = traffic["traffic_level"].eq("Heavy Congestion").mean() * 100
+        dominant_traffic = traffic["traffic_level"].mode().iloc[0]
+
+        ti1, ti2, ti3, ti4 = st.columns(4)
+        ti1.metric("Dominant traffic state", dominant_traffic)
+        ti2.metric("Heavy congestion share", f"{heavy_share:.1f}%")
+        ti3.metric("Average AQI", f"{traffic['aqi'].mean():.0f}")
+        ti4.metric("Average rainfall", f"{traffic['rainfall_mm'].mean():.1f} mm")
+
+        traffic_counts = (
+            traffic["traffic_level"].value_counts()
+            .rename_axis("traffic_level")
+            .reset_index(name="records")
+        )
+        traffic_counts["traffic_level"] = pd.Categorical(
+            traffic_counts["traffic_level"], categories=traffic_order, ordered=True
+        )
+        traffic_counts = traffic_counts.sort_values("traffic_level")
+
+        left, right = st.columns(2)
+        with left:
+            fig = px.bar(
+                traffic_counts,
+                x="traffic_level",
+                y="records",
+                color="traffic_level",
+                title="Traffic condition distribution",
+                labels={"traffic_level": "Traffic condition", "records": "Observations"},
+            )
+            show_chart(fig, height=360)
+
+        with right:
+            traffic_modes = traffic.groupby("traffic_level", as_index=False)[mode_columns].mean()
+            traffic_modes = traffic_modes.melt(
+                id_vars="traffic_level",
+                value_vars=mode_columns,
+                var_name="Mode",
+                value_name="Mean share (%)",
+            )
+            fig = px.bar(
+                traffic_modes,
+                x="traffic_level",
+                y="Mean share (%)",
+                color="Mode",
+                barmode="stack",
+                title="Modal share by traffic condition",
+            )
+            show_chart(fig, height=360)
+
+        weather_traffic = pd.crosstab(traffic["weather_condition"], traffic["traffic_level"])
+        fig = px.imshow(
+            weather_traffic,
+            text_auto=True,
+            aspect="auto",
+            color_continuous_scale="YlOrRd",
+            title="Weather–traffic interaction matrix",
+            labels={"x": "Traffic condition", "y": "Weather condition", "color": "Observations"},
+        )
+        show_chart(fig, height=390)
+
+        st.markdown("#### Place and Tourism-Season Congestion")
+        st.caption(
+            "Peak Season follows the Milestone 2 calendar rule (October–March); "
+            "Off-Peak Season covers April–September."
+        )
+
+        place_col, season_col = st.columns(2)
+        with place_col:
+            if {"city", "state"}.issubset(traffic.columns):
+                place_summary = (
+                    traffic.dropna(subset=["city"])
+                    .assign(heavy_record=traffic["traffic_level"].eq("Heavy Congestion").astype(int))
+                    .groupby(["city", "state"], as_index=False)
+                    .agg(records=("traffic_level", "size"), heavy_records=("heavy_record", "sum"))
+                )
+                place_summary["Heavy congestion (%)"] = (
+                    place_summary["heavy_records"] / place_summary["records"] * 100
+                )
+                place_summary["Place"] = place_summary["city"] + ", " + place_summary["state"]
+                top_places = place_summary.nlargest(10, ["Heavy congestion (%)", "records"])
+                fig = px.bar(
+                    top_places.sort_values("Heavy congestion (%)"),
+                    x="Heavy congestion (%)",
+                    y="Place",
+                    orientation="h",
+                    color="Heavy congestion (%)",
+                    color_continuous_scale="Reds",
+                    hover_data={"records": True},
+                    title="Top Places by Heavy-Congestion Rate",
+                )
+                show_chart(fig, height=410)
+            else:
+                st.info("Location fields are unavailable for place-level traffic analysis.")
+
+        with season_col:
+            season_summary = (
+                traffic.assign(heavy_record=traffic["traffic_level"].eq("Heavy Congestion").astype(int))
+                .groupby("Season", as_index=False)
+                .agg(records=("traffic_level", "size"), heavy_records=("heavy_record", "sum"))
+            )
+            season_summary["Heavy congestion (%)"] = (
+                season_summary["heavy_records"] / season_summary["records"] * 100
+            )
+            fig = px.bar(
+                season_summary,
+                x="Season",
+                y="Heavy congestion (%)",
+                color="Season",
+                text_auto=".1f",
+                hover_data={"records": True},
+                title="Peak vs Off-Peak Congestion",
+            )
+            show_chart(fig, height=410)
+
+        if {"city", "Season"}.issubset(traffic.columns):
+            top_cities = traffic.dropna(subset=["city"])["city"].value_counts().head(12).index
+            city_season = (
+                traffic[traffic["city"].isin(top_cities)]
+                .assign(heavy_record=lambda frame: frame["traffic_level"].eq("Heavy Congestion").astype(int))
+                .groupby(["city", "Season"], as_index=False)["heavy_record"].mean()
+            )
+            city_season["Heavy congestion (%)"] = city_season["heavy_record"] * 100
+            matrix = city_season.pivot(
+                index="city", columns="Season", values="Heavy congestion (%)"
+            )
+            fig = px.imshow(
+                matrix,
+                text_auto=".1f",
+                aspect="auto",
+                color_continuous_scale="YlOrRd",
+                title="City × Tourism Season Heavy-Congestion Rate (%)",
+                labels={"x": "Tourism season", "y": "City", "color": "Heavy congestion (%)"},
+            )
+            show_chart(fig, height=430)
+else:
+    st.warning("Traffic intelligence fields are unavailable from fact_modal_shift_weather.")
+
+
+# 6 MOBILITY ACCESS AND EQUITY
+show_section(
+    "6 · Mobility access & equity",
     "Index formula from Milestone 4: "
     "30% supply + 30% usage + 40% demand score.",
 )
@@ -786,12 +944,9 @@ if not transport.empty:
     show_chart(fig, height=410)
 
 
-# ============================================================
-# 6. FORECAST AND ANOMALIES
-# ============================================================
-
+# 7 FORECAST AND ANOMALIES
 show_section(
-    "6 · Demand forecasting & anomaly alerts",
+    "7 · Demand forecasting & anomaly alerts",
     "Historical seven-day rolling projection × 1.05, "
     "with bounds based on ±1.5 rolling standard deviations. "
     "This is not a trained machine-learning forecast.",
@@ -936,11 +1091,8 @@ if not bookings.empty:
                 )
 
 
-# ============================================================
-# 7. REPORT EXPORTS
-# ============================================================
-
-show_section("7 · Reports & exports")
+# 8 REPORT EXPORTS
+show_section("8 · Reports & exports")
 
 export_columns = st.columns(3)
 
@@ -983,7 +1135,7 @@ st.markdown(
     <div style="text-align: center;">
         <strong>Team 1</strong><br>
         Padma Priya · Aditi Dhuria ·
-        Madhusri Gone · Chaithanya E V
+        Madhusri Gone · Chaithanya E V · Raj Chandravanshi
     </div>
     """,
     unsafe_allow_html=True,
